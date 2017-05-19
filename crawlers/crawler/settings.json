@@ -31,16 +31,8 @@
     "link_url": "http://cs.hanyang.ac.kr/board/trk_board.php",
     "separator" : "&^%987&^%"
   },
-   "csstu": {
-    "file_name": "csstu.py",
-    "crawl_id": "4",
-    "crawl_cycle": "3",
-    "title" : "컴퓨터공학부 학생게시판",
-    "link_url": "http://cs.hanyang.ac.kr/board/stu_board.php",
-    "separator" : "&^%987&^%"
-  },
- "csnotice": {
-    "file_name": "cscknotice.py",
+ "csck2notice": {
+    "file_name": "csck2notice.py",
     "crawl_id": "5",
     "crawl_cycle": "3",
     "title" : "컴퓨터공학부 특성화사업단 공지사항",

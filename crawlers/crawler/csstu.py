@@ -19,6 +19,8 @@ driver.close()
 # link : base_url + n['href']
 # TODO : make proper seperator
 for n in notices:
+    #TODO : remove without idx
+
     idx = int((str(n['href']).split("idx=",1)[1]).split("&page",1)[0])
     print(idx)
     print(n.text.strip())
