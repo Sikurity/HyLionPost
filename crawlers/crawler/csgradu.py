@@ -10,6 +10,8 @@ driver.get('http://cs.hanyang.ac.kr/board/gradu_board.php')
 html = driver.page_source
 soup = BeautifulSoup(html, 'html.parser')
 notices = soup.select('table.bbs_con > tbody > tr > td > a:nth-of-type(1)')
+dates = soup.select('table.bbs_con > tbody > tr > td:nth-of-type(5)')
+
 driver.close()
 
 # idx : PK
