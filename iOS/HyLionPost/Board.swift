@@ -17,7 +17,7 @@ import Foundation
  *      게시판
  *  @discussion
  *      articles 삭제, 관심여부 변경 시
- *  @Todo :
+ *  @todo :
  *      - 클래스 아카이브 화
  *      - 필터값이 입력되면, 해당되는 게시물들만 반환
  *      - 설정을 통해 값 변경 시, Firebase에 반영

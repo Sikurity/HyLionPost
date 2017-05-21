@@ -13,18 +13,19 @@
 		0406D2641EBCC5C5000EF4E5 /* HyLionPostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0406D2631EBCC5C5000EF4E5 /* HyLionPostTests.swift */; };
 		0406D26F1EBCCA9D000EF4E5 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 0406D26E1EBCCA9D000EF4E5 /* icons */; };
 		0420A8E91EC364B300AB3746 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0420A8E81EC364B300AB3746 /* GoogleService-Info.plist */; };
-		042A8E5D1ECC8F4900A75FA5 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042A8E591ECC8F4900A75FA5 /* Alamofire.framework */; };
-		042A8E5E1ECC8F4900A75FA5 /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042A8E5A1ECC8F4900A75FA5 /* GoogleToolboxForMac.framework */; };
-		042A8E601ECC8F4900A75FA5 /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042A8E5C1ECC8F4900A75FA5 /* Protobuf.framework */; };
-		042A8E621ECC8F5800A75FA5 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042A8E611ECC8F5800A75FA5 /* AdSupport.framework */; };
-		042A8E631ECC90C600A75FA5 /* Pods_HyLionPost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4495D67468BFBE7817A3E088 /* Pods_HyLionPost.framework */; };
-		042A8E641ECC90C600A75FA5 /* Pods_HyLionPostTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED5F569375D7F60A48535789 /* Pods_HyLionPostTests.framework */; };
 		042E61371ECEE13C006CBB60 /* InitialSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042E61361ECEE13C006CBB60 /* InitialSettingViewController.swift */; };
 		04664F8A1ECE8E22005B0F38 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04664F891ECE8E22005B0F38 /* Board.swift */; };
+		04B16D1B1ED00601003F0B9A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B16D181ED00601003F0B9A /* Alamofire.framework */; };
+		04B16D1C1ED00601003F0B9A /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B16D191ED00601003F0B9A /* GoogleToolboxForMac.framework */; };
+		04B16D1D1ED00601003F0B9A /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B16D1A1ED00601003F0B9A /* Protobuf.framework */; };
+		04B16D1E1ED0062E003F0B9A /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042A8E611ECC8F5800A75FA5 /* AdSupport.framework */; };
+		04B16D211ED00633003F0B9A /* Pods_HyLionPost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B16D1F1ED00633003F0B9A /* Pods_HyLionPost.framework */; };
+		04B16D221ED00633003F0B9A /* Pods_HyLionPostTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B16D201ED00633003F0B9A /* Pods_HyLionPostTests.framework */; };
 		04D6790B1ECECAEE0029C5DF /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6790A1ECECAEE0029C5DF /* Article.swift */; };
 		04F74C9A1EC581A700F17243 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F74C991EC581A700F17243 /* Media.xcassets */; };
 		04F74C9C1EC582E700F17243 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F74C9B1EC582E700F17243 /* MainNavigationController.swift */; };
-		5E97D791C8FF2FC3D38DC7AD /* Pods_HyLionPostTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED5F569375D7F60A48535789 /* Pods_HyLionPostTests.framework */; };
+		1A76E404A8366D3FA911080B /* Pods_HyLionPost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A0971A4D049C5467ABA7BA /* Pods_HyLionPost.framework */; };
+		CE955950C7D5D5C55CD66A1E /* Pods_HyLionPostTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6787E766D012E3BDDF766AC /* Pods_HyLionPostTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,26 +49,24 @@
 		0406D2651EBCC5C5000EF4E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0406D26E1EBCCA9D000EF4E5 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = icons; sourceTree = "<group>"; };
 		0420A8E81EC364B300AB3746 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		042A8E591ECC8F4900A75FA5 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/HyLionPost-evvavrebhnqgrcgvvcgevjbsjkra/Build/Products/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
-		042A8E5A1ECC8F4900A75FA5 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = "../../../Library/Developer/Xcode/DerivedData/HyLionPost-evvavrebhnqgrcgvvcgevjbsjkra/Build/Products/Debug-iphoneos/GoogleToolboxForMac/GoogleToolboxForMac.framework"; sourceTree = "<group>"; };
-		042A8E5B1ECC8F4900A75FA5 /* Pods_HyLionPostTests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_HyLionPostTests.framework; path = "Pods/../build/Debug-iphoneos/Pods_HyLionPostTests.framework"; sourceTree = "<group>"; };
-		042A8E5C1ECC8F4900A75FA5 /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Protobuf.framework; path = "../../../Library/Developer/Xcode/DerivedData/HyLionPost-evvavrebhnqgrcgvvcgevjbsjkra/Build/Products/Debug-iphoneos/Protobuf/Protobuf.framework"; sourceTree = "<group>"; };
 		042A8E611ECC8F5800A75FA5 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		042E61361ECEE13C006CBB60 /* InitialSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialSettingViewController.swift; sourceTree = "<group>"; };
 		04664F891ECE8E22005B0F38 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		04B16D181ED00601003F0B9A /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HyLionPost-ajkrxfqtoicrxrbzfaaohpwkruds/Build/Products/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
+		04B16D191ED00601003F0B9A /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HyLionPost-ajkrxfqtoicrxrbzfaaohpwkruds/Build/Products/Debug-iphoneos/GoogleToolboxForMac/GoogleToolboxForMac.framework"; sourceTree = "<group>"; };
+		04B16D1A1ED00601003F0B9A /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Protobuf.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HyLionPost-ajkrxfqtoicrxrbzfaaohpwkruds/Build/Products/Debug-iphoneos/Protobuf/Protobuf.framework"; sourceTree = "<group>"; };
+		04B16D1F1ED00633003F0B9A /* Pods_HyLionPost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_HyLionPost.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HyLionPost-ajkrxfqtoicrxrbzfaaohpwkruds/Build/Products/Debug-iphoneos/Pods_HyLionPost.framework"; sourceTree = "<group>"; };
+		04B16D201ED00633003F0B9A /* Pods_HyLionPostTests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_HyLionPostTests.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HyLionPost-ajkrxfqtoicrxrbzfaaohpwkruds/Build/Products/Debug-iphoneos/Pods_HyLionPostTests.framework"; sourceTree = "<group>"; };
 		04D6790A1ECECAEE0029C5DF /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		04E2EEF51EC5A80E00B6F53F /* HyLionPost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HyLionPost.entitlements; sourceTree = "<group>"; };
-		04F603511ECC976F00EAF5EC /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../../Library/Developer/Xcode/DerivedData/HyLionPost-evvavrebhnqgrcgvvcgevjbsjkra/Build/Products/Debug-iphoneos/Bolts/Bolts.framework"; sourceTree = "<group>"; };
-		04F603521ECC976F00EAF5EC /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/HyLionPost-evvavrebhnqgrcgvvcgevjbsjkra/Build/Products/Debug-iphoneos/FBSDKCoreKit/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
-		04F603531ECC976F00EAF5EC /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/HyLionPost-evvavrebhnqgrcgvvcgevjbsjkra/Build/Products/Debug-iphoneos/FBSDKLoginKit/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		04F74C991EC581A700F17243 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = ../Media.xcassets; sourceTree = "<group>"; };
 		04F74C9B1EC582E700F17243 /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
-		4495D67468BFBE7817A3E088 /* Pods_HyLionPost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HyLionPost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D94DEC4397754606905AEAC /* Pods-HyLionPostTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HyLionPostTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HyLionPostTests/Pods-HyLionPostTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B3A0971A4D049C5467ABA7BA /* Pods_HyLionPost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HyLionPost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B569B51AFD57C882FF3DCE8D /* Pods-HyLionPost.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HyLionPost.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HyLionPost/Pods-HyLionPost.debug.xcconfig"; sourceTree = "<group>"; };
 		B9CFFCA674D3236BB18231FE /* Pods-HyLionPostTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HyLionPostTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HyLionPostTests/Pods-HyLionPostTests.release.xcconfig"; sourceTree = "<group>"; };
+		D6787E766D012E3BDDF766AC /* Pods_HyLionPostTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HyLionPostTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1600CC263E38DCB9F4BFBA7 /* Pods-HyLionPost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HyLionPost.release.xcconfig"; path = "Pods/Target Support Files/Pods-HyLionPost/Pods-HyLionPost.release.xcconfig"; sourceTree = "<group>"; };
-		ED5F569375D7F60A48535789 /* Pods_HyLionPostTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HyLionPostTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,12 +74,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				042A8E631ECC90C600A75FA5 /* Pods_HyLionPost.framework in Frameworks */,
-				042A8E641ECC90C600A75FA5 /* Pods_HyLionPostTests.framework in Frameworks */,
-				042A8E621ECC8F5800A75FA5 /* AdSupport.framework in Frameworks */,
-				042A8E5D1ECC8F4900A75FA5 /* Alamofire.framework in Frameworks */,
-				042A8E5E1ECC8F4900A75FA5 /* GoogleToolboxForMac.framework in Frameworks */,
-				042A8E601ECC8F4900A75FA5 /* Protobuf.framework in Frameworks */,
+				04B16D211ED00633003F0B9A /* Pods_HyLionPost.framework in Frameworks */,
+				04B16D221ED00633003F0B9A /* Pods_HyLionPostTests.framework in Frameworks */,
+				04B16D1E1ED0062E003F0B9A /* AdSupport.framework in Frameworks */,
+				04B16D1B1ED00601003F0B9A /* Alamofire.framework in Frameworks */,
+				04B16D1C1ED00601003F0B9A /* GoogleToolboxForMac.framework in Frameworks */,
+				04B16D1D1ED00601003F0B9A /* Protobuf.framework in Frameworks */,
+				1A76E404A8366D3FA911080B /* Pods_HyLionPost.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E97D791C8FF2FC3D38DC7AD /* Pods_HyLionPostTests.framework in Frameworks */,
+				CE955950C7D5D5C55CD66A1E /* Pods_HyLionPostTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,16 +157,14 @@
 		B749BF5608BD177325BFB4EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				04F603511ECC976F00EAF5EC /* Bolts.framework */,
-				04F603521ECC976F00EAF5EC /* FBSDKCoreKit.framework */,
-				04F603531ECC976F00EAF5EC /* FBSDKLoginKit.framework */,
+				04B16D1F1ED00633003F0B9A /* Pods_HyLionPost.framework */,
+				04B16D201ED00633003F0B9A /* Pods_HyLionPostTests.framework */,
+				04B16D181ED00601003F0B9A /* Alamofire.framework */,
+				04B16D191ED00601003F0B9A /* GoogleToolboxForMac.framework */,
+				04B16D1A1ED00601003F0B9A /* Protobuf.framework */,
 				042A8E611ECC8F5800A75FA5 /* AdSupport.framework */,
-				042A8E591ECC8F4900A75FA5 /* Alamofire.framework */,
-				042A8E5A1ECC8F4900A75FA5 /* GoogleToolboxForMac.framework */,
-				042A8E5B1ECC8F4900A75FA5 /* Pods_HyLionPostTests.framework */,
-				042A8E5C1ECC8F4900A75FA5 /* Protobuf.framework */,
-				4495D67468BFBE7817A3E088 /* Pods_HyLionPost.framework */,
-				ED5F569375D7F60A48535789 /* Pods_HyLionPostTests.framework */,
+				B3A0971A4D049C5467ABA7BA /* Pods_HyLionPost.framework */,
+				D6787E766D012E3BDDF766AC /* Pods_HyLionPostTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

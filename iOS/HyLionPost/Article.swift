@@ -17,7 +17,7 @@ import Foundation
  *      게시판
  *  @discussion
  *      articles 삭제, 관심여부 변경 시
- *  @Todo :
+ *  @todo :
  *      - 클래스 아카이브 화
  */
 class Article{

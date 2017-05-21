@@ -15,7 +15,7 @@ import FirebaseMessaging
  *      어플리케이션 Delegate
  *  @discussion
  *
- *  @Todo :
+ *  @todo :
  *      - 아카이브 데이터 불러오기/저장하기
  *      - 푸시알림이 포어그라운드/백그라운드 에서 발생할 경우 각각 처리
  */
@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             print("InstanceID token: \(refreshedToken)")
         }
         
-        // Connect to FCM since connection may have failed when attempted before having a token.
+        // 토큰이 생성되기 전에 연결을 시도하면, 연결에 실패하게 됨
         connectToFcm()
     }
     
@@ -96,20 +96,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     /// @brief
-    ///     포어그라운드 상태에서 푸시알림이 온 경우 실행
+    ///     앱이 실행된 상태로, Foreground(Active / Inactive), Background 시에 푸시 알림이 오는 겨우 모두 실행됨
     /// @discussion
     ///     만약 앱이 백그라운드 상태에서 푸시알림이 온 경우라면 아래 함수는 실행되지 않음에 유의
     /// @Todo
-    ///     메인 게시글 테이블의 상단에 데이터를 추가(애니메이션과 함께)
+    ///     - 공통                   알림 메시지 띄우기
+    ///     - Active(Foreground)    메인 게시글 테이블의 상단에 데이터를 추가(애니메이션과 함께)
+    ///     - Inactive(Foreground)  게시글 배열에 새 게시글 내용 추가
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         
-        // Firebaes로 부터 전달된 데이터 콘솔 출력
-        if let messageID = userInfo[gcmMessageIDKey] {
-            print("Message ID: \(messageID)")
+        if (application.applicationState == UIApplicationState.active ||
+            application.applicationState == UIApplicationState.inactive) {
+            // At Foreground - Firebaes로 부터 전달된 데이터 콘솔 출력
+            if let messageID = userInfo[gcmMessageIDKey] {
+                print("Message ID: \(messageID)")
+            }
+            
+            // Firebaes로 부터 전달된 유저정보 출력
+            print(userInfo)
         }
-        
-        // Firebaes로 부터 전달된 유저정보 출력
-        print(userInfo)
+            
+        else if (application.applicationState == UIApplicationState.background) {
+            // At Background - Firebaes로 부터 전달된 데이터 콘솔 출력
+            if let messageID = userInfo[gcmMessageIDKey] {
+                print("Message ID: \(messageID)")
+            }
+            
+            // Firebaes로 부터 전달된 유저정보 출력
+            print(userInfo)
+        }
+            
     }
     
     /// 토큰 등록이 성공한 경우 실행되는 함수, 생성된 토큰 값을 전달해준다
@@ -131,8 +147,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     /// @Todo
     ///     현재 데이터들을 아카이브화 시켜 저장해야 함
     func applicationDidEnterBackground(_ application: UIApplication) {
-        // FIRMessaging.messaging().disconnect()
-        // print("Disconnected from FCM.")
+        FIRMessaging.messaging().disconnect()
+        print("Disconnected from FCM.")
     }
     
     /// @brief
@@ -146,7 +162,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     /// 앱이 종료되기 직전에 실행되는 함수
-    func applicationWillTerminate(application: UIApplication)
+    func applicationWillTerminate(_ application: UIApplication)
     {
         /// @Todo 현재 데이터들을 아카이브화 시켜 저장해야 함
     }
