@@ -17,10 +17,27 @@ def csnotice(driver):
     # idx : PK
     # title : n.text.strip()
     # link : base_url + n['href']
-    # TODO : make proper seperator
-    for n,d in zip(notices,dates):
-        idx = int((str(n['href']).split("idx=",1)[1]).split("&page",1)[0])
-        print(idx)
-        print(n.text.strip())
-        print(base_url + n['href'])
-        print(d.text.strip())
+
+    output_file = open("csnotice.json", 'w')
+    output_file.write("[")
+    is_first = True
+    for n, d in zip(notices, dates):
+        if is_first:
+            output_file.write("{")
+            is_first = False
+        else:
+            output_file.write(",{")
+        idx = int((str(n['href']).split("idx=", 1)[1]).split("&page", 1)[0])
+        output_file.write("\"file_name\" : \"csnotice.py\",\"inner_idx\" : \"")
+        output_file.write(str(idx))
+        output_file.write("\",\"title\": \"")
+        output_file.write(n.text.strip())
+        output_file.write("\",\"link\":\"")
+        output_file.write(base_url + n['href'])
+        output_file.write("\",\"datetime\":\"")
+        output_file.write(d.text.strip())
+        output_file.write("\"}")
+    output_file.write("]")
+
+
+csnotice(webdriver.Chrome('/Users/camelia/HyLionPost/crawlers/res/chromedriver'))
