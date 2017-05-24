@@ -1,5 +1,5 @@
 import json
-from flask import Flask, render_template, g
+from flask import Flask, render_template, g, jsonify
 import os
 import sqlite3
 from contextlib import closing
@@ -40,8 +40,11 @@ def close_db(error):
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
 
+
+
+
 # WARNING!!
-# this part is setting sql query and clean all data
+# this part is setting sql query and clean all data at database
 # so if you run this part, erase all data.... Be careful...
 @app.route('/iNit_dOn_touCh_tHis_pArt')
 def init_all() :
@@ -49,22 +52,25 @@ def init_all() :
 	print("initialize database!!")
 	return ''
 
-
-@app.route('/givedata')
-def give_data ():
+@app.route('/')
+@app.route('/inputdata')
+def input_data ():
 	with open('../crawlers/crawler/settings.json') as data_file :
 		data = json.load(data_file)
-	#init_db()
-	#print("initialize database!!")
 	db = get_db()
 	for datas in data :
 		ex = db.execute('SELECT EXISTS (SELECT title from entries  where url = ? )',[data[datas]['link_url']]).fetchone()
 		if (ex[0] == 0 ) :
 			db.execute('INSERT into entries (filename,title,url, datetime) values (?,?,?,?)',[data[datas]['file_name'],data[datas]['title'] ,data[datas]['link_url'],0])
-		#pprint(data[datas]['file_name'])
 	db.commit()
 	print("inserted all script in database!!\n")
 	return ''
+
+@app.route('/givedata')
+def give_data ():
+	with open('../crawlers/crawler/settings.json') as data_file :
+		ndata = json.load(data_file)
+	return jsonify(ndata), 202
 
 
 
