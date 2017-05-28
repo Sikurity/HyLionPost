@@ -21,7 +21,6 @@ import FirebaseMessaging
  */
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
-    
     var window: UIWindow?
     let gcmMessageIDKey = "gcm.message_id"
     
@@ -57,6 +56,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         /// @Todo App이 새로 작동되면, 현재 사용자의 Board, Article, 환경설정 등을 Archive로 부터 불러들여야 함
+        
+        let fileMgr = FileManager.default
+        let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let docsDir = dirPath[0] as NSString
+        let dataFilePath:String? = docsDir.appendingPathComponent("boards.archive")
+        
+        if let path = dataFilePath {
+            if( fileMgr.fileExists(atPath: path) ){
+                let subscriptBoards = NSKeyedUnarchiver.unarchiveObject(withFile: path) as! [Board]
+                
+                for board in subscriptBoards{
+                    var tmp = board
+                    // 각 게시판 아카이브로 부터 값 읽어오기
+                    // 게시판 목록 전역 변수에 값 적용
+                }
+            }
+        }
+        
         
         FIRApp.configure()
         

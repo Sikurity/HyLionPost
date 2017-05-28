@@ -1,5 +1,5 @@
 //
-//  InitialSettingViewController.swift
+//  BoardSettingViewController.swift
 //  HyLionPost
 //
 //  Created by YeongsikLee on 2017. 5. 19..
@@ -8,7 +8,10 @@
 
 import UIKit
 
-class InitialSettingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BoardSettingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate {
+    @IBOutlet
+    weak var applyBtn: UIButton!        /// 적용하기(시작하기) 버튼
+    
     @IBOutlet
     weak var boardTable: UITableView!   /// 게시판 목록 선택 테이블
     
@@ -23,21 +26,29 @@ class InitialSettingViewController: UIViewController, UITableViewDelegate, UITab
      *       게시판 번호(groupid)는 현재 임시로 지정해 둔 상태
      */
     let selectableBoards:[Board] = [
-        Board(name:"컴퓨터공학부 특성화사업단 게시판", groupid:"0", url:"http://csck2.hanyang.ac.kr/front/community/notice", interested:false),
-        Board(name:"컴퓨터공학부 졸업프로젝트 게시판", groupid:"1", url:"http://cs.hanyang.ac.kr/board/gradu_board.php", interested:false),
-        Board(name:"컴퓨터공학부 취업정보 게시판", groupid:"2", url:"http://cs.hanyang.ac.kr/board/job_board.php", interested:false),
-        Board(name:"컴퓨터공학부 학사일반 게시판", groupid:"3", url:"http://cs.hanyang.ac.kr/board/info_board.php", interested:true),
-        Board(name:"컴퓨터공학부 삼성트랙 게시판", groupid:"4", url:"http://cs.hanyang.ac.kr/board/trk_board.php", interested:true),
-        Board(name:"컴퓨터공학부 학생 게시판", groupid:"5", url:"http://cs.hanyang.ac.kr/board/stu_board.php", interested:true),
+        Board(name:"컴퓨터소프트웨어학부 특성화사업단 게시판", groupid:"0", url:"http://csck2.hanyang.ac.kr/front/community/notice", interest:false),
+        Board(name:"컴퓨터소프트웨어학부 졸업프로젝트 게시판", groupid:"1", url:"http://cs.hanyang.ac.kr/board/gradu_board.php", interest:false),
+        Board(name:"컴퓨터소프트웨어학부 취업정보 게시판", groupid:"2", url:"http://cs.hanyang.ac.kr/board/job_board.php", interest:false),
+        Board(name:"컴퓨터소프트웨어학부 학사일반 게시판", groupid:"3", url:"http://cs.hanyang.ac.kr/board/info_board.php", interest:true),
+        Board(name:"컴퓨터소프트웨어학부 삼성트랙 게시판", groupid:"4", url:"http://cs.hanyang.ac.kr/board/trk_board.php", interest:true),
+        Board(name:"컴퓨터소프트웨어학부 학생 게시판", groupid:"5", url:"http://cs.hanyang.ac.kr/board/stu_board.php", interest:true),
         ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("BoardSettingViewController++")
         
-        boardTable.delegate = self      /// InitialSettingViewController가 Tableview에서 유저와 상호작용 함수 호출
-        boardTable.dataSource = self    /// InitialSettingViewController가 Tableview에서 데이터 관리하는 함수 호출
+        boardTable.layer.cornerRadius = 20.0
+        boardTable.layer.masksToBounds = true
+        
+        boardTable.delegate = self      /// BoardSettingViewController가 Tableview에서 유저와 상호작용 함수 호출
+        boardTable.dataSource = self    /// BoardSettingViewController가 Tableview에서 데이터 관리하는 함수 호출
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -94,7 +105,7 @@ class SelectBoardTableViewCell:UITableViewCell {
             return
         }
         
-        starImageView.image = UIImage(named: board.interested ? "Star" : "Unstar")
+        starImageView.image = UIImage(named: board.interest ? "Star" : "Unstar")
         nameLabel.text = board.name
     }
 }
