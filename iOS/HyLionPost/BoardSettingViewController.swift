@@ -85,6 +85,14 @@ class BoardSettingViewController: UIViewController, UITableViewDelegate, UITable
         // Pass the selected object to the new view controller.
     }
     */
+    @IBAction func applySelectedBoards(_ sender: Any) {
+        
+        if let tabBarController = self.tabBarController {
+            print("Delegated By \(tabBarController)")
+        } else {
+            print("Not Delegated")
+        }
+    }
 }
 
 class SelectBoardTableViewCell:UITableViewCell {

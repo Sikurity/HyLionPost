@@ -80,6 +80,9 @@
                                 <state key="normal" title="시작하기">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="applySelectedBoards:" destination="fB1-eJ-WVj" eventType="touchUpInside" id="7Hl-i3-RAn"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.24350458383560181" green="0.38723170757293701" blue="0.73669934272766113" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
