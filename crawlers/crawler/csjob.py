@@ -38,4 +38,4 @@ def csjob(driver):
     output_file.write("]")
 
 
-csjob(webdriver.Chrome('/Users/camelia/HyLionPost/crawlers/res/chromedriver'))
+#csjob(webdriver.Chrome('/Users/camelia/HyLionPost/crawlers/res/chromedriver'))

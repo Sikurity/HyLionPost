@@ -36,4 +36,4 @@ def csgradu(driver):
     output_file.write("]")
 
 
-csgradu(webdriver.Chrome('/Users/camelia/HyLionPost/crawlers/res/chromedriver'))
+#csgradu(webdriver.Chrome('/Users/camelia/HyLionPost/crawlers/res/chromedriver'))

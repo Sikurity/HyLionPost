@@ -1,10 +1,28 @@
-import json
-from flask import Flask, render_template, g, jsonify
+#crawler part
 import os
+import sys
+sys.path.insert(0,'/Users/Jungsunwook/HyLionPost/crawlers')
+from selenium import webdriver
+
+from crawler.csck2notice import csck2notice
+from crawler.csjob import csjob
+from crawler.csgradu import csgradu
+from crawler.csnotice import csnotice
+from crawler.csstrk import csstrk
+#from crawler.csstu import csstu
+
+#json parsing part
+import json, codecs
+
+#flask part
+from flask import Flask, render_template, g, jsonify
 import sqlite3
 from contextlib import closing
 from flask_socketio import SocketIO
-from pprint import pprint
+
+#firebase part
+import lionbase
+
 
 
 # Make app & configuration
@@ -18,6 +36,8 @@ app.config.update(dict(
 ))
 socketio = SocketIO(app)
 
+#crawler default
+crawler_list = ['csck2notice','csgradu','csjob','csnotice','csstrk']
 
 #DB connection function 
 def connect_db():
@@ -40,8 +60,29 @@ def close_db(error):
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
 
+# DB Firebase part
+def build_db():
+    db = firebase.database()
+    db.child("data")
 
+# crawler and server connection part
+def crawling():
+    # crawling all datas from 6 websites
+    csck2notice(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
+    csgradu(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
+    csjob(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
+    csnotice(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
+    csstrk(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
+    #csstu(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
 
+def get_json_data():
+    data = []
+    for name in crawler_list :
+        print(name)
+        crawler_file = codecs.open('./'+ name +'.json', 'r', encoding='utf-8')
+        data.append(json.load(crawler_file))
+        crawler_file = []
+        print(data)
 
 # WARNING!!
 # this part is setting sql query and clean all data at database
@@ -67,12 +108,10 @@ def input_data ():
 	return ''
 
 @app.route('/givedata')
-def give_data ():
-	with open('../crawlers/crawler/settings.json') as data_file :
-		ndata = json.load(data_file)
-	return jsonify(ndata), 202
-
-
+def give_data():
+    crawling()
+    get_json_data()
+    return ''
 
 if __name__ == '__main__':
     socketio.run(app)
