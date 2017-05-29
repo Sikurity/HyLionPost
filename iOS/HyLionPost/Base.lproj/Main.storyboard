@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--Boards-->
         <scene sceneID="vfe-Nv-iCe">
             <objects>
-                <viewController storyboardIdentifier="BoardSettingID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fB1-eJ-WVj" customClass="BoardSettingViewController" customModule="HyLionPost" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BoardSettingID" title="Boards" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fB1-eJ-WVj" customClass="BoardSettingViewController" customModule="HyLionPost" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="urY-oh-Yxi"/>
                         <viewControllerLayoutGuide type="bottom" id="FUO-U0-5Mw"/>
@@ -114,7 +114,7 @@
         <!--ArticleTableViewController-->
         <scene sceneID="8c8-nS-0HA">
             <objects>
-                <tableViewController id="i7T-NU-91M" userLabel="ArticleTableViewController" customClass="ArticleTableViewController" customModule="HyLionPost" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Articles" id="i7T-NU-91M" userLabel="ArticleTableViewController" customClass="ArticleTableViewController" customModule="HyLionPost" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="s5f-iT-yPq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -203,13 +203,13 @@
         <!--FavoritesTableViewController-->
         <scene sceneID="yK9-Mh-FzJ">
             <objects>
-                <tableViewController id="idl-uY-Grz" userLabel="FavoritesTableViewController" customClass="FavoritesTableViewController" customModule="HyLionPost" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Favorites" id="idl-uY-Grz" userLabel="FavoritesTableViewController" customClass="FavoritesTableViewController" customModule="HyLionPost" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="k5d-gy-BjZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArticleCell" rowHeight="80" id="OcA-wz-PXP" customClass="FavoritesTableViewCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavoriteCell" rowHeight="80" id="OcA-wz-PXP" customClass="FavoriteTableViewCell" customModule="HyLionPost" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OcA-wz-PXP" id="qDM-8H-8AY">

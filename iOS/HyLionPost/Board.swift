@@ -68,17 +68,4 @@ class Board : NSObject, NSCoding{
         
         return false
     }
-    
-    /// 설정을 통해 값 변경 시, Alamofire를 이용 Firebase에 반영시키는 함수
-    func doPostAboutChangeInfo()
-    {
-        
-    }
-    
-    /// 필터 설정을 통해 해당되는 게시물들만 반환
-    func filterArticle() -> [Article]
-    {
-        
-        return []
-    }
 }

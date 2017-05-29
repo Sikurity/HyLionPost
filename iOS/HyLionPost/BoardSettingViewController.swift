@@ -7,32 +7,14 @@
 //
 
 import UIKit
+import FirebaseMessaging
 
-class BoardSettingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate {
+class BoardSettingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     @IBOutlet
     weak var applyBtn: UIButton!        /// 적용하기(시작하기) 버튼
     
     @IBOutlet
     weak var boardTable: UITableView!   /// 게시판 목록 선택 테이블
-    
-    /**
-     *  @author 
-     *      이영식
-     *  @date
-     *      17` 05. 19
-     *  @brief
-     *      지원하는 게시판 목록, 만약 변경이 생기면 어플리케이션 업데이트(패치)를 통해 반영해주어야 함
-     *  @discussion
-     *       게시판 번호(groupid)는 현재 임시로 지정해 둔 상태
-     */
-    let selectableBoards:[Board] = [
-        Board(name:"컴퓨터소프트웨어학부 특성화사업단 게시판", groupid:"0", url:"http://csck2.hanyang.ac.kr/front/community/notice", interest:false),
-        Board(name:"컴퓨터소프트웨어학부 졸업프로젝트 게시판", groupid:"1", url:"http://cs.hanyang.ac.kr/board/gradu_board.php", interest:false),
-        Board(name:"컴퓨터소프트웨어학부 취업정보 게시판", groupid:"2", url:"http://cs.hanyang.ac.kr/board/job_board.php", interest:false),
-        Board(name:"컴퓨터소프트웨어학부 학사일반 게시판", groupid:"3", url:"http://cs.hanyang.ac.kr/board/info_board.php", interest:true),
-        Board(name:"컴퓨터소프트웨어학부 삼성트랙 게시판", groupid:"4", url:"http://cs.hanyang.ac.kr/board/trk_board.php", interest:true),
-        Board(name:"컴퓨터소프트웨어학부 학생 게시판", groupid:"5", url:"http://cs.hanyang.ac.kr/board/stu_board.php", interest:true),
-        ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,19 +43,29 @@ class BoardSettingViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return selectableBoards.count
+        let mainTBC = self.tabBarController as! MainTabBarController
+        return  mainTBC.supportedBoards.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BoardCell", for: indexPath) as! SelectBoardTableViewCell
         
-        cell.boardForCell = selectableBoards[indexPath.row]
+        let mainTBC = self.tabBarController as! MainTabBarController
+        cell.boardForCell = mainTBC.supportedBoards[indexPath.row]
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // cell selected code here
+        let mainTBC = self.tabBarController as! MainTabBarController
+        mainTBC.supportedBoards[indexPath.row].interest = !mainTBC.supportedBoards[indexPath.row].interest
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BoardCell", for: indexPath) as! SelectBoardTableViewCell
+        cell.boardForCell = mainTBC.supportedBoards[indexPath.row]
+        
+        mainTBC.supportedBoards = mainTBC.supportedBoards.sorted(by: {($0.interest ? 1 : 0) >= ($1.interest ? 1 : 0)})
+        
+        tableView.reloadData()
     }
     
     /*
@@ -85,13 +77,25 @@ class BoardSettingViewController: UIViewController, UITableViewDelegate, UITable
         // Pass the selected object to the new view controller.
     }
     */
+
     @IBAction func applySelectedBoards(_ sender: Any) {
-        
         if let tabBarController = self.tabBarController {
             print("Delegated By \(tabBarController)")
-        } else {
-            print("Not Delegated")
+            
+            let mainTBC = self.tabBarController as! MainTabBarController
+            for board in mainTBC.supportedBoards{
+                if board.interest {
+                    FIRMessaging.messaging().subscribe(toTopic:"/topics/" + board.groupid);
+                    print("\(board.groupid) subscribed")
+                } else {
+                    FIRMessaging.messaging().unsubscribe(fromTopic:"/topics/" + board.groupid);
+                    print("\(board.groupid) unsubscribed")
+                }
+            }
         }
+//        else {
+//            print("Not Delegated")
+//        }
     }
 }
 
