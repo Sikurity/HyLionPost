@@ -5,6 +5,7 @@ target 'HyLionPost' do
     pod 'Firebase/Core'
     pod 'Firebase/Messaging'
     pod 'Alamofire', '~> 4.4'
+	pod 'MGSwipeTableCell'
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
@@ -14,7 +15,8 @@ target 'HyLionPost' do
     pod 'Firebase/Core'
     pod 'Firebase/Messaging'
     pod 'Alamofire', '~> 4.4'
-    inherit! :search_paths
+    pod 'MGSwipeTableCell'
+	inherit! :search_paths
     # Pods for testing
   end
 
