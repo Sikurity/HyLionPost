@@ -10,7 +10,7 @@ from crawler.csgradu import csgradu
 from crawler.csnotice import csnotice
 from crawler.csstrk import csstrk
 #from crawler.csstu import csstu
-from serv_crawler import csck2notice_server, csjob_server, csgradu_server, csstrk_server, csnotice_server
+from controllers.generate import csck2notice_server, csjob_server, csgradu_server, csstrk_server, csnotice_server
 
 #json parsing part
 import json, codecs
@@ -22,38 +22,11 @@ from contextlib import closing
 
 #firebase part 
 import pyrebase
-from lionbase import *
+from controllers.lionbase import *
 
-# Make app & configuration
-app = Flask(__name__)
-app.config.update(dict(
-    DATABASE=os.path.join(app.root_path, './db/postlist.db'),
-    DEBUG=True,
-    SECRET_KEY='development key',
-    USERNAME='admin',
-    PASSWORD='default'
-))
-
-#DB connection function 
-def connect_db():
-	print("connected!")
-	return sqlite3.connect(app.config['DATABASE'])
-
-#initialize DB
-def init_db():
-	with closing(connect_db()) as db:
-		with app.open_resource('./db/schema.sql',mode='r') as f:
-			db.cursor().executescript(f.read())
-		db.commit()
-
-def get_db():
-    if not hasattr(g, 'sqlite_db'):
-        g.sqlite_db = connect_db()
-    return g.sqlite_db
-
-def close_db(error):
-    if hasattr(g, 'sqlite_db'):
-        g.sqlite_db.close()
+#app init part
+from header import *
+from controllers.dbconn import *
 
 # DB Firebase part
 def connect_firebase():
@@ -65,12 +38,12 @@ def initial_firebase():
     db = connect_firebase()
     db.child("board_datas")
 
-def push_lionbase(data):
+def push_lionbase(data,name):
     db = connect_firebase()
-    db.child("board_datas").push(data)
+    db.child("board_datas").child(name).push(data)
 
 # WARNING!!
-# this part is setting sql query and clean all data at database
+# this part initial part
 # so if you run this part, erase all data.... Be careful...
 @app.route('/iNit_dOn_touCh_tHis_pArt')
 def init_all() :
@@ -83,6 +56,9 @@ def init_db() :
     initial_firebase()
     print("initalize firebase")
     return ''
+
+
+# running part #
 
 @app.route('/')
 @app.route('/inputdata')
@@ -105,38 +81,31 @@ def input_data ():
 @app.route('/csjob')
 def give_csjob():
     data = csjob_server()
-    push_lionbase(data)
+    push_lionbase(data,"csjob")
     return jsonify(data), 202
 
 @app.route('/csck2notice')
 def give_csck2():
     data = csck2notice_server()
-    push_lionbase(data)
+    push_lionbase(data,"csck2")
     return jsonify(data), 202
 
 @app.route('/csstrk')
 def give_csstrk():
     data = csstrk_server()
-    push_lionbase(data)
+    push_lionbase(data,"csstrk")
     return jsonify(data), 202
 
 @app.route('/csnotice')
 def give_csnotice():
     data = csnotice_server()
-    push_lionbase(data)
+    push_lionbase(data,"csnotice")
     return jsonify(data), 202
 
 @app.route('/csgradu')
 def give_csgradu():
     data = csgradu_server()
-    push_lionbase(data)
+    push_lionbase(data,"csgradu")
     return jsonify(data), 202
-
-
-if __name__ == '__main__':
-    app.run()
-
-
-
 
 
