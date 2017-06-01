@@ -16,7 +16,7 @@ def csjob(driver):
     # idx : PK
     # title : n.text.strip()
     # link : base_url + n['href']
-    output_file = open("csjob.json", 'w')
+    output_file = open("../crawlers/crawler/result/csjob.json", 'w')
     output_file.write("[")
     is_first = True
     for n, d in zip(notices, dates):

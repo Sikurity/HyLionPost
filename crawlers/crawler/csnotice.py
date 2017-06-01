@@ -18,7 +18,7 @@ def csnotice(driver):
     # title : n.text.strip()
     # link : base_url + n['href']
 
-    output_file = open("csnotice.json", 'w')
+    output_file = open("../crawlers/crawler/result/csnotice.json", 'w')
     output_file.write("[")
     is_first = True
     for n, d in zip(notices, dates):
