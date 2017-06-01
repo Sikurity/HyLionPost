@@ -25,6 +25,7 @@
 		04D6790B1ECECAEE0029C5DF /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6790A1ECECAEE0029C5DF /* Article.swift */; };
 		04D755B31ED9620500329EE1 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D755B21ED9620500329EE1 /* FavoritesTableViewController.swift */; };
 		04F74C9A1EC581A700F17243 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F74C991EC581A700F17243 /* Media.xcassets */; };
+		914072CB7AE0575797893FD5 /* Pods_HyLionPost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A0971A4D049C5467ABA7BA /* Pods_HyLionPost.framework */; };
 		CE955950C7D5D5C55CD66A1E /* Pods_HyLionPostTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6787E766D012E3BDDF766AC /* Pods_HyLionPostTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,7 @@
 				04B16D1B1ED00601003F0B9A /* Alamofire.framework in Frameworks */,
 				04B16D1C1ED00601003F0B9A /* GoogleToolboxForMac.framework in Frameworks */,
 				04B16D1D1ED00601003F0B9A /* Protobuf.framework in Frameworks */,
+				914072CB7AE0575797893FD5 /* Pods_HyLionPost.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,10 +526,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HyLionPost/HyLionPost.entitlements;
 				DEVELOPMENT_TEAM = LGYQPRQ6SD;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = HyLionPost/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

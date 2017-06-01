@@ -18,7 +18,7 @@ def csck2notice(driver):
     # title : n.text.strip()
     # link : base_url + n['href']
     # save as json format
-    output_file = open("csck2notice.json", 'w')
+    output_file = open("../crawlers/crawler/result/csck2notice.json", 'w')
     output_file.write("[")
     is_first = True
     for n,h,d in zip(notices,hrefs,dates):

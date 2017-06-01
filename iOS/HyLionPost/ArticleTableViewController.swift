@@ -7,23 +7,9 @@
 //
 
 import UIKit
+import MGSwipeTableCell
 
 class ArticleTableViewController: UITableViewController{
-    var articles:[Article]? = [
-        Article(title:"창의융합교육원 2017학년도 2학기 교양교육 설명회 안내", group:"컴퓨터소프트웨어학부 특성화사업단 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.24", favorite:false),
-        Article(title:"2017-1학기 공통기초과학과목 기말시험 일정 안내", group:"컴퓨터소프트웨어학부 학사일반 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.23", favorite:false),
-        Article(title:"2017-2학기 국가장학금1,2유형 (1차) 신청 안내", group:"컴퓨터소프트웨어학부 학사일반 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.22", favorite:false),
-        Article(title:"2017-2학기 교내장학 신청 일정 안내", group:"컴퓨터소프트웨어학부 학사일반 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.21", favorite:false),
-        Article(title:"2017학년도 1학기 지도교수 간담회 결과 보고", group:"컴퓨터소프트웨어학부 졸업프로젝트 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.20", favorite:false),
-        Article(title:"창의융합교육원 2017학년도 2학기 교양교육 설명회 안내", group:"컴퓨터소프트웨어학부 학사일반 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.24", favorite:false),
-        Article(title:"2017-1학기 공통기초과학과목 기말시험 일정 안내", group:"컴퓨터소프트웨어학부 학사일반 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.23", favorite:false),
-        Article(title:"2017-2학기 국가장학금1,2유형 (1차) 신청 안내", group:"컴퓨터소프트웨어학부 학사일반 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.22", favorite:false),
-        Article(title:"2017-2학기 교내장학 신청 일정 안내", group:"컴퓨터소프트웨어학부 학사일반 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.21", favorite:false),
-        Article(title:"2017학년도 1학기 지도교수 간담회 결과 보고", group:"컴퓨터소프트웨어학부 학사일반 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.20", favorite:false),
-        Article(title:"2017-2학기 교내장학 신청 일정 안내", group:"컴퓨터소프트웨어학부 학사일반 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.21", favorite:false),
-        Article(title:"2017학년도 1학기 지도교수 간담회 결과 보고", group:"컴퓨터소프트웨어학부 학사일반 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.20", favorite:false),
-        ]
-
     override func viewDidLoad() {
         
         /// 첫 앱 실행시(=개인설정 아카이브가 없다면) 게시판 선택 화면으로 이동(테스트를 위해 임시로 true)
@@ -38,52 +24,106 @@ class ArticleTableViewController: UITableViewController{
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-        
-//        let account = accountTypes[indexPath.section].accounts[indexPath.row]
-        
-        let test1 = UITableViewRowAction(style: UITableViewRowActionStyle.default, title: "TEST1", handler: { (action, indexPath) -> Void in
-            // action delete
-        })
-        
-        let test2 = UITableViewRowAction(style: UITableViewRowActionStyle.default, title: "TEST2", handler: { (action, indexPath) -> Void in
-            // action activate
-        })
-        
-        test2.backgroundColor = UIColor.lightGray
-        
-        let arrayofactions: Array = [test1, test2]
-        
-        return arrayofactions
-    }
-    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let news = articles{
+        let mainTBC = self.tabBarController as! MainTabBarController
+        if let news = mainTBC.articles{
             return news.count
         } else {
             return 0
         }
     }
     
-    
+    /// right-to-left / left-to-right swipe 시 숨겨진 버튼이 나오는 기능 구현 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! AritlceTableViewCell
         
-        if articles != nil{
-            cell.articleForCell = articles![indexPath.row]
+        let mainTBC = self.tabBarController as! MainTabBarController
+        if let news = mainTBC.articles {
+            cell.articleForCell = news[indexPath.row]
+            cell.setUpBoardName(getBoardName(news[indexPath.row].groupid))
+            
+            //configure left buttons
+            let flagImg = resizeImage(image:UIImage(named:(news[indexPath.row].favorite ? "Unstar" : "Star")), newWidth:tableView.rowHeight / 2)
+            
+            cell.leftButtons = [MGSwipeButton(title: "", icon: flagImg, backgroundColor:(news[indexPath.row].favorite ? UIColor.lightGray : UIColor.yellow)){
+                (sender: MGSwipeTableCell!) -> Bool in
+                    news[indexPath.row].favorite = !news[indexPath.row].favorite
+                    print("Changed \(!news[indexPath.row].favorite) -> \(news[indexPath.row].favorite)")
+                    self.tableView.reloadData()
+                    return true
+                }]
+            cell.leftSwipeSettings.transition = MGSwipeTransition.rotate3D
+            
+            //configure right buttons
+            let trashcanImg = resizeImage(image:UIImage(named:"Trashcan"), newWidth:tableView.rowHeight / 2)
+            
+            cell.rightButtons = [MGSwipeButton(title: "", icon: trashcanImg, backgroundColor: UIColor.red){
+                (sender: MGSwipeTableCell!) -> Bool in
+                    print("\(news[indexPath.row].title) Removed")
+                    //mainTBC.articles?.remove(???) /// groupid, key 값으로 찾아서 삭제
+                    return true
+                }]
+            cell.rightSwipeSettings.transition = MGSwipeTransition.rotate3D
         }
         
         return cell
     }
+    
+    /// 마지막 게시글이 탭바에 가려져 선택하기 힘든 것을 해결하기 위해 탭바 높이 만큼의 Footer를 추가
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return self.tabBarController!.tabBar.frame.height
+    }
+    
+    /// 마지막 게시글이 탭바에 가려져 선택하기 힘든 것을 해결하기 위해 빈 탭바 추가
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return ""
+    }
+    
+    /// 이미지 크기를 테이블 크기에 맞게 변경하기 위해 작성
+    func resizeImage(image: UIImage?, newWidth: CGFloat) -> UIImage? {
+        var retImage:UIImage? = image
+        
+        if let newImg = image {
+            let scale = newWidth / newImg.size.width
+            let newHeight = newImg.size.height * scale
+            
+            let newSize = CGSize(width:newWidth, height:newHeight)
+            UIGraphicsBeginImageContext(newSize)
+            newImg.draw(in: CGRect(origin:CGPoint(), size:newSize))
+            
+            retImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+        }
+        
+        return retImage
+    }
+    
+    /// 게시글의 groupid를 이용해 소속 게시판 이름을 얻어냄
+    func getBoardName(_ groupid:String) -> String
+    {
+        let mainTBC = self.tabBarController as! MainTabBarController
+    
+        for board in mainTBC.supportedBoards{
+            if board.groupid == groupid{
+                return board.name
+            }
+        }
+        
+        return "unknown"
+    }
 }
 
-class AritlceTableViewCell:UITableViewCell {
+class AritlceTableViewCell:MGSwipeTableCell {
     @IBOutlet weak var boardLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
@@ -95,13 +135,15 @@ class AritlceTableViewCell:UITableViewCell {
         }
     }
     
+    func setUpBoardName(_ boardName:String){
+        boardLabel.text = boardName
+    }
     
     func setUpCell() {
         guard let article = articleForCell else {
             return
         }
         
-        boardLabel.text = article.group
         dateLabel.text = article.date
         titleLabel.text = article.title
     }

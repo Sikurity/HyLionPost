@@ -8,16 +8,8 @@
 
 import UIKit
 
-class FavoritesTableViewController: UITableViewController, UITabBarControllerDelegate {
-    var favorites:[Article]? = [
-        Article(title:"창의융합교육원 2017학년도 2학기 교양교육 설명회 안내", group:"컴퓨터소프트웨어학부 특성화사업단 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.24", favorite:false),
-        Article(title:"2017-1학기 공통기초과학과목 기말시험 일정 안내", group:"컴퓨터소프트웨어학부 학사일반 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.23", favorite:false),
-        Article(title:"2017-2학기 국가장학금1,2유형 (1차) 신청 안내", group:"컴퓨터소프트웨어학부 학사일반 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.22", favorite:false),
-        Article(title:"2017학년도 1학기 지도교수 간담회 결과 보고", group:"컴퓨터소프트웨어학부 학사일반 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.20", favorite:false),
-        Article(title:"2017-2학기 교내장학 신청 일정 안내", group:"컴퓨터소프트웨어학부 학사일반 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.21", favorite:false),
-        Article(title:"2017학년도 1학기 지도교수 간담회 결과 보고", group:"컴퓨터소프트웨어학부 학사일반 게시판", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.20", favorite:false),
-        ]
-    
+class FavoritesTableViewController: UITableViewController {
+    var favorites:[Article] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,74 +26,67 @@ class FavoritesTableViewController: UITableViewController, UITabBarControllerDel
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
+    }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        let mainTBC = self.tabBarController as! MainTabBarController
+        
+        favorites = []
+    
+        if let news = mainTBC.articles {
+            for article in news
+            {
+                if article.favorite {
+                    favorites.append(article)
+                }
+            }
+        }
+        
+        return favorites.count
     }
-
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell", for: indexPath) as! FavoriteTableViewCell
+        
+        cell.favoriteForCell = favorites[indexPath.row]
+        cell.setUpBoardName(getBoardName(favorites[indexPath.row].groupid))
+        
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    func getBoardName(_ groupid:String) -> String
+    {
+        let mainTBC = self.tabBarController as! MainTabBarController
+        
+        for board in mainTBC.supportedBoards{
+            if board.groupid == groupid{
+                return board.name
+            }
+        }
+        
+        return "unknown"
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    /// 마지막 게시글이 탭바에 가려져 선택하기 힘든 것을 해결하기 위해 탭바 높이 만큼의 Footer를 추가
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return self.tabBarController!.tabBar.frame.height
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    /// 마지막 게시글이 탭바에 가려져 선택하기 힘든 것을 해결하기 위해 빈 탭바 추가
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return ""
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 class FavoriteTableViewCell:UITableViewCell {
@@ -116,13 +101,16 @@ class FavoriteTableViewCell:UITableViewCell {
         }
     }
     
+    func setUpBoardName(_ boardName:String){
+        boardLabel.text = boardName
+    }
     
     func setUpCell() {
         guard let article = favoriteForCell else {
             return
         }
         
-        boardLabel.text = article.group
+        boardLabel.text = ""
         dateLabel.text = article.date
         titleLabel.text = article.title
     }

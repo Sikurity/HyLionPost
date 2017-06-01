@@ -24,12 +24,14 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
+  - MGSwipeTableCell (1.5.6)
   - Protobuf (3.3.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
   - Firebase/Core
   - Firebase/Messaging
+  - MGSwipeTableCell
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
@@ -39,8 +41,9 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
   FirebaseMessaging: 753d05a925e9eb8eadd09a0ffc9b808578b72fac
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
+  MGSwipeTableCell: 616700eb0ffd1c611ba909066cb7fd739790a0a7
   Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
 
-PODFILE CHECKSUM: e3ea058cae7013c70e71939c7781b64728a719ee
+PODFILE CHECKSUM: 8dcbf774a9102c3fd961036047fc8a1aa89b14d2
 
 COCOAPODS: 1.2.1

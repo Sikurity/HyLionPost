@@ -55,24 +55,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     /// 앱이 시작할 준비를 마치고 실행되기 전 실행되는 함수
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        /// @Todo App이 새로 작동되면, 현재 사용자의 Board, Article, 환경설정 등을 Archive로 부터 불러들여야 함
-        
-        let fileMgr = FileManager.default
-        let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let docsDir = dirPath[0] as NSString
-        let dataFilePath:String? = docsDir.appendingPathComponent("boards.archive")
-        
-        if let path = dataFilePath {
-            if( fileMgr.fileExists(atPath: path) ){
-                let subscriptBoards = NSKeyedUnarchiver.unarchiveObject(withFile: path) as! [Board]
-                
-                for board in subscriptBoards{
-                    var tmp = board
-                    // 각 게시판 아카이브로 부터 값 읽어오기
-                    // 게시판 목록 전역 변수에 값 적용
-                }
-            }
-        }
+//        /// @Todo App이 새로 작동되면, 현재 사용자의 Board, Article, 환경설정 등을 Archive로 부터 불러들여야 함
+//        /// => 페이지 별로 각자 불러들이는 것으로 변경
+//
+//        let fileMgr = FileManager.default
+//        let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+//        let docsDir = dirPath[0] as NSString
+//        let dataFilePath:String? = docsDir.appendingPathComponent("boards.archive")
+//        
+//        if let path = dataFilePath {
+//            if( fileMgr.fileExists(atPath: path) ){
+//                let subscriptBoards = NSKeyedUnarchiver.unarchiveObject(withFile: path) as! [Board]
+//                
+//                for board in subscriptBoards{
+//                    var tmp = board
+//                    // 각 게시판 아카이브로 부터 값 읽어오기
+//                    // 게시판 목록 전역 변수에 값 적용
+//                }
+//            }
+//        }
         
         
         FIRApp.configure()
@@ -193,6 +194,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         FIRMessaging.messaging().connect { error in
             print(error as Any)
         }
+    }
+    
+    func getTopViewController() -> UIViewController
+    {
+        var topViewController = UIApplication.shared.delegate!.window!!.rootViewController!
+        while (topViewController.presentedViewController != nil) {
+            topViewController = topViewController.presentedViewController!
+        }
+        return topViewController
     }
 }
 
