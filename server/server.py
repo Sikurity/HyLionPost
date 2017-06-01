@@ -10,6 +10,7 @@ from crawler.csgradu import csgradu
 from crawler.csnotice import csnotice
 from crawler.csstrk import csstrk
 #from crawler.csstu import csstu
+from serv_crawler import csck2notice_server, csjob_server, csgradu_server, csstrk_server, csnotice_server
 
 #json parsing part
 import json, codecs
@@ -18,12 +19,10 @@ import json, codecs
 from flask import Flask, render_template, g, jsonify
 import sqlite3
 from contextlib import closing
-from flask_socketio import SocketIO
 
-#firebase part
-import lionbase
-
-
+#firebase part 
+import pyrebase
+from lionbase import *
 
 # Make app & configuration
 app = Flask(__name__)
@@ -34,10 +33,6 @@ app.config.update(dict(
     USERNAME='admin',
     PASSWORD='default'
 ))
-socketio = SocketIO(app)
-
-#crawler default
-crawler_list = ['csck2notice','csgradu','csjob','csnotice','csstrk']
 
 #DB connection function 
 def connect_db():
@@ -61,28 +56,18 @@ def close_db(error):
         g.sqlite_db.close()
 
 # DB Firebase part
-def build_db():
+def connect_firebase():
     db = firebase.database()
-    db.child("data")
+    print("connected firebase!!")
+    return db
 
-# crawler and server connection part
-def crawling():
-    # crawling all datas from 6 websites
-    csck2notice(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
-    csgradu(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
-    csjob(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
-    csnotice(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
-    csstrk(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
-    #csstu(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
+def initial_firebase():
+    db = connect_firebase()
+    db.child("board_datas")
 
-def get_json_data():
-    data = []
-    for name in crawler_list :
-        print(name)
-        crawler_file = codecs.open('./'+ name +'.json', 'r', encoding='utf-8')
-        data.append(json.load(crawler_file))
-        crawler_file = []
-        print(data)
+def push_lionbase(data):
+    db = connect_firebase()
+    db.child("board_datas").push(data)
 
 # WARNING!!
 # this part is setting sql query and clean all data at database
@@ -92,6 +77,12 @@ def init_all() :
 	init_db()
 	print("initialize database!!")
 	return ''
+
+@app.route('/init_firebase')
+def init_db() :
+    initial_firebase()
+    print("initalize firebase")
+    return ''
 
 @app.route('/')
 @app.route('/inputdata')
@@ -107,11 +98,45 @@ def input_data ():
 	print("inserted all script in database!!\n")
 	return ''
 
-@app.route('/givedata')
-def give_data():
-    crawling()
-    get_json_data()
-    return ''
+###########################
+# data send part by website
+###########################
+    
+@app.route('/csjob')
+def give_csjob():
+    data = csjob_server()
+    push_lionbase(data)
+    return jsonify(data), 202
+
+@app.route('/csck2notice')
+def give_csck2():
+    data = csck2notice_server()
+    push_lionbase(data)
+    return jsonify(data), 202
+
+@app.route('/csstrk')
+def give_csstrk():
+    data = csstrk_server()
+    push_lionbase(data)
+    return jsonify(data), 202
+
+@app.route('/csnotice')
+def give_csnotice():
+    data = csnotice_server()
+    push_lionbase(data)
+    return jsonify(data), 202
+
+@app.route('/csgradu')
+def give_csgradu():
+    data = csgradu_server()
+    push_lionbase(data)
+    return jsonify(data), 202
+
 
 if __name__ == '__main__':
-    socketio.run(app)
+    app.run()
+
+
+
+
+

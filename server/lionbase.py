@@ -1,5 +1,5 @@
 import pyrebase
-
+global config, firebase
 config = {
     "apiKey": "AIzaSyCZVFT4NRD-FQ8_kSDlmq084bs8YxbduDM",
     "authDomain" : "",
