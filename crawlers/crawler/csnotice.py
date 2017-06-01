@@ -40,4 +40,4 @@ def csnotice(driver):
     output_file.write("]")
 
 
-csnotice(webdriver.Chrome('/Users/camelia/HyLionPost/crawlers/res/chromedriver'))
+#csnotice(webdriver.Chrome('/Users/camelia/HyLionPost/crawlers/res/chromedriver'))
