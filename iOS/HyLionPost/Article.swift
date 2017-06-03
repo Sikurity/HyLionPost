@@ -27,15 +27,16 @@ class Article : NSObject, NSCoding {
     var url:String      // 게시물 링크
     var date:String     // 게시된 날짜
     var favorite:Bool   // 게시물 관심여부
+    var unopened:Bool   // 읽음/읽지않음
     
-    init(title:String, groupid:String, key:String, url:String, date:String, favorite:Bool)
-    {
+    init(title:String, groupid:String, key:String, url:String, date:String, favorite:Bool){
         self.title = title
         self.groupid = groupid
         self.key = key
         self.url = url
         self.date = date
         self.favorite = favorite
+        self.unopened = false
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -45,6 +46,7 @@ class Article : NSObject, NSCoding {
         self.url = aDecoder.decodeObject(forKey:"url") as! String
         self.date = aDecoder.decodeObject(forKey:"date") as! String
         self.favorite = aDecoder.decodeObject(forKey:"favorite") as! Bool
+        self.unopened = aDecoder.decodeObject(forKey:"unopened") as! Bool
     }
     
     func encode(with aCoder: NSCoder) {
@@ -54,5 +56,6 @@ class Article : NSObject, NSCoding {
         aCoder.encode(self.url, forKey:"url")
         aCoder.encode(self.date, forKey:"date")
         aCoder.encode(self.favorite, forKey:"favorite")
+        aCoder.encode(self.unopened, forKey:"unopened")
     }
 }

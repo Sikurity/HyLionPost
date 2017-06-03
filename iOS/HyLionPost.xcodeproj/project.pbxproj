@@ -8,14 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		0406D24D1EBCC5C5000EF4E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0406D24C1EBCC5C5000EF4E5 /* AppDelegate.swift */; };
-		0406D24F1EBCC5C5000EF4E5 /* ArticleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0406D24E1EBCC5C5000EF4E5 /* ArticleTableViewController.swift */; };
 		0406D2541EBCC5C5000EF4E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0406D2521EBCC5C5000EF4E5 /* Main.storyboard */; };
 		0406D2641EBCC5C5000EF4E5 /* HyLionPostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0406D2631EBCC5C5000EF4E5 /* HyLionPostTests.swift */; };
 		0406D26F1EBCCA9D000EF4E5 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 0406D26E1EBCCA9D000EF4E5 /* icons */; };
+		0419A1D91EE15E700004AA49 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419A1D81EE15E700004AA49 /* DataManager.swift */; };
 		0420A8E91EC364B300AB3746 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0420A8E81EC364B300AB3746 /* GoogleService-Info.plist */; };
+		042645791EE162C800D6ABE0 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042645781EE162C800D6ABE0 /* MainTabBarController.swift */; };
+		0428F21E1EE285A2003F4C49 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428F21D1EE285A2003F4C49 /* SettingViewController.swift */; };
+		0428F2261EE28FD9003F4C49 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428F2251EE28FD9003F4C49 /* WebViewController.swift */; };
 		042E61371ECEE13C006CBB60 /* BoardSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042E61361ECEE13C006CBB60 /* BoardSettingViewController.swift */; };
+		043EE9D81EE1C6AC00E01590 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EE9D71EE1C6AC00E01590 /* ArticleViewController.swift */; };
 		04664F8A1ECE8E22005B0F38 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04664F891ECE8E22005B0F38 /* Board.swift */; };
-		0478690F1EDAB93100954CF3 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0478690E1EDAB93100954CF3 /* MainTabBarController.swift */; };
 		04B16D1B1ED00601003F0B9A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B16D181ED00601003F0B9A /* Alamofire.framework */; };
 		04B16D1C1ED00601003F0B9A /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B16D191ED00601003F0B9A /* GoogleToolboxForMac.framework */; };
 		04B16D1D1ED00601003F0B9A /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B16D1A1ED00601003F0B9A /* Protobuf.framework */; };
@@ -23,9 +26,8 @@
 		04B16D211ED00633003F0B9A /* Pods_HyLionPost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B16D1F1ED00633003F0B9A /* Pods_HyLionPost.framework */; };
 		04B16D221ED00633003F0B9A /* Pods_HyLionPostTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B16D201ED00633003F0B9A /* Pods_HyLionPostTests.framework */; };
 		04D6790B1ECECAEE0029C5DF /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6790A1ECECAEE0029C5DF /* Article.swift */; };
-		04D755B31ED9620500329EE1 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D755B21ED9620500329EE1 /* FavoritesTableViewController.swift */; };
+		04D755B31ED9620500329EE1 /* FilterTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D755B21ED9620500329EE1 /* FilterTypeViewController.swift */; };
 		04F74C9A1EC581A700F17243 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F74C991EC581A700F17243 /* Media.xcassets */; };
-		914072CB7AE0575797893FD5 /* Pods_HyLionPost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A0971A4D049C5467ABA7BA /* Pods_HyLionPost.framework */; };
 		CE955950C7D5D5C55CD66A1E /* Pods_HyLionPostTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6787E766D012E3BDDF766AC /* Pods_HyLionPostTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,25 +44,28 @@
 /* Begin PBXFileReference section */
 		0406D2491EBCC5C5000EF4E5 /* HyLionPost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HyLionPost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0406D24C1EBCC5C5000EF4E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0406D24E1EBCC5C5000EF4E5 /* ArticleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTableViewController.swift; sourceTree = "<group>"; };
 		0406D2531EBCC5C5000EF4E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0406D25A1EBCC5C5000EF4E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0406D25F1EBCC5C5000EF4E5 /* HyLionPostTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HyLionPostTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0406D2631EBCC5C5000EF4E5 /* HyLionPostTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyLionPostTests.swift; sourceTree = "<group>"; };
 		0406D2651EBCC5C5000EF4E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0406D26E1EBCCA9D000EF4E5 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = icons; sourceTree = "<group>"; };
+		0419A1D81EE15E700004AA49 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		0420A8E81EC364B300AB3746 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		042645781EE162C800D6ABE0 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		0428F21D1EE285A2003F4C49 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		0428F2251EE28FD9003F4C49 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		042A8E611ECC8F5800A75FA5 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		042E61361ECEE13C006CBB60 /* BoardSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardSettingViewController.swift; sourceTree = "<group>"; };
+		043EE9D71EE1C6AC00E01590 /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		04664F891ECE8E22005B0F38 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
-		0478690E1EDAB93100954CF3 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTabBarController.swift; path = ../MainTabBarController.swift; sourceTree = "<group>"; };
 		04B16D181ED00601003F0B9A /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HyLionPost-ajkrxfqtoicrxrbzfaaohpwkruds/Build/Products/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		04B16D191ED00601003F0B9A /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HyLionPost-ajkrxfqtoicrxrbzfaaohpwkruds/Build/Products/Debug-iphoneos/GoogleToolboxForMac/GoogleToolboxForMac.framework"; sourceTree = "<group>"; };
 		04B16D1A1ED00601003F0B9A /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Protobuf.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HyLionPost-ajkrxfqtoicrxrbzfaaohpwkruds/Build/Products/Debug-iphoneos/Protobuf/Protobuf.framework"; sourceTree = "<group>"; };
 		04B16D1F1ED00633003F0B9A /* Pods_HyLionPost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_HyLionPost.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HyLionPost-ajkrxfqtoicrxrbzfaaohpwkruds/Build/Products/Debug-iphoneos/Pods_HyLionPost.framework"; sourceTree = "<group>"; };
 		04B16D201ED00633003F0B9A /* Pods_HyLionPostTests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_HyLionPostTests.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HyLionPost-ajkrxfqtoicrxrbzfaaohpwkruds/Build/Products/Debug-iphoneos/Pods_HyLionPostTests.framework"; sourceTree = "<group>"; };
 		04D6790A1ECECAEE0029C5DF /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
-		04D755B21ED9620500329EE1 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
+		04D755B21ED9620500329EE1 /* FilterTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTypeViewController.swift; sourceTree = "<group>"; };
 		04E2EEF51EC5A80E00B6F53F /* HyLionPost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HyLionPost.entitlements; sourceTree = "<group>"; };
 		04F74C991EC581A700F17243 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = ../Media.xcassets; sourceTree = "<group>"; };
 		9D94DEC4397754606905AEAC /* Pods-HyLionPostTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HyLionPostTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HyLionPostTests/Pods-HyLionPostTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -82,7 +87,6 @@
 				04B16D1B1ED00601003F0B9A /* Alamofire.framework in Frameworks */,
 				04B16D1C1ED00601003F0B9A /* GoogleToolboxForMac.framework in Frameworks */,
 				04B16D1D1ED00601003F0B9A /* Protobuf.framework in Frameworks */,
-				914072CB7AE0575797893FD5 /* Pods_HyLionPost.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,13 +125,16 @@
 			isa = PBXGroup;
 			children = (
 				04E2EEF51EC5A80E00B6F53F /* HyLionPost.entitlements */,
-				0478690E1EDAB93100954CF3 /* MainTabBarController.swift */,
 				0406D24C1EBCC5C5000EF4E5 /* AppDelegate.swift */,
+				042645781EE162C800D6ABE0 /* MainTabBarController.swift */,
+				04D755B21ED9620500329EE1 /* FilterTypeViewController.swift */,
+				043EE9D71EE1C6AC00E01590 /* ArticleViewController.swift */,
+				0428F21D1EE285A2003F4C49 /* SettingViewController.swift */,
+				0428F2251EE28FD9003F4C49 /* WebViewController.swift */,
 				042E61361ECEE13C006CBB60 /* BoardSettingViewController.swift */,
-				0406D24E1EBCC5C5000EF4E5 /* ArticleTableViewController.swift */,
-				04D755B21ED9620500329EE1 /* FavoritesTableViewController.swift */,
 				04664F891ECE8E22005B0F38 /* Board.swift */,
 				04D6790A1ECECAEE0029C5DF /* Article.swift */,
+				0419A1D81EE15E700004AA49 /* DataManager.swift */,
 				0420A8E81EC364B300AB3746 /* GoogleService-Info.plist */,
 				0406D2521EBCC5C5000EF4E5 /* Main.storyboard */,
 				0406D25A1EBCC5C5000EF4E5 /* Info.plist */,
@@ -385,11 +392,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				04664F8A1ECE8E22005B0F38 /* Board.swift in Sources */,
+				043EE9D81EE1C6AC00E01590 /* ArticleViewController.swift in Sources */,
+				0419A1D91EE15E700004AA49 /* DataManager.swift in Sources */,
+				0428F2261EE28FD9003F4C49 /* WebViewController.swift in Sources */,
+				042645791EE162C800D6ABE0 /* MainTabBarController.swift in Sources */,
 				04D6790B1ECECAEE0029C5DF /* Article.swift in Sources */,
+				0428F21E1EE285A2003F4C49 /* SettingViewController.swift in Sources */,
 				0406D24D1EBCC5C5000EF4E5 /* AppDelegate.swift in Sources */,
-				0478690F1EDAB93100954CF3 /* MainTabBarController.swift in Sources */,
-				0406D24F1EBCC5C5000EF4E5 /* ArticleTableViewController.swift in Sources */,
-				04D755B31ED9620500329EE1 /* FavoritesTableViewController.swift in Sources */,
+				04D755B31ED9620500329EE1 /* FilterTypeViewController.swift in Sources */,
 				042E61371ECEE13C006CBB60 /* BoardSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

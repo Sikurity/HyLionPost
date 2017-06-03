@@ -10,6 +10,7 @@ import UIKit
 import FirebaseMessaging
 
 class BoardSettingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     @IBOutlet
     weak var applyBtn: UIButton!        /// 적용하기(시작하기) 버튼
     
@@ -18,7 +19,7 @@ class BoardSettingViewController: UIViewController, UITableViewDelegate, UITable
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("BoardSettingViewController++")
+        print("SettingViewController++")
         
         boardTable.layer.cornerRadius = 20.0
         boardTable.layer.masksToBounds = true
@@ -43,29 +44,27 @@ class BoardSettingViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let mainTBC = self.tabBarController as! MainTabBarController
-        return  mainTBC.supportedBoards.count
+        return appDelegate.dataManager.supportedBoards.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BoardCell", for: indexPath) as! SelectBoardTableViewCell
         
-        let mainTBC = self.tabBarController as! MainTabBarController
-        cell.boardForCell = mainTBC.supportedBoards[indexPath.row]
+        cell.boardForCell = appDelegate.dataManager.supportedBoards[indexPath.row]
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let mainTBC = self.tabBarController as! MainTabBarController
-        mainTBC.supportedBoards[indexPath.row].interest = !mainTBC.supportedBoards[indexPath.row].interest
+        appDelegate.dataManager.supportedBoards[indexPath.row].interest = !appDelegate.dataManager.supportedBoards[indexPath.row].interest
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "BoardCell", for: indexPath) as! SelectBoardTableViewCell
-        cell.boardForCell = mainTBC.supportedBoards[indexPath.row]
         
-        mainTBC.supportedBoards = mainTBC.supportedBoards.sorted(by: {($0.interest ? 1 : 0) >= ($1.interest ? 1 : 0)})
+        cell.boardForCell = appDelegate.dataManager.supportedBoards[indexPath.row]
         
-        tableView.reloadData()
+        tableView.moveRow(at: indexPath, to: IndexPath(row: 0, section: 0))
+        
+        // tableView.reloadData()
     }
     
     /*
@@ -82,8 +81,7 @@ class BoardSettingViewController: UIViewController, UITableViewDelegate, UITable
         if let tabBarController = self.tabBarController {
             print("Delegated By \(tabBarController)")
             
-            let mainTBC = self.tabBarController as! MainTabBarController
-            for board in mainTBC.supportedBoards{
+            for board in appDelegate.dataManager.supportedBoards{
                 if board.interest {
                     FIRMessaging.messaging().subscribe(toTopic:"/topics/" + board.groupid);
                     print("\(board.groupid) subscribed")
@@ -93,9 +91,6 @@ class BoardSettingViewController: UIViewController, UITableViewDelegate, UITable
                 }
             }
         }
-//        else {
-//            print("Not Delegated")
-//        }
     }
 }
 
