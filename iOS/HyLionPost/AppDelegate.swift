@@ -20,7 +20,8 @@ import FirebaseMessaging
  *      - 푸시알림이 포어그라운드/백그라운드 에서 발생할 경우 각각 처리
  */
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    var dataManager = DataManager()
     var window: UIWindow?
     let gcmMessageIDKey = "gcm.message_id"
     
