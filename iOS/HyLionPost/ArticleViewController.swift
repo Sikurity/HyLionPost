@@ -47,13 +47,13 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(_ animated: Bool)
     {
-        print("ArticleViewController viewWillAppear")
+        print("ArticleViewController - viewWillAppear")
         super.viewWillAppear(animated)
         
         /// @TODO 2번째 탭에서 설정된 필터링된 결과로 변경
         filteredData = appDelegate.dataManager.articles
         
-        self.articleTable.reloadData()
+//        self.articleTable.reloadData()
     }
     
     // MARK: - Table view data source
@@ -74,9 +74,9 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.setUpBoardName(getBoardName(filteredData[indexPath.row].groupid))
         
         //configure left buttons
-        let flagImg = resizeImage(image:UIImage(named:(filteredData[indexPath.row].favorite ? "Unstar" : "Star")), newWidth:tableView.rowHeight / 2)
+        //let flagImg = resizeImage(image:UIImage(named:(filteredData[indexPath.row].favorite ? "Unstar" : "Star")), newWidth:tableView.rowHeight / 2)
         
-        cell.leftButtons = [MGSwipeButton(title: "", icon: flagImg, backgroundColor:(filteredData[indexPath.row].favorite ? UIColor.lightGray : UIColor.yellow)){
+        cell.leftButtons = [MGSwipeButton(title: (filteredData[indexPath.row].favorite ? "보관중" : "꺼내기"), icon: nil, backgroundColor:(filteredData[indexPath.row].favorite ? UIColor.lightGray : UIColor.yellow)){
             (sender: MGSwipeTableCell!) -> Bool in
             var cell = sender as! AritlceTableViewCell
             
@@ -100,8 +100,8 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
-    @IBAction func prepareForUnwind(segue: UIStoryboardSegue){
-        
+    @IBAction func prepareForUnwind2(segue: UIStoryboardSegue){
+        print("prepareForUnwind2")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

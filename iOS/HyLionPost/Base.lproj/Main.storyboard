@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -248,7 +249,7 @@
                                             <outlet property="boardLabel" destination="FEb-py-Far" id="jOY-S0-GnO"/>
                                             <outlet property="dateLabel" destination="NJr-jF-KIb" id="yuF-Wi-PPH"/>
                                             <outlet property="titleLabel" destination="cSm-tb-JwO" id="S7x-ok-2xr"/>
-                                            <segue destination="UCx-u6-9Fz" kind="presentation" identifier="webViewSegue" id="8sv-dq-bQG"/>
+                                            <segue destination="HGk-Nk-t4j" kind="show" identifier="webViewSegue" id="Nsh-13-P4y"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -275,40 +276,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rip-SJ-se0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3263.1999999999998" y="-151.57421289355324"/>
-        </scene>
-        <!--Web View Controller-->
-        <scene sceneID="5SN-EA-4oC">
-            <objects>
-                <viewController id="UCx-u6-9Fz" customClass="WebViewController" customModule="HyLionPost" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="CDB-On-9D2"/>
-                        <viewControllerLayoutGuide type="bottom" id="gfb-Lz-cgX"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="khu-qh-qB6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8xa-Rv-lpa">
-                                <rect key="frame" x="-7" y="12" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Title" id="KiA-z7-6iG">
-                                        <barButtonItem key="leftBarButtonItem" title="뒤로 가기" id="QFG-4F-NUV">
-                                            <connections>
-                                                <segue destination="cPF-oe-Zyl" kind="unwind" unwindAction="prepareForUnwindWithSegue:" id="pV9-iJ-RGf"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dmF-1l-Iaj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="cPF-oe-Zyl" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="-2367" y="-151"/>
         </scene>
         <!--Controller-->
         <scene sceneID="RNC-j4-V3e">
@@ -572,6 +539,98 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-3261.5999999999999" y="662.51874062968523"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="gOr-fV-trL">
+            <objects>
+                <viewController id="HGk-Nk-t4j" customClass="WebViewController" customModule="HyLionPost" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6g5-VJ-zOQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="rLP-JE-YeG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Rb3-ft-19w">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KyL-2u-3ay">
+                                <rect key="frame" x="0.0" y="559" width="375" height="44"/>
+                                <items/>
+                            </toolbar>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zHT-Z1-fd8">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="2"/>
+                            </progressView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="KyL-2u-3ay" firstAttribute="leading" secondItem="Rb3-ft-19w" secondAttribute="leading" id="1uX-3F-GUb"/>
+                            <constraint firstItem="zHT-Z1-fd8" firstAttribute="leading" secondItem="Rb3-ft-19w" secondAttribute="leadingMargin" constant="-20" id="36n-hQ-PnD"/>
+                            <constraint firstItem="zHT-Z1-fd8" firstAttribute="top" secondItem="6g5-VJ-zOQ" secondAttribute="bottom" id="KbL-SR-9Nx"/>
+                            <constraint firstAttribute="trailing" secondItem="KyL-2u-3ay" secondAttribute="trailing" id="Tk1-SG-rti"/>
+                            <constraint firstItem="rLP-JE-YeG" firstAttribute="top" secondItem="KyL-2u-3ay" secondAttribute="bottom" id="a8v-vP-B4O"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zHT-Z1-fd8" secondAttribute="trailing" constant="-20" id="ap4-eP-MQ9"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" id="9gf-vM-Kzf">
+                        <nil key="title"/>
+                        <leftBarButtonItems>
+                            <barButtonItem title="&lt;" id="Euq-qt-vvW">
+                                <connections>
+                                    <action selector="back:" destination="HGk-Nk-t4j" id="PUd-yj-BxH"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="&gt;" id="JFg-Iu-EOJ">
+                                <connections>
+                                    <action selector="forward:" destination="HGk-Nk-t4j" id="S2G-7Q-s7L"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="R" id="sXR-7j-xpk">
+                                <connections>
+                                    <action selector="reload:" destination="HGk-Nk-t4j" id="hey-AY-aYr"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
+                        <view key="titleView" contentMode="scaleToFill" id="ZBs-AS-ssA">
+                            <rect key="frame" x="122" y="5.5" width="172" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Rdf-bb-Q43">
+                                    <rect key="frame" x="0.0" y="0.0" width="172" height="33"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL" returnKeyType="go"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="HGk-Nk-t4j" id="QM4-tT-cGd"/>
+                                    </connections>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="Rdf-bb-Q43" secondAttribute="trailing" id="1La-1S-s2M"/>
+                                <constraint firstItem="Rdf-bb-Q43" firstAttribute="top" secondItem="ZBs-AS-ssA" secondAttribute="top" id="Odv-UN-Nlg"/>
+                                <constraint firstAttribute="bottom" secondItem="Rdf-bb-Q43" secondAttribute="bottom" id="m8N-Qa-fT5"/>
+                                <constraint firstItem="Rdf-bb-Q43" firstAttribute="leading" secondItem="ZBs-AS-ssA" secondAttribute="leading" id="mwi-WF-Oum"/>
+                            </constraints>
+                        </view>
+                        <barButtonItem key="rightBarButtonItem" title="뒤로가기" id="ZqJ-fg-h4N">
+                            <connections>
+                                <segue destination="efG-ri-Wj1" kind="unwind" unwindAction="prepareForUnwind2WithSegue:" id="fCC-7f-jnI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="backButton" destination="Euq-qt-vvW" id="g46-h0-jhM"/>
+                        <outlet property="barView" destination="ZBs-AS-ssA" id="Vhn-6F-FBy"/>
+                        <outlet property="forwardButton" destination="JFg-Iu-EOJ" id="JfG-PE-BI6"/>
+                        <outlet property="progressView" destination="zHT-Z1-fd8" id="ROv-KQ-zRn"/>
+                        <outlet property="reloadButton" destination="sXR-7j-xpk" id="K4k-em-nED"/>
+                        <outlet property="urlField" destination="Rdf-bb-Q43" id="lrI-QB-ZQf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="srR-1i-eiK" sceneMemberID="firstResponder"/>
+                <exit id="efG-ri-Wj1" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-2367" y="-152"/>
         </scene>
     </scenes>
 </document>
