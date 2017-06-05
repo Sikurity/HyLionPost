@@ -10,24 +10,22 @@ import UIKit
 
 class FilterTypeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    var favorites:[Board] = []
     
     @IBOutlet weak var datePickerViewConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var beginDatePickerView: UIView!
     @IBOutlet weak var endDatePickerView: UIView!
-    
     @IBOutlet weak var beginDatePicker: UIDatePicker!
     @IBOutlet weak var endDatePicker: UIDatePicker!
-    @IBOutlet
-    weak var boardTable: UITableView!
+    @IBOutlet weak var boardTable: UITableView!
+    
+    var favorites:[Board] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("FilterTypeViewController++") // FOR DEBUG
+        
         boardTable.delegate = self
         boardTable.dataSource = self
-        
-        print("FilterTypeViewController++")
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -42,7 +40,7 @@ class FilterTypeViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // self.tableView.reloadData()
+        self.boardTable.reloadData()
     }
 
     // MARK: - Table view data source
@@ -55,11 +53,11 @@ class FilterTypeViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
-        favorites = []
+        favorites.removeAll(keepingCapacity: false)
     
-        for board in appDelegate.dataManager.supportedBoards
+        for groupid in appDelegate.dataManager.supportedBoards.keys
         {
-            if board.interest {
+            if let board = appDelegate.dataManager.supportedBoards[groupid], board.favorite {
                 favorites.append(board)
             }
         }
@@ -70,12 +68,18 @@ class FilterTypeViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BoardPickerCell", for: indexPath)
         
-        cell.accessoryType = .checkmark
         cell.textLabel?.text = favorites[indexPath.row].name
+        cell.accessoryType = favorites[indexPath.row].filtered ? .none : .checkmark
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        appDelegate.dataManager.supportedBoards[favorites[indexPath.row].groupid]?.filtered = !favorites[indexPath.row].filtered
+        tableView.reloadData()
+    }
+    
+    /// 시작일 View 누를 시 실행되는 Trigger
     @IBAction func beginDateViewClicked(_ sender: Any) {
         UIView.animate(withDuration:0.3, animations: {
             self.beginDatePicker.isHidden = !self.beginDatePicker.isHidden
@@ -83,6 +87,7 @@ class FilterTypeViewController: UIViewController, UITableViewDelegate, UITableVi
         })
     }
     
+    /// 종료일 View 누를 시 실행되는 Trigger
     @IBAction func endDateViewClicked(_ sender: Any) {
         UIView.animate(withDuration:0.3, animations: {
             self.endDatePicker.isHidden = !self.endDatePicker.isHidden

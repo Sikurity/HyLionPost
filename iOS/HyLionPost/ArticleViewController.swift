@@ -10,14 +10,23 @@ import UIKit
 import MGSwipeTableCell
 
 class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     @IBOutlet weak var articleTable: UITableView!
     @IBOutlet weak var filterSeg: UISegmentedControl!
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    @IBAction func segmentChanged(_ sender: UISegmentedControl) {
+        showFilteredArticles()
+        
+        self.articleTable.reloadData()
+    }
+    
+    @IBAction func ScrollToTop(_ sender: Any) {
+        self.articleTable.setContentOffset(CGPoint.zero, animated: true)
+    }
     
     var searchBarController:UISearchController = UISearchController(searchResultsController: nil)
-    
-    var filteredData:[Article] = []
+    var filteredArticles:[Article] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +36,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.articleTable.dataSource = self
         
         searchBarController.searchResultsUpdater = self
-        searchBarController.dimsBackgroundDuringPresentation = false
+        searchBarController.dimsBackgroundDuringPresentation = true
         searchBarController.hidesNavigationBarDuringPresentation = false
         searchBarController.obscuresBackgroundDuringPresentation = false
         searchBarController.searchBar.sizeToFit()
@@ -35,6 +44,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         searchBarController.searchBar.barTintColor = UIColor.white
         searchBarController.searchBar.backgroundColor = UIColor.clear
         
+        self.definesPresentationContext = true
         self.articleTable.tableHeaderView = searchBarController.searchBar
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -43,17 +53,16 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
+    }   
     
     override func viewWillAppear(_ animated: Bool)
     {
         print("ArticleViewController - viewWillAppear")
         super.viewWillAppear(animated)
         
-        /// @TODO 2번째 탭에서 설정된 필터링된 결과로 변경
-        filteredData = appDelegate.dataManager.articles
+        showFilteredArticles()
         
-//        self.articleTable.reloadData()
+        self.articleTable.reloadData()
     }
     
     // MARK: - Table view data source
@@ -63,36 +72,40 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredData.count
+        return filteredArticles.count
     }
     
     /// right-to-left / left-to-right swipe 시 숨겨진 버튼이 나오는 기능 구현
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! AritlceTableViewCell
         
-        cell.articleForCell = filteredData[indexPath.row]
-        cell.setUpBoardName(getBoardName(filteredData[indexPath.row].groupid))
+        cell.articleForCell = filteredArticles[indexPath.row]
         
-        //configure left buttons
-        //let flagImg = resizeImage(image:UIImage(named:(filteredData[indexPath.row].favorite ? "Unstar" : "Star")), newWidth:tableView.rowHeight / 2)
+        /// 왼쪽 이미지
+        let flagImg = resizeImage(image:UIImage(named:(filteredArticles[indexPath.row].archived ? "Star" : "Unstar")), newWidth:tableView.rowHeight / 2)
         
-        cell.leftButtons = [MGSwipeButton(title: (filteredData[indexPath.row].favorite ? "보관중" : "꺼내기"), icon: nil, backgroundColor:(filteredData[indexPath.row].favorite ? UIColor.lightGray : UIColor.yellow)){
+        cell.leftButtons = [MGSwipeButton(title: "", icon: flagImg, backgroundColor:(filteredArticles[indexPath.row].archived ? UIColor.lightGray : UIColor.yellow)){
             (sender: MGSwipeTableCell!) -> Bool in
-            var cell = sender as! AritlceTableViewCell
+            let cell = sender as! AritlceTableViewCell
             
-            self.filteredData[indexPath.row].favorite = !self.filteredData[indexPath.row].favorite
-            print("Changed \(!self.filteredData[indexPath.row].favorite) -> \(self.filteredData[indexPath.row].favorite)")
-            // self.tableView.reloadData()
+            self.appDelegate.dataManager.supportedBoards[cell.groupid]?.articles[cell.key]?.archived = !self.filteredArticles[indexPath.row].archived
+            self.articleTable.reloadData()
+            
+            self.appDelegate.dataManager.save()
+            
             return true
             }]
         cell.leftSwipeSettings.transition = MGSwipeTransition.rotate3D
         
         cell.rightButtons = [MGSwipeButton(title: "Delete", icon: nil, backgroundColor: UIColor.red){
             (sender: MGSwipeTableCell!) -> Bool in
-            var cell = sender as! AritlceTableViewCell
+            let cell = sender as! AritlceTableViewCell
             
-            print("\(self.filteredData[indexPath.row].title) Removed")
-            //mainTBC.articles?.remove(???) /// groupid, key 값으로 찾아서 삭제
+            self.appDelegate.dataManager.supportedBoards[cell.groupid]?.articles.removeValue(forKey:cell.key)
+            self.articleTable.reloadData()
+            
+            self.appDelegate.dataManager.save()
+            
             return true
             }]
         cell.rightSwipeSettings.transition = MGSwipeTransition.rotate3D
@@ -100,32 +113,52 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
-    @IBAction func prepareForUnwind2(segue: UIStoryboardSegue){
-        print("prepareForUnwind2")
+    // 뒤로가기 용
+    @IBAction func prepareForUnwindFromWebView(segue: UIStoryboardSegue){
+        showFilteredArticles()
+        
+        self.articleTable.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        /// 게시글을 누를 경우 웹뷰로 이동
         if segue.identifier == "webViewSegue" {
             if let webVC = segue.destination as? WebViewController {
                 if let selectedIndex = self.articleTable.indexPathForSelectedRow?.row {
-                    webVC.link = appDelegate.dataManager.articles[selectedIndex].url
+                    webVC.link = filteredArticles[selectedIndex].url
                 }
             }
         }
     }
     
-    func updateSearchResults(for searchController: UISearchController) {
-        filteredData.removeAll(keepingCapacity: false)
+    func showFilteredArticles(){
+        filteredArticles.removeAll(keepingCapacity: false)
         
-        if searchBarController.isActive {
-            if let keyword = searchBarController.searchBar.text, keyword != "" {
-                filteredData = appDelegate.dataManager.articles.filter({$0.title.range(of:keyword) != nil})
-            } else {
-                filteredData = appDelegate.dataManager.articles
+        /// @TODO 2번째 탭에서 설정된 필터링된 결과로 변경
+        for groupid in appDelegate.dataManager.supportedBoards.keys
+        {
+            if let board = appDelegate.dataManager.supportedBoards[groupid], board.favorite && !board.filtered{
+                for key in board.articles.keys{
+                    if let article = board.articles[key] {
+                        if filterSeg.selectedSegmentIndex == 0 || article.archived {
+                            filteredArticles.append(article)
+                        }
+                    }
+                }
             }
-        } else {
-            filteredData = appDelegate.dataManager.articles
         }
+        
+        if let keyword = searchBarController.searchBar.text, keyword != "" {
+            filteredArticles = filteredArticles.filter({$0.title.range(of:keyword) != nil})
+        }
+        
+        filteredArticles.sort(by:{$0.date > $1.date})
+    }
+    
+    /// 검색 창에 키가 입력 될 때 마다 실행 됨
+    func updateSearchResults(for searchController: UISearchController) {
+        showFilteredArticles()
         
         self.articleTable.reloadData()
     }
@@ -148,18 +181,6 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         return retImage
     }
-    
-    /// 게시글의 groupid를 이용해 소속 게시판 이름을 얻어냄
-    func getBoardName(_ groupid:String) -> String
-    {
-        for board in appDelegate.dataManager.supportedBoards{
-            if board.groupid == groupid{
-                return board.name
-            }
-        }
-        
-        return "unknown"
-    }
 }
 
 class AritlceTableViewCell:MGSwipeTableCell {
@@ -167,7 +188,7 @@ class AritlceTableViewCell:MGSwipeTableCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     
-    var grouid:String = ""
+    var groupid:String = ""
     var key:String = ""
     
     var articleForCell:Article? {
@@ -176,19 +197,18 @@ class AritlceTableViewCell:MGSwipeTableCell {
         }
     }
     
-    func setUpBoardName(_ boardName:String){
-        boardLabel.text = boardName
-    }
-    
     func setUpCell() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         guard let article = articleForCell else {
             return
         }
         
         dateLabel.text = article.date
         titleLabel.text = article.title
-        
-        self.grouid = article.groupid
+        boardLabel.text = appDelegate.dataManager.supportedBoards[article.groupid]?.name
+
+        self.groupid = article.groupid
         self.key = article.key
     }
 }

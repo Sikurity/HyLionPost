@@ -31,9 +31,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y6p-Pc-oWp">
-                                <rect key="frame" x="118" y="558" width="139" height="60"/>
+                                <rect key="frame" x="153" y="558" width="70" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <state key="normal" title="시작하기">
+                                <state key="normal" title="확인">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -101,7 +101,6 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="applyBtn" destination="Y6p-Pc-oWp" id="ESZ-RR-hjz"/>
                         <outlet property="boardTable" destination="3yU-dg-FSr" id="iOO-P9-xh2"/>
                     </connections>
                 </viewController>
@@ -152,25 +151,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NRk-LF-hgO">
-                                <rect key="frame" x="164" y="174" width="46" height="30"/>
+                                <rect key="frame" x="140" y="174" width="95" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="관심게시판 설정"/>
                                 <connections>
                                     <segue destination="fB1-eJ-WVj" kind="show" id="bl9-U9-onN"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h3S-Xk-Hsx">
-                                <rect key="frame" x="164" y="318" width="46" height="30"/>
+                                <rect key="frame" x="166" y="318" width="43" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="앱 정보"/>
                                 <connections>
                                     <segue destination="w5c-pW-bRv" kind="show" id="xkl-yT-jAe"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="INU-YQ-e0Y">
-                                <rect key="frame" x="164" y="460" width="46" height="30"/>
+                                <rect key="frame" x="161" y="460" width="52" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="환경설정"/>
                                 <connections>
                                     <action selector="GoAppPreference:" destination="A61-Kx-oTv" eventType="touchUpInside" id="a2u-kp-1iZ"/>
                                 </connections>
@@ -202,6 +201,9 @@
                                     <segment title="First"/>
                                     <segment title="Second"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segmentChanged:" destination="p0I-AC-sia" eventType="valueChanged" id="LSA-hL-txH"/>
+                                </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KMs-E4-zzK">
                                 <rect key="frame" x="0.0" y="108" width="375" height="510"/>
@@ -267,7 +269,14 @@
                             <constraint firstItem="AyT-ej-vvm" firstAttribute="top" secondItem="KMs-E4-zzK" secondAttribute="bottom" id="mN9-DG-D1Q"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="보관함" id="cM6-pW-Srb"/>
+                    <navigationItem key="navigationItem" title="보관함" id="cM6-pW-Srb">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="39I-tz-mDN"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="SYs-PT-QHH">
+                            <connections>
+                                <action selector="ScrollToTop:" destination="p0I-AC-sia" id="lCR-Zx-SRn"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="articleTable" destination="KMs-E4-zzK" id="Qu2-M3-1h6"/>
                         <outlet property="filterSeg" destination="WtC-b9-fsQ" id="c5c-nK-yMq"/>
@@ -584,18 +593,18 @@
                                     <action selector="forward:" destination="HGk-Nk-t4j" id="S2G-7Q-s7L"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="R" id="sXR-7j-xpk">
+                            <barButtonItem systemItem="refresh" id="sXR-7j-xpk">
                                 <connections>
                                     <action selector="reload:" destination="HGk-Nk-t4j" id="hey-AY-aYr"/>
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
                         <view key="titleView" contentMode="scaleToFill" id="ZBs-AS-ssA">
-                            <rect key="frame" x="122" y="5.5" width="172" height="33"/>
+                            <rect key="frame" x="134" y="5.5" width="154" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Rdf-bb-Q43">
-                                    <rect key="frame" x="0.0" y="0.0" width="172" height="33"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="154" height="33"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL" returnKeyType="go"/>
                                     <connections>
@@ -613,7 +622,7 @@
                         </view>
                         <barButtonItem key="rightBarButtonItem" title="뒤로가기" id="ZqJ-fg-h4N">
                             <connections>
-                                <segue destination="efG-ri-Wj1" kind="unwind" unwindAction="prepareForUnwind2WithSegue:" id="fCC-7f-jnI"/>
+                                <segue destination="efG-ri-Wj1" kind="unwind" unwindAction="prepareForUnwindFromWebViewWithSegue:" id="BfL-Kd-huq"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

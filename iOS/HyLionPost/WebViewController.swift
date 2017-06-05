@@ -10,16 +10,15 @@ import UIKit
 import WebKit
 
 class WebViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegate{
-    var webView: WKWebView!
-    var link:String = ""
-    
     @IBOutlet weak var barView: UIView!
     @IBOutlet weak var progressView: UIProgressView!
-    
     @IBOutlet weak var urlField: UITextField!
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var forwardButton: UIBarButtonItem!
     @IBOutlet weak var reloadButton: UIBarButtonItem!
+    
+    var webView: WKWebView!
+    var link:String = ""
     
     @IBAction func forward(_ sender: UIBarButtonItem) {
         if (self.webView.canGoForward) {
@@ -53,6 +52,11 @@ class WebViewController: UIViewController, UITextFieldDelegate, WKNavigationDele
         
         backButton.isEnabled = false
         forwardButton.isEnabled = false
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,67 +100,62 @@ class WebViewController: UIViewController, UITextFieldDelegate, WKNavigationDele
         return false
     }
     
-//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-//        progressView.setProgress(0.0, animated: false)
-//    }
-//    
-//    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-//        let alert = UIAlertController(title: "Error", message:  error.localizedDescription, preferredStyle: .alert)
-//        alert.addAction(UIAlertAction(title: "Ok", style: .default,  handler: nil))
-//        present(alert, animated: true, completion: nil)
-//    }
-//    
-//    override func didReceiveMemoryWarning() {
-//        super.didReceiveMemoryWarning()
-//        // Dispose of any resources that can be recreated.
-//    }
-//    
-//    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo,
-//                 completionHandler: @escaping () -> Void) {
-//        let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)
-//        alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { (action) in
-//            completionHandler()
-//        }))
-//        
-//        self.present(alertController, animated: true, completion: nil)
-//    }
-//    
-//    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo,
-//                 completionHandler: @escaping (Bool) -> Void) {
-//        let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)
-//        alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { (action) in
-//            completionHandler(true)
-//        }))
-//        alertController.addAction(UIAlertAction(title: "취소", style: .default, handler: { (action) in
-//            completionHandler(false)
-//        }))
-//        
-//        self.present(alertController, animated: true, completion: nil)
-//    }
-//    
-//    func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo,
-//                 completionHandler: @escaping (String?) -> Void) {
-//        let alertController = UIAlertController(title: "", message: prompt, preferredStyle: .alert)
-//        alertController.addTextField { (textField) in
-//            textField.text = defaultText
-//        }
-//        alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { (action) in
-//            if let text = alertController.textFields?.first?.text {
-//                completionHandler(text)
-//            } else {
-//                completionHandler(defaultText)
-//            }
-//        }))
-//        
-//        alertController.addAction(UIAlertAction(title: "취소", style: .default, handler: { (action) in
-//            completionHandler(nil)
-//        }))
-//        
-//        self.present(alertController, animated: true, completion: nil)
-//    }
-//    
-//    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-//        // 중복적으로 리로드가 일어나지 않도록 처리 필요.
-//        webView.reload()
-//    }
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        progressView.setProgress(0.0, animated: false)
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        let alert = UIAlertController(title: "Error", message:  error.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default,  handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo,
+                 completionHandler: @escaping () -> Void) {
+        let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { (action) in
+            completionHandler()
+        }))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo,
+                 completionHandler: @escaping (Bool) -> Void) {
+        let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { (action) in
+            completionHandler(true)
+        }))
+        alertController.addAction(UIAlertAction(title: "취소", style: .default, handler: { (action) in
+            completionHandler(false)
+        }))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo,
+                 completionHandler: @escaping (String?) -> Void) {
+        let alertController = UIAlertController(title: "", message: prompt, preferredStyle: .alert)
+        alertController.addTextField { (textField) in
+            textField.text = defaultText
+        }
+        alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { (action) in
+            if let text = alertController.textFields?.first?.text {
+                completionHandler(text)
+            } else {
+                completionHandler(defaultText)
+            }
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "취소", style: .default, handler: { (action) in
+            completionHandler(nil)
+        }))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        // 중복적으로 리로드가 일어나지 않도록 처리 필요.
+        webView.reload()
+    }
 }
