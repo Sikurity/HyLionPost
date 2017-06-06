@@ -18,10 +18,15 @@ class DataManager{
     }
     
     init(){
-        if FileManager.default.fileExists(atPath: filePath + "HyLionPostDatas.archive")
+        print("FILEPATH:" + filePath + "/HyLionPostDatas.archive")
+        if FileManager.default.fileExists(atPath: filePath + "/HyLionPostDatas.archive")
         {
-            self.supportedBoards = (NSKeyedUnarchiver.unarchiveObject(withFile: self.filePath) as? [String:Board])!
+            self.supportedBoards = (NSKeyedUnarchiver.unarchiveObject(withFile: self.filePath + "/HyLionPostDatas.archive") as? [String:Board])!
+            
+            print("UNARCHIVE:")
+            print(self.supportedBoards)
         } else {
+            print("NO ARCHIVE")
             self.supportedBoards = [
                 "csnotice":Board(name:"컴퓨터소프트웨어학부 학사일반 게시판", groupid:"csnotice", url:"http://cs.hanyang.ac.kr/board/info_board.php", favorite:true),
                 "csck2notice":Board(name:"컴퓨터소프트웨어학부 특성화사업단 게시판", groupid:"csck2notice", url:"http://csck2.hanyang.ac.kr/front/community/notice", favorite:false),
@@ -46,6 +51,8 @@ class DataManager{
     }
     
     func save(){
-        NSKeyedArchiver.archiveRootObject(self.supportedBoards, toFile: filePath + "HyLionPostDatas.archive")
+        print("ARCHIVE:" + self.filePath + "/HyLionPostDatas.archive")
+        print(self.supportedBoards)
+        NSKeyedArchiver.archiveRootObject(self.supportedBoards, toFile: self.filePath + "/HyLionPostDatas.archive")
     }
 }

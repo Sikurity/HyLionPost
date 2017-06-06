@@ -102,6 +102,8 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
             let cell = sender as! AritlceTableViewCell
             
             self.appDelegate.dataManager.supportedBoards[cell.groupid]?.articles.removeValue(forKey:cell.key)
+            
+            self.showFilteredArticles()
             self.articleTable.reloadData()
             
             self.appDelegate.dataManager.save()

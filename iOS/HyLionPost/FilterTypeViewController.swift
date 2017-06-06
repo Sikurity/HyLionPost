@@ -40,6 +40,10 @@ class FilterTypeViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        beginDatePickerView.isHidden = true
+        endDatePickerView.isHidden = true
+        
         self.boardTable.reloadData()
     }
 
