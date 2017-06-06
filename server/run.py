@@ -1,7 +1,16 @@
-from header import *
-from views import *
+from threading import Thread
+from dbconn import *
+from controllers.generate import *
 
-# server running
+def running():
+    print("running server...")
+    #Thread(target=csjob_server).start()
+    Thread(target=demo_server).start()
+
 
 if __name__ == '__main__':
-    app.run()
+    print('server start..')
+    running()
+    
+    
+
