@@ -36,7 +36,7 @@ class Article : NSObject, NSCoding {
         self.url = url
         self.date = date
         self.archived = archived
-        self.unopened = false
+        self.unopened = true
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -19,7 +19,6 @@
 		042E61371ECEE13C006CBB60 /* BoardSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042E61361ECEE13C006CBB60 /* BoardSettingViewController.swift */; };
 		043EE9D81EE1C6AC00E01590 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EE9D71EE1C6AC00E01590 /* ArticleViewController.swift */; };
 		04664F8A1ECE8E22005B0F38 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04664F891ECE8E22005B0F38 /* Board.swift */; };
-		04B16D1B1ED00601003F0B9A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B16D181ED00601003F0B9A /* Alamofire.framework */; };
 		04B16D1C1ED00601003F0B9A /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B16D191ED00601003F0B9A /* GoogleToolboxForMac.framework */; };
 		04B16D1D1ED00601003F0B9A /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B16D1A1ED00601003F0B9A /* Protobuf.framework */; };
 		04B16D1E1ED0062E003F0B9A /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042A8E611ECC8F5800A75FA5 /* AdSupport.framework */; };
@@ -84,7 +83,6 @@
 				04B16D211ED00633003F0B9A /* Pods_HyLionPost.framework in Frameworks */,
 				04B16D221ED00633003F0B9A /* Pods_HyLionPostTests.framework in Frameworks */,
 				04B16D1E1ED0062E003F0B9A /* AdSupport.framework in Frameworks */,
-				04B16D1B1ED00601003F0B9A /* Alamofire.framework in Frameworks */,
 				04B16D1C1ED00601003F0B9A /* GoogleToolboxForMac.framework in Frameworks */,
 				04B16D1D1ED00601003F0B9A /* Protobuf.framework in Frameworks */,
 			);
