@@ -195,18 +195,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WtC-b9-fsQ">
-                                <rect key="frame" x="18" y="72" width="337.5" height="29"/>
-                                <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
-                                </segments>
-                                <connections>
-                                    <action selector="segmentChanged:" destination="p0I-AC-sia" eventType="valueChanged" id="LSA-hL-txH"/>
-                                </connections>
-                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KMs-E4-zzK">
-                                <rect key="frame" x="0.0" y="108" width="375" height="510"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArticleCell" rowHeight="80" id="O9z-Bi-7Ck" customClass="AritlceTableViewCell" customModule="HyLionPost" customModuleProvider="target">
@@ -217,13 +207,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="컴퓨터공학부 특성화사업단" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEb-py-Far">
-                                                    <rect key="frame" x="8" y="21" width="251.5" height="18"/>
+                                                    <rect key="frame" x="28" y="21" width="225" height="18"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[2017 특성화 우수 학부생 장학금] 규정 변경 안내(중요)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSm-tb-JwO">
-                                                    <rect key="frame" x="8" y="47" width="359" height="18"/>
+                                                    <rect key="frame" x="28" y="47" width="339" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -234,23 +224,34 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZH8-SU-iDo">
+                                                    <rect key="frame" x="8" y="23" width="14" height="14"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="14" id="AEa-eA-SoB"/>
+                                                        <constraint firstAttribute="height" constant="14" id="lJ5-YK-7iD"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="NJr-jF-KIb" firstAttribute="centerY" secondItem="FEb-py-Far" secondAttribute="centerY" id="KFQ-bF-b3F"/>
+                                                <constraint firstItem="ZH8-SU-iDo" firstAttribute="centerY" secondItem="FEb-py-Far" secondAttribute="centerY" id="QOU-Pu-7fl"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="ZH8-SU-iDo" secondAttribute="leading" id="SIu-52-6DN"/>
                                                 <constraint firstItem="FEb-py-Far" firstAttribute="top" secondItem="Xsj-uN-Oyg" secondAttribute="topMargin" constant="13" id="SKQ-HI-w9P"/>
+                                                <constraint firstItem="FEb-py-Far" firstAttribute="leading" secondItem="ZH8-SU-iDo" secondAttribute="trailing" constant="6" id="TfV-Lc-fJP"/>
                                                 <constraint firstItem="cSm-tb-JwO" firstAttribute="leading" secondItem="FEb-py-Far" secondAttribute="leading" id="Txg-4O-8KG"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="NJr-jF-KIb" secondAttribute="trailing" id="V0z-zY-QRg"/>
+                                                <constraint firstItem="NJr-jF-KIb" firstAttribute="trailing" secondItem="Xsj-uN-Oyg" secondAttribute="trailingMargin" id="V0z-zY-QRg"/>
                                                 <constraint firstItem="cSm-tb-JwO" firstAttribute="trailing" secondItem="NJr-jF-KIb" secondAttribute="trailing" id="k9c-OD-9nf"/>
-                                                <constraint firstAttribute="leadingMargin" secondItem="FEb-py-Far" secondAttribute="leading" id="mb3-sE-ghU"/>
+                                                <constraint firstItem="FEb-py-Far" firstAttribute="leading" secondItem="Xsj-uN-Oyg" secondAttribute="leadingMargin" constant="20" id="mb3-sE-ghU"/>
                                                 <constraint firstItem="NJr-jF-KIb" firstAttribute="width" secondItem="Xsj-uN-Oyg" secondAttribute="width" multiplier="0.2" id="tsO-RK-DPT"/>
                                                 <constraint firstItem="cSm-tb-JwO" firstAttribute="top" secondItem="FEb-py-Far" secondAttribute="bottom" constant="8" id="w6d-hP-Ghq"/>
-                                                <constraint firstItem="FEb-py-Far" firstAttribute="width" secondItem="Xsj-uN-Oyg" secondAttribute="width" multiplier="0.55" constant="45" id="zPT-Qk-kie"/>
+                                                <constraint firstItem="FEb-py-Far" firstAttribute="width" secondItem="Xsj-uN-Oyg" secondAttribute="width" multiplier="0.6" id="zPT-Qk-kie"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="boardLabel" destination="FEb-py-Far" id="jOY-S0-GnO"/>
                                             <outlet property="dateLabel" destination="NJr-jF-KIb" id="yuF-Wi-PPH"/>
                                             <outlet property="titleLabel" destination="cSm-tb-JwO" id="S7x-ok-2xr"/>
+                                            <outlet property="unreadImage" destination="ZH8-SU-iDo" id="bhx-hQ-giU"/>
                                             <segue destination="HGk-Nk-t4j" kind="show" identifier="webViewSegue" id="Nsh-13-P4y"/>
                                         </connections>
                                     </tableViewCell>
@@ -260,10 +261,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="KMs-E4-zzK" firstAttribute="top" secondItem="WtC-b9-fsQ" secondAttribute="bottom" constant="8" id="6uy-A2-EYb"/>
-                            <constraint firstItem="WtC-b9-fsQ" firstAttribute="width" secondItem="KMs-E4-zzK" secondAttribute="width" multiplier="0.9" id="JOv-kB-yGn"/>
-                            <constraint firstItem="WtC-b9-fsQ" firstAttribute="top" secondItem="JuE-v4-zxa" secondAttribute="bottom" constant="8" id="Wtp-1v-hVh"/>
-                            <constraint firstItem="WtC-b9-fsQ" firstAttribute="centerX" secondItem="KMs-E4-zzK" secondAttribute="centerX" id="cGO-Ly-gha"/>
+                            <constraint firstItem="KMs-E4-zzK" firstAttribute="top" secondItem="JuE-v4-zxa" secondAttribute="bottom" constant="-64" id="2fu-xA-EE5"/>
                             <constraint firstItem="KMs-E4-zzK" firstAttribute="trailing" secondItem="Eyo-zZ-hmt" secondAttribute="trailing" id="drb-xW-U5d"/>
                             <constraint firstItem="KMs-E4-zzK" firstAttribute="leading" secondItem="Eyo-zZ-hmt" secondAttribute="leading" id="gkB-aB-go5"/>
                             <constraint firstItem="AyT-ej-vvm" firstAttribute="top" secondItem="KMs-E4-zzK" secondAttribute="bottom" id="mN9-DG-D1Q"/>
@@ -271,15 +269,22 @@
                     </view>
                     <navigationItem key="navigationItem" title="보관함" id="cM6-pW-Srb">
                         <barButtonItem key="leftBarButtonItem" systemItem="edit" id="39I-tz-mDN"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="SYs-PT-QHH">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="eDb-xq-eXI">
+                            <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="qho-P4-vbV">
+                                <rect key="frame" x="310" y="6" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="switchChanged:" destination="p0I-AC-sia" eventType="valueChanged" id="2JL-zU-NQz"/>
+                                </connections>
+                            </switch>
                             <connections>
-                                <action selector="ScrollToTop:" destination="p0I-AC-sia" id="lCR-Zx-SRn"/>
+                                <action selector="switchChanged:" destination="p0I-AC-sia" id="h5V-ec-c1I"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="articleTable" destination="KMs-E4-zzK" id="Qu2-M3-1h6"/>
-                        <outlet property="filterSeg" destination="WtC-b9-fsQ" id="c5c-nK-yMq"/>
+                        <outlet property="filterSwitch" destination="qho-P4-vbV" id="A56-7d-qjh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rip-SJ-se0" userLabel="First Responder" sceneMemberID="firstResponder"/>

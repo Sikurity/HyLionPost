@@ -1,4 +1,4 @@
-//
+
 //  DataManager.swift
 //  HyLionPost
 //
@@ -44,6 +44,7 @@ class DataManager{
         
         if( supportedBoards[groupid]?.count == -1 )
         {
+//            Fire
             // @TODO Firebase로 부터 최근 게시물 10개 요청
             // supportedBoards[groupid].articles = %GET_DEFAULT_ARTICLES_FROM_FIREBASE_DB%
             // supportedBoards[groupid].count = supportedBoards[groupid].articles.count
