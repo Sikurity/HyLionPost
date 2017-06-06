@@ -26,46 +26,39 @@ class Board : NSObject, NSCoding{
     var name:String
     var groupid:String
     var url:String
-    var interest:Bool
-    var articles:[Article]
+    var favorite:Bool
+    var filtered:Bool
+    var articles:[String:Article]
+    var count:Int
     
-    init(name:String, groupid:String, url:String, interest:Bool)
+    init(name:String, groupid:String, url:String, favorite:Bool)
     {
         self.name = name
         self.groupid = groupid
         self.url = url
-        self.interest = interest
-        self.articles = []
+        self.favorite = favorite
+        self.filtered = false
+        self.articles = [:]
+        self.count = -1
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.name = aDecoder.decodeObject(forKey:"name") as! String
         self.groupid = aDecoder.decodeObject(forKey:"groupid") as! String
         self.url = aDecoder.decodeObject(forKey:"url") as! String
-        self.interest = aDecoder.decodeObject(forKey:"interest") as! Bool
-        self.articles = aDecoder.decodeObject(forKey:"articles") as! [Article]
+        self.favorite = aDecoder.decodeObject(forKey:"favorite") as! Bool
+        self.filtered = aDecoder.decodeObject(forKey:"filtered") as! Bool
+        self.articles = aDecoder.decodeObject(forKey:"articles") as! [String:Article]
+        self.count = aDecoder.decodeObject(forKey:"count") as! Int
     }
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(self.name, forKey:"name")
         aCoder.encode(self.groupid, forKey:"groupid")
         aCoder.encode(self.url, forKey:"url")
-        aCoder.encode(self.interest, forKey:"interest")
+        aCoder.encode(self.favorite, forKey:"favorite")
+        aCoder.encode(self.filtered, forKey:"filtered")
         aCoder.encode(self.articles, forKey:"articles")
-    }
-    
-    func addArticle(article:Article) -> Void
-    {
-        self.articles.append(article)
-    }
-    
-    func deleteArticle(article:Article) -> Bool
-    {
-        if let idx = self.articles.index(where: {$0.title == article.title && $0.url == article.url && $0.date == article.date}) {
-            self.articles.remove(at:idx)
-            return true
-        }
-        
-        return false
+        aCoder.encode(self.count, forKey:"count")
     }
 }

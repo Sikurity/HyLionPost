@@ -20,9 +20,11 @@ import FirebaseMessaging
  *      - 푸시알림이 포어그라운드/백그라운드 에서 발생할 경우 각각 처리
  */
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
-    var window: UIWindow?
+class AppDelegate: UIResponder, UIApplicationDelegate {
     let gcmMessageIDKey = "gcm.message_id"
+    
+    var window: UIWindow?
+    var dataManager = DataManager()
     
     /// Firebase에 연결
     func connectToFcm() {
@@ -55,26 +57,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     /// 앱이 시작할 준비를 마치고 실행되기 전 실행되는 함수
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-//        /// @Todo App이 새로 작동되면, 현재 사용자의 Board, Article, 환경설정 등을 Archive로 부터 불러들여야 함
-//        /// => 페이지 별로 각자 불러들이는 것으로 변경
-//
-//        let fileMgr = FileManager.default
-//        let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-//        let docsDir = dirPath[0] as NSString
-//        let dataFilePath:String? = docsDir.appendingPathComponent("boards.archive")
-//        
-//        if let path = dataFilePath {
-//            if( fileMgr.fileExists(atPath: path) ){
-//                let subscriptBoards = NSKeyedUnarchiver.unarchiveObject(withFile: path) as! [Board]
-//                
-//                for board in subscriptBoards{
-//                    var tmp = board
-//                    // 각 게시판 아카이브로 부터 값 읽어오기
-//                    // 게시판 목록 전역 변수에 값 적용
-//                }
-//            }
-//        }
+        /**
+            @TEST
+                테스트를 위해 실행되는 코드
+         */
+        dataManager.supportedBoards["csnotice"]?.articles = ["2232" : Article(title:"2017-1학기 공통기초과학과목 기말시험 일정 안내", groupid:"csnotice", key:"2232", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.23", archived:false),
+            "1332" : Article(title:"2017-2학기 국가장학금1,2유형 (1차) 신청 안내", groupid:"csnotice", key:"1332", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.22", archived:false),
+            "65785" : Article(title:"2016-2학기 공통기초과학과목 기말시험 일정 안내", groupid:"csnotice", key:"65785", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"16.11.23", archived:false),
+            "63465" : Article(title:"2017-1학기 국가장학금1,2유형 (1차) 신청 안내", groupid:"csnotice", key:"63465", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"16.11.22", archived:false),
+            "95554" : Article(title:"2017-1학기 교내장학 신청 일정 안내", groupid:"csnotice", key:"95554", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"16.11.21", archived:false)]
         
+        dataManager.supportedBoards["csck2notice"]?.articles = ["321" : Article(title:"창의융합교육원 2017학년도 2학기 교양교육 설명회 안내", groupid:"csck2notice", key:"321", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.24", archived:true)]
+        
+        dataManager.supportedBoards["csgradu"]?.articles = [
+            "83456" : Article(title:"2016학년도 2학기 지도교수 간담회 결과 보고", groupid:"csgradu", key:"83456", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"16.11.20", archived:false),
+            "10345" : Article(title:"2016학년도 1학기 지도교수 간담회 결과 보고", groupid:"csgradu", key:"10345", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"16.05.20", archived:false),
+            "3523" : Article(title:"2017학년도 1학기 지도교수 간담회 결과 보고", groupid:"csgradu", key:"3523", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.20", archived:true)]
+        
+        dataManager.supportedBoards["csjob"]?.articles = [:]
+        
+        dataManager.supportedBoards["csstrk"]?.articles = [
+            "4456" : Article(title:"삼성전자 SCSC 2017학년도 2학기 설명회 안내", groupid:"csstrk", key:"4456", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.24", archived:false)]
+        
+        dataManager.supportedBoards["csstu"]?.articles = [
+            "1232" : Article(title:"2017-2학기 교내장학 신청 일정 안내", groupid:"csstu", key:"1232", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.21", archived:false),
+            "7564" : Article(title:"2017-1학기 교내장학 신청 일정 안내", groupid:"csstu", key:"7564", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.11.21", archived:true)]
         
         FIRApp.configure()
         
@@ -115,8 +122,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     /// @brief
     ///     앱이 실행된 상태로, Foreground(Active / Inactive), Background 시에 푸시 알림이 오는 겨우 모두 실행됨
-    /// @discussion
-    ///     만약 앱이 백그라운드 상태에서 푸시알림이 온 경우라면 아래 함수는 실행되지 않음에 유의
     /// @Todo
     ///     - 공통                   알림 메시지 띄우기
     ///     - Active(Foreground)    메인 게시글 테이블의 상단에 데이터를 추가(애니메이션과 함께)
@@ -166,6 +171,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     ///     현재 데이터들을 아카이브화 시켜 저장해야 함
     func applicationDidEnterBackground(_ application: UIApplication) {
         FIRMessaging.messaging().disconnect()
+        dataManager.save()
         print("Disconnected from FCM.")
     }
     
@@ -176,13 +182,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     /// @Todo
     ///     아카이브로 부터 데이터들을 다시 불러와 저장해야 함
     func applicationWillEnterForeground(_ application: UIApplication) {
-        
+        dataManager = DataManager()
     }
     
     /// 앱이 종료되기 직전에 실행되는 함수
     func applicationWillTerminate(_ application: UIApplication)
     {
         /// @Todo 현재 데이터들을 아카이브화 시켜 저장해야 함
+        dataManager.save()
     }
 
     

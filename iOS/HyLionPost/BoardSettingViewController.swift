@@ -10,11 +10,13 @@ import UIKit
 import FirebaseMessaging
 
 class BoardSettingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
-    @IBOutlet
-    weak var applyBtn: UIButton!        /// 적용하기(시작하기) 버튼
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    @IBOutlet
-    weak var boardTable: UITableView!   /// 게시판 목록 선택 테이블
+    @IBOutlet weak var boardTable: UITableView!   /// 게시판 목록 선택 테이블
+    
+    var favorites:[Board] = []
+    
+    let alertController = UIAlertController(title: "저장완료", message: "", preferredStyle: .alert)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,15 +26,14 @@ class BoardSettingViewController: UIViewController, UITableViewDelegate, UITable
         boardTable.layer.masksToBounds = true
         
         boardTable.delegate = self      /// BoardSettingViewController가 Tableview에서 유저와 상호작용 함수 호출
-        boardTable.dataSource = self    /// BoardSettingViewController가 Tableview에서 데이터 관리하는 함수 호출
+        boardTable.dataSource = self    /// BoardSettingViewController가 Tableview에서 데이터 관리하는 함수 호출// Create the actions
+        
+        let okAction = UIAlertAction(title: "확인", style: UIAlertActionStyle.default) {UIAlertAction in return}
+        alertController.addAction(okAction)
 
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -43,29 +44,39 @@ class BoardSettingViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let mainTBC = self.tabBarController as! MainTabBarController
-        return  mainTBC.supportedBoards.count
+        favorites.removeAll(keepingCapacity: false)
+        
+        for groupid in appDelegate.dataManager.supportedBoards.keys{
+            if let board = appDelegate.dataManager.supportedBoards[groupid]{
+                favorites.append(board)
+            }
+        }
+        
+        favorites.sort(by: {($0.favorite ? 1 : 0) > ($1.favorite ? 1 : 0)})
+        
+        return favorites.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BoardCell", for: indexPath) as! SelectBoardTableViewCell
         
-        let mainTBC = self.tabBarController as! MainTabBarController
-        cell.boardForCell = mainTBC.supportedBoards[indexPath.row]
+        cell.boardForCell = favorites[indexPath.row]
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let mainTBC = self.tabBarController as! MainTabBarController
-        mainTBC.supportedBoards[indexPath.row].interest = !mainTBC.supportedBoards[indexPath.row].interest
+        let groupid = favorites[indexPath.row].groupid
+        appDelegate.dataManager.supportedBoards[groupid]?.favorite = !favorites[indexPath.row].favorite
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BoardCell", for: indexPath) as! SelectBoardTableViewCell
-        cell.boardForCell = mainTBC.supportedBoards[indexPath.row]
+        let cell = tableView.cellForRow(at: indexPath) as! SelectBoardTableViewCell
+        cell.boardForCell = appDelegate.dataManager.supportedBoards[groupid]!
         
-        mainTBC.supportedBoards = mainTBC.supportedBoards.sorted(by: {($0.interest ? 1 : 0) >= ($1.interest ? 1 : 0)})
-        
-        tableView.reloadData()
+        if( appDelegate.dataManager.supportedBoards[groupid]?.favorite )!{
+            tableView.moveRow(at: indexPath, to: IndexPath(row: 0, section: 0))
+        } else {
+            tableView.moveRow(at: indexPath, to: IndexPath(row: favorites.count - 1, section: 0))
+        }
     }
     
     /*
@@ -79,23 +90,25 @@ class BoardSettingViewController: UIViewController, UITableViewDelegate, UITable
     */
 
     @IBAction func applySelectedBoards(_ sender: Any) {
-        if let tabBarController = self.tabBarController {
-            print("Delegated By \(tabBarController)")
-            
-            let mainTBC = self.tabBarController as! MainTabBarController
-            for board in mainTBC.supportedBoards{
-                if board.interest {
+        for groupid in appDelegate.dataManager.supportedBoards.keys{
+            if let board = appDelegate.dataManager.supportedBoards[groupid] {
+                if board.favorite {
                     FIRMessaging.messaging().subscribe(toTopic:"/topics/" + board.groupid);
                     print("\(board.groupid) subscribed")
                 } else {
                     FIRMessaging.messaging().unsubscribe(fromTopic:"/topics/" + board.groupid);
                     print("\(board.groupid) unsubscribed")
                 }
+                
+                if board.count == -1 {
+                    appDelegate.dataManager.getDefaultDataFromFirebase(groupid)
+                }
             }
         }
-//        else {
-//            print("Not Delegated")
-//        }
+        
+        appDelegate.dataManager.save()
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -117,7 +130,7 @@ class SelectBoardTableViewCell:UITableViewCell {
             return
         }
         
-        starImageView.image = UIImage(named: board.interest ? "Star" : "Unstar")
+        starImageView.image = UIImage(named: board.favorite ? "Star" : "Unstar")
         nameLabel.text = board.name
     }
 }
