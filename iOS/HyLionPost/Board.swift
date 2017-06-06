@@ -46,10 +46,10 @@ class Board : NSObject, NSCoding{
         self.name = aDecoder.decodeObject(forKey:"name") as! String
         self.groupid = aDecoder.decodeObject(forKey:"groupid") as! String
         self.url = aDecoder.decodeObject(forKey:"url") as! String
-        self.favorite = aDecoder.decodeBool(forKey:"favorite")
-        self.filtered = aDecoder.decodeBool(forKey:"filtered")
+        self.favorite = aDecoder.decodeBool(forKey: "favorite") as Bool
+        self.filtered = aDecoder.decodeBool(forKey:"filtered") as Bool
         self.articles = aDecoder.decodeObject(forKey:"articles") as! [String:Article]
-        self.count = aDecoder.decodeInteger(forKey:"count")
+        self.count = aDecoder.decodeInteger(forKey: "count") as Int
     }
     
     func encode(with aCoder: NSCoder) {
