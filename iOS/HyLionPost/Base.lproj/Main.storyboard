@@ -316,7 +316,7 @@
             <objects>
                 <navigationController title="asdf1" id="ccJ-Du-7uU" userLabel="Nav1" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="RG6-gJ-ldk"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="a2c-ms-Eth">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="a2c-ms-Eth">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -333,7 +333,7 @@
             <objects>
                 <navigationController title="asdf2" id="Obh-QV-7qV" userLabel="Nav2" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="Lt0-qd-AWO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Yiz-ya-Avl">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Yiz-ya-Avl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -350,7 +350,7 @@
             <objects>
                 <navigationController title="asdf3" id="MeE-dK-RtU" userLabel="Nav3" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="MHR-yP-8FK"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zoc-ud-MJb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Zoc-ud-MJb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -432,11 +432,18 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pvx-P1-FXi" userLabel="BeginDatePickerView">
                                         <rect key="frame" x="0.0" y="42.5" width="375" height="50"/>
                                         <subviews>
-                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="U8b-xS-84W" userLabel="BeginDatePicker">
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="30" translatesAutoresizingMaskIntoConstraints="NO" id="U8b-xS-84W" userLabel="BeginDatePicker">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                                 <date key="date" timeIntervalSinceReferenceDate="518089518.921727">
                                                     <!--2017-06-02 09:45:18 +0000-->
                                                 </date>
+                                                <date key="minimumDate" timeIntervalSinceReferenceDate="284036400">
+                                                    <!--2010-01-01 11:00:00 +0000-->
+                                                </date>
+                                                <locale key="locale" localeIdentifier="ko_KR"/>
+                                                <connections>
+                                                    <action selector="beginDatePickerChanged:" destination="cQO-Yf-KSJ" eventType="valueChanged" id="DPJ-Re-gQZ"/>
+                                                </connections>
                                             </datePicker>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -480,11 +487,18 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ghq-n0-tdV" userLabel="EndDatePickerView">
                                         <rect key="frame" x="0.0" y="135" width="375" height="99.5"/>
                                         <subviews>
-                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Upj-uf-SmL" userLabel="EndDatePicker">
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="30" translatesAutoresizingMaskIntoConstraints="NO" id="Upj-uf-SmL" userLabel="EndDatePicker">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                                 <date key="date" timeIntervalSinceReferenceDate="518089708.835334">
                                                     <!--2017-06-02 09:48:28 +0000-->
                                                 </date>
+                                                <date key="minimumDate" timeIntervalSinceReferenceDate="284036400">
+                                                    <!--2010-01-01 11:00:00 +0000-->
+                                                </date>
+                                                <locale key="locale" localeIdentifier="ko_KR"/>
+                                                <connections>
+                                                    <action selector="endDatePickerChanged:" destination="cQO-Yf-KSJ" eventType="valueChanged" id="w0P-fq-QkN"/>
+                                                </connections>
                                             </datePicker>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -533,9 +547,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="필터링 설정" id="elG-Rt-pNu"/>
                     <connections>
+                        <outlet property="beginDateLabel" destination="aJG-7c-zft" id="Hxe-UW-j23"/>
                         <outlet property="beginDatePicker" destination="U8b-xS-84W" id="YcM-t8-ShV"/>
                         <outlet property="beginDatePickerView" destination="pvx-P1-FXi" id="6OM-AG-tgg"/>
                         <outlet property="boardTable" destination="Eih-nF-owh" id="gj3-vq-6gZ"/>
+                        <outlet property="endDateLabel" destination="a8b-yY-Esc" id="1BZ-XW-Zh1"/>
                         <outlet property="endDatePicker" destination="Upj-uf-SmL" id="Gpu-k6-1jm"/>
                         <outlet property="endDatePickerView" destination="Ghq-n0-tdV" id="iuB-yi-9tx"/>
                     </connections>

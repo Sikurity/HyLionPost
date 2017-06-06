@@ -26,6 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var dataManager = DataManager()
     
+    var beginDate = Calendar.current.date(byAdding: .month, value: -1, to: Date(), wrappingComponents: false)!
+    var endDate = Date()
+    
     /// Firebase에 연결
     func connectToFcm() {
         // 토큰 생성이 되지 않을 경우 return
@@ -61,27 +64,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             @TEST
                 테스트를 위해 실행되는 코드
          */
-        dataManager.supportedBoards["csnotice"]?.articles = ["2232" : Article(title:"2017-1학기 공통기초과학과목 기말시험 일정 안내", groupid:"csnotice", key:"2232", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.23", archived:false),
-            "1332" : Article(title:"2017-2학기 국가장학금1,2유형 (1차) 신청 안내", groupid:"csnotice", key:"1332", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.22", archived:false),
-            "65785" : Article(title:"2016-2학기 공통기초과학과목 기말시험 일정 안내", groupid:"csnotice", key:"65785", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"16.11.23", archived:false),
-            "63465" : Article(title:"2017-1학기 국가장학금1,2유형 (1차) 신청 안내", groupid:"csnotice", key:"63465", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"16.11.22", archived:false),
-            "95554" : Article(title:"2017-1학기 교내장학 신청 일정 안내", groupid:"csnotice", key:"95554", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"16.11.21", archived:false)]
+        dataManager.supportedBoards["csnotice"]?.articles = ["2232" : Article(title:"2017-1학기 공통기초과학과목 기말시험 일정 안내", groupid:"csnotice", key:"2232", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-05-23", archived:false),
+            "1332" : Article(title:"2017-2학기 국가장학금1,2유형 (1차) 신청 안내", groupid:"csnotice", key:"1332", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-05-22", archived:false),
+            "65785" : Article(title:"2016-2학기 공통기초과학과목 기말시험 일정 안내", groupid:"csnotice", key:"65785", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2016-11-23", archived:false),
+            "63465" : Article(title:"2017-1학기 국가장학금1,2유형 (1차) 신청 안내", groupid:"csnotice", key:"63465", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2016-11-22", archived:false),
+            "95554" : Article(title:"2017-1학기 교내장학 신청 일정 안내", groupid:"csnotice", key:"95554", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2016-11-21", archived:false)]
         
-        dataManager.supportedBoards["csck2notice"]?.articles = ["321" : Article(title:"창의융합교육원 2017학년도 2학기 교양교육 설명회 안내", groupid:"csck2notice", key:"321", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.24", archived:true)]
+        dataManager.supportedBoards["csck2notice"]?.articles = ["321" : Article(title:"창의융합교육원 2017학년도 2학기 교양교육 설명회 안내", groupid:"csck2notice", key:"321", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-05-24", archived:true)]
         
         dataManager.supportedBoards["csgradu"]?.articles = [
-            "83456" : Article(title:"2016학년도 2학기 지도교수 간담회 결과 보고", groupid:"csgradu", key:"83456", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"16.11.20", archived:false),
-            "10345" : Article(title:"2016학년도 1학기 지도교수 간담회 결과 보고", groupid:"csgradu", key:"10345", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"16.05.20", archived:false),
-            "3523" : Article(title:"2017학년도 1학기 지도교수 간담회 결과 보고", groupid:"csgradu", key:"3523", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.20", archived:true)]
+            "83456" : Article(title:"2016학년도 2학기 지도교수 간담회 결과 보고", groupid:"csgradu", key:"83456", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2016-11-20", archived:false),
+            "10345" : Article(title:"2016학년도 1학기 지도교수 간담회 결과 보고", groupid:"csgradu", key:"10345", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2016-05-20", archived:false),
+            "3523" : Article(title:"2017학년도 1학기 지도교수 간담회 결과 보고", groupid:"csgradu", key:"3523", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-05-20", archived:true)]
         
         dataManager.supportedBoards["csjob"]?.articles = [:]
         
         dataManager.supportedBoards["csstrk"]?.articles = [
-            "4456" : Article(title:"삼성전자 SCSC 2017학년도 2학기 설명회 안내", groupid:"csstrk", key:"4456", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.24", archived:false)]
+            "4456" : Article(title:"삼성전자 SCSC 2017학년도 2학기 설명회 안내", groupid:"csstrk", key:"4456", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-05-24", archived:false)]
         
         dataManager.supportedBoards["csstu"]?.articles = [
-            "1232" : Article(title:"2017-2학기 교내장학 신청 일정 안내", groupid:"csstu", key:"1232", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.21", archived:false),
-            "7564" : Article(title:"2017-1학기 교내장학 신청 일정 안내", groupid:"csstu", key:"7564", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.11.21", archived:true)]
+            "1232" : Article(title:"2017-2학기 교내장학 신청 일정 안내", groupid:"csstu", key:"1232", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-05-21", archived:false),
+            "7564" : Article(title:"2017-1학기 교내장학 신청 일정 안내", groupid:"csstu", key:"7564", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-11-21", archived:true)]
         
         FIRApp.configure()
         

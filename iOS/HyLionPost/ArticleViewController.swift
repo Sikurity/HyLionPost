@@ -11,15 +11,16 @@ import MGSwipeTableCell
 
 class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let dateFormatter = DateFormatter()
     
     @IBOutlet weak var filterSwitch: UISwitch!
     @IBOutlet weak var articleTable: UITableView!
     
     @IBAction func switchChanged(_ sender: Any) {
-        showFilteredArticles()
-        UIView.animate(withDuration:0.3, animations: {
-            self.articleTable.reloadData()
-        })
+        UIView.transition(with: articleTable,
+                          duration: 0.5,
+                          options: .transitionCrossDissolve,
+                          animations: { self.showFilteredArticles(); self.articleTable.reloadData() })
     }
     
     var searchBarController:UISearchController = UISearchController(searchResultsController: nil)
@@ -45,6 +46,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.articleTable.tableHeaderView = searchBarController.searchBar
         
         filterSwitch.isOn = false
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -144,7 +146,13 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
                 for key in board.articles.keys{
                     if let article = board.articles[key] {
                         if !filterSwitch.isOn || article.archived {
-                            filteredArticles.append(article)
+                            
+                            /// @TODO 날짜 필터
+                            let beginDate = dateFormatter.string(from: appDelegate.beginDate)
+                            let endDate = dateFormatter.string(from: appDelegate.endDate)
+                            if  beginDate <= article.date && article.date <= endDate {
+                                filteredArticles.append(article)
+                            }
                         }
                     }
                 }
