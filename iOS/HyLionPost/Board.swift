@@ -44,15 +44,10 @@ class Board : NSObject, NSCoding{
     
     required init?(coder aDecoder: NSCoder) {
         self.name = aDecoder.decodeObject(forKey:"name") as! String
-        print(self.name)
         self.groupid = aDecoder.decodeObject(forKey:"groupid") as! String
-        print(self.groupid)
         self.url = aDecoder.decodeObject(forKey:"url") as! String
-        print(self.url)
         self.favorite = aDecoder.decodeBool(forKey: "favorite") as Bool
-        print(self.favorite)
         self.filtered = aDecoder.decodeBool(forKey:"filtered") as Bool
-        print(self.filtered)
         self.articles = aDecoder.decodeObject(forKey:"articles") as! [String:Article]
         self.count = aDecoder.decodeInteger(forKey: "count") as Int
     }
