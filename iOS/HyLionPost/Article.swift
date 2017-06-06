@@ -45,8 +45,8 @@ class Article : NSObject, NSCoding {
         self.key = aDecoder.decodeObject(forKey:"key") as! String
         self.url = aDecoder.decodeObject(forKey:"url") as! String
         self.date = aDecoder.decodeObject(forKey:"date") as! String
-        self.archived = aDecoder.decodeObject(forKey:"archived") as! Bool
-        self.unopened = aDecoder.decodeObject(forKey:"unopened") as! Bool
+        self.archived = aDecoder.decodeBool(forKey: "archived") as Bool
+        self.unopened = aDecoder.decodeBool(forKey:"unopened") as Bool
     }
     
     func encode(with aCoder: NSCoder) {

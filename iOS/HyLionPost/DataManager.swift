@@ -20,7 +20,7 @@ class DataManager{
     init(){
         if FileManager.default.fileExists(atPath: filePath + "HyLionPostDatas.archive")
         {
-            self.supportedBoards = (NSKeyedUnarchiver.unarchiveObject(withFile: self.filePath) as? [String:Board])!
+            self.supportedBoards = (NSKeyedUnarchiver.unarchiveObject(withFile: self.filePath+"HyLionPostDatas.archive") as? [String:Board])!
         } else {
             self.supportedBoards = [
                 "csnotice":Board(name:"컴퓨터소프트웨어학부 학사일반 게시판", groupid:"csnotice", url:"http://cs.hanyang.ac.kr/board/info_board.php", favorite:true),
