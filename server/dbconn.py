@@ -51,7 +51,7 @@ def filter_notify_func(name, new_datas, old_data) :
                         print('[',name.upper(),'] New data was update')
                         update_firebase(value,name)
                         print('[',name.upper(),'] New data updated in db')
-                        result = pyfcm_notify(name,new_datas[x]['title'])
+                        result = pyfcm_notify(name,new_datas[x])
                         if result == 0 :
                             print('push notifitcation error')
                             sys.exit()
