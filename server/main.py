@@ -1,3 +1,4 @@
+import sys
 from threading import Thread
 from dbconn import *
 from controllers.generate import *
@@ -9,15 +10,15 @@ def running():
         threadObj1 = Thread(target=csck2notice_server)
         threadsLists.append(threadObj1)
         threadObj1.start()
-    
+        
         threadObj2 = Thread(target=csjob_server)
         threadsLists.append(threadObj2)
         threadObj2.start()
-     
+ 
         threadObj3 = Thread(target=csgradu_server)
         threadsLists.append(threadObj3)
         threadObj3.start()
-    
+
         threadObj4 = Thread(target=csnotice_server)
         threadsLists.append(threadObj4)
         threadObj4.start()
@@ -32,9 +33,11 @@ def running():
 
         for thread in threadsLists :
             thread.join()
+
     except JSONDecodeError as s:
         print('Thread error')
         print(s)
+        sys.exit(0)
 
 
 if __name__ == '__main__' :
