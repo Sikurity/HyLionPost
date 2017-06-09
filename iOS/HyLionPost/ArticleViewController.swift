@@ -34,7 +34,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.articleTable.dataSource = self
         
         searchBarController.searchResultsUpdater = self
-        searchBarController.hidesNavigationBarDuringPresentation = true
+        searchBarController.hidesNavigationBarDuringPresentation = false
         searchBarController.dimsBackgroundDuringPresentation = false
         searchBarController.obscuresBackgroundDuringPresentation = false
         searchBarController.searchBar.sizeToFit()
@@ -85,7 +85,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         /// 왼쪽 이미지
         let flagImg = resizeImage(image:UIImage(named:(filteredArticles[indexPath.row].archived ? "Star" : "Unstar")), newWidth:tableView.rowHeight / 2)
         
-        cell.leftButtons = [MGSwipeButton(title: "", icon: flagImg, backgroundColor:(filteredArticles[indexPath.row].archived ? UIColor.lightGray : UIColor.yellow)){
+        cell.leftButtons = [MGSwipeButton(title: "", icon: flagImg, backgroundColor:UIColor.lightGray){
             (sender: MGSwipeTableCell!) -> Bool in
             let cell = sender as! AritlceTableViewCell
             
@@ -148,8 +148,8 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
                         if !filterSwitch.isOn || article.archived {
                             
                             /// @TODO 날짜 필터
-                            let beginDate = dateFormatter.string(from: appDelegate.beginDate)
-                            let endDate = dateFormatter.string(from: appDelegate.endDate)
+                            let beginDate = dateFormatter.string(from: appDelegate.dataManager.beginDate)
+                            let endDate = dateFormatter.string(from: appDelegate.dataManager.endDate)
                             if  beginDate <= article.date && article.date <= endDate {
                                 filteredArticles.append(article)
                             }
