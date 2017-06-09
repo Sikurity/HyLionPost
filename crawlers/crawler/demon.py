@@ -14,7 +14,7 @@ def demon(driver):
 
     driver.close()
 
-    print(notices)
+#print(notices)
 
 
     # idx : PK
@@ -26,9 +26,9 @@ def demon(driver):
     output_file.write("[")
     is_first = True
     for n,t,d in zip(notices,titles, dates):
-        print(n)
-        print(t)
-        print(d)
+# print(n)
+#        print(t)
+#        print(d)
         if is_first:
             output_file.write("{")
             is_first = False
@@ -46,4 +46,4 @@ def demon(driver):
         output_file.write("\"}")
     output_file.write("]")
 
-demon(webdriver.Chrome('/Users/camelia/HyLionPost/crawlers/res/chromedriver'))
+#demon(webdriver.Chrome('/Users/camelia/HyLionPost/crawlers/res/chromedriver'))
