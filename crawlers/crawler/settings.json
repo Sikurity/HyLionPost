@@ -38,5 +38,13 @@
     "title" : "컴퓨터공학부 특성화사업단 공지사항",
     "link_url": "http://csck2.hanyang.ac.kr/front/community/notice",
     "separator" : "&^%987&^%"
+  },
+ "demon":{
+    "file_name": "demon.py",
+    "crawl_id": "6",
+    "crawl_cycle": "3",
+    "title" : "시연용 홈페이지",
+    "link_url": "http://cameliaovo.github.io",
+    "separator" : "&^%987&^%"
   }
 }

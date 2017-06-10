@@ -1,8 +1,10 @@
 PODS:
-  - Alamofire (4.4.0)
   - Firebase/Core (3.17.0):
     - FirebaseAnalytics (= 3.9.0)
     - FirebaseCore (= 3.6.0)
+  - Firebase/Database (3.17.0):
+    - Firebase/Core
+    - FirebaseDatabase (= 3.1.2)
   - Firebase/Messaging (3.17.0):
     - Firebase/Core
     - FirebaseMessaging (= 1.2.3)
@@ -12,6 +14,8 @@ PODS:
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseCore (3.6.0):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseDatabase (3.1.2):
+    - FirebaseAnalytics (~> 3.7)
   - FirebaseInstanceID (1.0.10):
     - FirebaseCore (~> 3.6)
   - FirebaseMessaging (1.2.3):
@@ -28,22 +32,22 @@ PODS:
   - Protobuf (3.3.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.4)
   - Firebase/Core
+  - Firebase/Database
   - Firebase/Messaging
   - MGSwipeTableCell
 
 SPEC CHECKSUMS:
-  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   Firebase: 4b66b5b59c43edac745b87f0c87e42cdd0279c13
   FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
   FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
+  FirebaseDatabase: 05c96d7b43a7368dc91c07791adb49683e1738d1
   FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
   FirebaseMessaging: 753d05a925e9eb8eadd09a0ffc9b808578b72fac
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   MGSwipeTableCell: 616700eb0ffd1c611ba909066cb7fd739790a0a7
   Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
 
-PODFILE CHECKSUM: 8dcbf774a9102c3fd961036047fc8a1aa89b14d2
+PODFILE CHECKSUM: a8e4f2ae3f8f3a0c756401fcb2c41dbfef9439b6
 
 COCOAPODS: 1.2.1

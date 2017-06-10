@@ -11,18 +11,16 @@ import MGSwipeTableCell
 
 class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let dateFormatter = DateFormatter()
     
+    @IBOutlet weak var filterSwitch: UISwitch!
     @IBOutlet weak var articleTable: UITableView!
-    @IBOutlet weak var filterSeg: UISegmentedControl!
     
-    @IBAction func segmentChanged(_ sender: UISegmentedControl) {
-        showFilteredArticles()
-        
-        self.articleTable.reloadData()
-    }
-    
-    @IBAction func ScrollToTop(_ sender: Any) {
-        self.articleTable.setContentOffset(CGPoint.zero, animated: true)
+    @IBAction func switchChanged(_ sender: Any) {
+        UIView.transition(with: articleTable,
+                          duration: 0.5,
+                          options: .transitionCrossDissolve,
+                          animations: { self.showFilteredArticles(); self.articleTable.reloadData() })
     }
     
     var searchBarController:UISearchController = UISearchController(searchResultsController: nil)
@@ -36,8 +34,8 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.articleTable.dataSource = self
         
         searchBarController.searchResultsUpdater = self
-        searchBarController.dimsBackgroundDuringPresentation = true
         searchBarController.hidesNavigationBarDuringPresentation = false
+        searchBarController.dimsBackgroundDuringPresentation = false
         searchBarController.obscuresBackgroundDuringPresentation = false
         searchBarController.searchBar.sizeToFit()
         searchBarController.searchBar.barStyle = UIBarStyle.black
@@ -46,6 +44,9 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.definesPresentationContext = true
         self.articleTable.tableHeaderView = searchBarController.searchBar
+        
+        filterSwitch.isOn = false
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -84,7 +85,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         /// 왼쪽 이미지
         let flagImg = resizeImage(image:UIImage(named:(filteredArticles[indexPath.row].archived ? "Star" : "Unstar")), newWidth:tableView.rowHeight / 2)
         
-        cell.leftButtons = [MGSwipeButton(title: "", icon: flagImg, backgroundColor:(filteredArticles[indexPath.row].archived ? UIColor.lightGray : UIColor.yellow)){
+        cell.leftButtons = [MGSwipeButton(title: "", icon: flagImg, backgroundColor:UIColor.lightGray){
             (sender: MGSwipeTableCell!) -> Bool in
             let cell = sender as! AritlceTableViewCell
             
@@ -102,6 +103,8 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
             let cell = sender as! AritlceTableViewCell
             
             self.appDelegate.dataManager.supportedBoards[cell.groupid]?.articles.removeValue(forKey:cell.key)
+            
+            self.showFilteredArticles()
             self.articleTable.reloadData()
             
             self.appDelegate.dataManager.save()
@@ -116,7 +119,6 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     // 뒤로가기 용
     @IBAction func prepareForUnwindFromWebView(segue: UIStoryboardSegue){
         showFilteredArticles()
-        
         self.articleTable.reloadData()
     }
     
@@ -126,6 +128,8 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         if segue.identifier == "webViewSegue" {
             if let webVC = segue.destination as? WebViewController {
                 if let selectedIndex = self.articleTable.indexPathForSelectedRow?.row {
+                    let article = filteredArticles[selectedIndex]
+                    appDelegate.dataManager.supportedBoards[article.groupid]?.articles[article.key]?.unopened = false
                     webVC.link = filteredArticles[selectedIndex].url
                 }
             }
@@ -141,8 +145,14 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
             if let board = appDelegate.dataManager.supportedBoards[groupid], board.favorite && !board.filtered{
                 for key in board.articles.keys{
                     if let article = board.articles[key] {
-                        if filterSeg.selectedSegmentIndex == 0 || article.archived {
-                            filteredArticles.append(article)
+                        if !filterSwitch.isOn || article.archived {
+                            
+                            /// @TODO 날짜 필터
+                            let beginDate = dateFormatter.string(from: appDelegate.dataManager.beginDate)
+                            let endDate = dateFormatter.string(from: appDelegate.dataManager.endDate)
+                            if  beginDate <= article.date && article.date <= endDate {
+                                filteredArticles.append(article)
+                            }
                         }
                     }
                 }
@@ -159,7 +169,6 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     /// 검색 창에 키가 입력 될 때 마다 실행 됨
     func updateSearchResults(for searchController: UISearchController) {
         showFilteredArticles()
-        
         self.articleTable.reloadData()
     }
     
@@ -187,6 +196,7 @@ class AritlceTableViewCell:MGSwipeTableCell {
     @IBOutlet weak var boardLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var unreadImage: UIImageView!
     
     var groupid:String = ""
     var key:String = ""
@@ -207,6 +217,7 @@ class AritlceTableViewCell:MGSwipeTableCell {
         dateLabel.text = article.date
         titleLabel.text = article.title
         boardLabel.text = appDelegate.dataManager.supportedBoards[article.groupid]?.name
+        unreadImage.image = article.unopened ? UIImage(named: "Bluedot")! : nil
 
         self.groupid = article.groupid
         self.key = article.key

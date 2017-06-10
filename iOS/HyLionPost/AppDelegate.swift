@@ -60,28 +60,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         /**
             @TEST
                 테스트를 위해 실행되는 코드
-         */
-        dataManager.supportedBoards["csnotice"]?.articles = ["2232" : Article(title:"2017-1학기 공통기초과학과목 기말시험 일정 안내", groupid:"csnotice", key:"2232", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.23", archived:false),
-            "1332" : Article(title:"2017-2학기 국가장학금1,2유형 (1차) 신청 안내", groupid:"csnotice", key:"1332", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.22", archived:false),
-            "65785" : Article(title:"2016-2학기 공통기초과학과목 기말시험 일정 안내", groupid:"csnotice", key:"65785", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"16.11.23", archived:false),
-            "63465" : Article(title:"2017-1학기 국가장학금1,2유형 (1차) 신청 안내", groupid:"csnotice", key:"63465", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"16.11.22", archived:false),
-            "95554" : Article(title:"2017-1학기 교내장학 신청 일정 안내", groupid:"csnotice", key:"95554", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"16.11.21", archived:false)]
+        dataManager.supportedBoards["csnotice"]?.articles = ["2232" : Article(title:"2017-1학기 공통기초과학과목 기말시험 일정 안내", groupid:"csnotice", key:"2232", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-05-23", archived:false),
+            "1332" : Article(title:"2017-2학기 국가장학금1,2유형 (1차) 신청 안내", groupid:"csnotice", key:"1332", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-05-22", archived:false),
+            "65785" : Article(title:"2016-2학기 공통기초과학과목 기말시험 일정 안내", groupid:"csnotice", key:"65785", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2016-11-23", archived:false),
+            "63465" : Article(title:"2017-1학기 국가장학금1,2유형 (1차) 신청 안내", groupid:"csnotice", key:"63465", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2016-11-22", archived:false),
+            "95554" : Article(title:"2017-1학기 교내장학 신청 일정 안내", groupid:"csnotice", key:"95554", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2016-11-21", archived:false)]
         
-        dataManager.supportedBoards["csck2notice"]?.articles = ["321" : Article(title:"창의융합교육원 2017학년도 2학기 교양교육 설명회 안내", groupid:"csck2notice", key:"321", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.24", archived:true)]
+        dataManager.supportedBoards["csck2notice"]?.articles = ["321" : Article(title:"창의융합교육원 2017학년도 2학기 교양교육 설명회 안내", groupid:"csck2notice", key:"321", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-05-24", archived:true)]
         
         dataManager.supportedBoards["csgradu"]?.articles = [
-            "83456" : Article(title:"2016학년도 2학기 지도교수 간담회 결과 보고", groupid:"csgradu", key:"83456", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"16.11.20", archived:false),
-            "10345" : Article(title:"2016학년도 1학기 지도교수 간담회 결과 보고", groupid:"csgradu", key:"10345", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"16.05.20", archived:false),
-            "3523" : Article(title:"2017학년도 1학기 지도교수 간담회 결과 보고", groupid:"csgradu", key:"3523", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.20", archived:true)]
+            "83456" : Article(title:"2016학년도 2학기 지도교수 간담회 결과 보고", groupid:"csgradu", key:"83456", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2016-11-20", archived:false),
+            "10345" : Article(title:"2016학년도 1학기 지도교수 간담회 결과 보고", groupid:"csgradu", key:"10345", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2016-05-20", archived:false),
+            "3523" : Article(title:"2017학년도 1학기 지도교수 간담회 결과 보고", groupid:"csgradu", key:"3523", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-05-20", archived:true)]
         
         dataManager.supportedBoards["csjob"]?.articles = [:]
         
         dataManager.supportedBoards["csstrk"]?.articles = [
-            "4456" : Article(title:"삼성전자 SCSC 2017학년도 2학기 설명회 안내", groupid:"csstrk", key:"4456", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.24", archived:false)]
+            "4456" : Article(title:"삼성전자 SCSC 2017학년도 2학기 설명회 안내", groupid:"csstrk", key:"4456", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-05-24", archived:false)]
         
-        dataManager.supportedBoards["csstu"]?.articles = [
-            "1232" : Article(title:"2017-2학기 교내장학 신청 일정 안내", groupid:"csstu", key:"1232", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.05.21", archived:false),
-            "7564" : Article(title:"2017-1학기 교내장학 신청 일정 안내", groupid:"csstu", key:"7564", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"17.11.21", archived:true)]
+        dataManager.supportedBoards["demon"]?.articles = [
+            "1232" : Article(title:"2017-2학기 교내장학 신청 일정 안내", groupid:"demon", key:"1232", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-05-21", archived:false),
+            "7564" : Article(title:"2017-1학기 교내장학 신청 일정 안내", groupid:"demon", key:"7564", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-11-21", archived:true)]
+         */
         
         FIRApp.configure()
         
@@ -117,38 +117,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             connectToFcm()
         }
         
+        dataManager.ref = FIRDatabase.database().reference()
+        
         return true
     }
     
     /// @brief
-    ///     앱이 실행된 상태로, Foreground(Active / Inactive), Background 시에 푸시 알림이 오는 겨우 모두 실행됨
+    ///     iOS 10 버전 미만에서 앱이 푸시 알림이 오는 경우 실행
     /// @Todo
     ///     - 공통                   알림 메시지 띄우기
     ///     - Active(Foreground)    메인 게시글 테이블의 상단에 데이터를 추가(애니메이션과 함께)
     ///     - Inactive(Foreground)  게시글 배열에 새 게시글 내용 추가
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
         if (application.applicationState == UIApplicationState.active ||
             application.applicationState == UIApplicationState.inactive) {
+            print("userNotificationCenter foreground")
             // At Foreground - Firebaes로 부터 전달된 데이터 콘솔 출력
             if let messageID = userInfo[gcmMessageIDKey] {
                 print("Message ID: \(messageID)")
             }
+            FIRMessaging.messaging().appDidReceiveMessage(userInfo)
             
-            // Firebaes로 부터 전달된 유저정보 출력
+            print("USERINFO FOREGROUND:")
             print(userInfo)
+            
+            // Change this to your preferred presentation option
+            completionHandler(UIBackgroundFetchResult.noData)
         }
             
         else if (application.applicationState == UIApplicationState.background) {
+            print("userNotificationCenter background")
             // At Background - Firebaes로 부터 전달된 데이터 콘솔 출력
             if let messageID = userInfo[gcmMessageIDKey] {
                 print("Message ID: \(messageID)")
             }
+            FIRMessaging.messaging().appDidReceiveMessage(userInfo)
             
             // Firebaes로 부터 전달된 유저정보 출력
+            print("USERINFO BACKGROUND:")
             print(userInfo)
-        }
             
+            // Change this to your preferred presentation option
+            completionHandler(UIBackgroundFetchResult.newData)
+        }
+        
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
     }
     
     /// 토큰 등록이 성공한 경우 실행되는 함수, 생성된 토큰 값을 전달해준다
@@ -195,7 +209,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     func applicationDidBecomeActive(_ application: UIApplication) {
-        
+        // dataManager = DataManager()
         connectToFcm()
         
         FIRMessaging.messaging().connect { error in
@@ -220,6 +234,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("userNotificationCenter willPresent")
         let userInfo = notification.request.content.userInfo
         // Print message ID.
         if let messageID = userInfo[gcmMessageIDKey] {
@@ -227,17 +242,18 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         }
         
         // Print full message.
-        print(userInfo)
+        print(userInfo) 
         
-        // Change this to your preferred presentation option
-        completionHandler(.badge)
+        completionHandler([.alert,.badge,.sound])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("userNotificationCenter didReceive")
         let userInfo = response.notification.request.content.userInfo
         // Print message ID.
+        
         if let messageID = userInfo[gcmMessageIDKey] {
             print("Message ID: \(messageID)")
         }
@@ -253,6 +269,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
 extension AppDelegate : FIRMessagingDelegate {
     // Receive data message on iOS 10 devices while app is in the foreground.
     func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
+        print("applicationReceivedRemoteMessage")
         
         print(remoteMessage.appData)
     }
