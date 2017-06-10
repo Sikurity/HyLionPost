@@ -20,7 +20,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         UIView.transition(with: articleTable,
                           duration: 0.5,
                           options: .transitionCrossDissolve,
-                          animations: { self.showFilteredArticles(); self.articleTable.reloadData() })
+                          animations: { self.filterArticles(); self.articleTable.reloadData() })
     }
     
     var searchBarController:UISearchController = UISearchController(searchResultsController: nil)
@@ -61,7 +61,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         print("ArticleViewController - viewWillAppear")
         super.viewWillAppear(animated)
         
-        showFilteredArticles()
+        filterArticles()
         
         self.articleTable.reloadData()
     }
@@ -104,7 +104,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             self.appDelegate.dataManager.supportedBoards[cell.groupid]?.articles.removeValue(forKey:cell.key)
             
-            self.showFilteredArticles()
+            self.filterArticles()
             self.articleTable.reloadData()
             
             self.appDelegate.dataManager.save()
@@ -118,7 +118,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // 뒤로가기 용
     @IBAction func prepareForUnwindFromWebView(segue: UIStoryboardSegue){
-        showFilteredArticles()
+        filterArticles()
         self.articleTable.reloadData()
     }
     
@@ -136,7 +136,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func showFilteredArticles(){
+    func filterArticles(){
         filteredArticles.removeAll(keepingCapacity: false)
         
         /// @TODO 2번째 탭에서 설정된 필터링된 결과로 변경
@@ -168,7 +168,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /// 검색 창에 키가 입력 될 때 마다 실행 됨
     func updateSearchResults(for searchController: UISearchController) {
-        showFilteredArticles()
+        filterArticles()
         self.articleTable.reloadData()
     }
     

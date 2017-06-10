@@ -60,6 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         /**
             @TEST
                 테스트를 위해 실행되는 코드
+         */
         dataManager.supportedBoards["csnotice"]?.articles = ["2232" : Article(title:"2017-1학기 공통기초과학과목 기말시험 일정 안내", groupid:"csnotice", key:"2232", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-05-23", archived:false),
             "1332" : Article(title:"2017-2학기 국가장학금1,2유형 (1차) 신청 안내", groupid:"csnotice", key:"1332", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-05-22", archived:false),
             "65785" : Article(title:"2016-2학기 공통기초과학과목 기말시험 일정 안내", groupid:"csnotice", key:"65785", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2016-11-23", archived:false),
@@ -81,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dataManager.supportedBoards["demon"]?.articles = [
             "1232" : Article(title:"2017-2학기 교내장학 신청 일정 안내", groupid:"demon", key:"1232", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-05-21", archived:false),
             "7564" : Article(title:"2017-1학기 교내장학 신청 일정 안내", groupid:"demon", key:"7564", url:"http://cs.hanyang.ac.kr/board/info_board.php", date:"2017-11-21", archived:true)]
-         */
+         /**/
         
         FIRApp.configure()
         
@@ -217,12 +218,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func getTopViewController() -> UIViewController
+    func getTopViewController() -> UIViewController?
     {
-        var topViewController = UIApplication.shared.delegate!.window!!.rootViewController!
-        while (topViewController.presentedViewController != nil) {
-            topViewController = topViewController.presentedViewController!
+        var topViewController:UIViewController? = nil
+        
+        if var topVC = UIApplication.shared.delegate?.window??.rootViewController
+        {
+            while (topVC.presentedViewController != nil) {
+                topVC = topVC.presentedViewController!
+            }
+            
+            topViewController = topVC
         }
+        
         return topViewController
     }
 }
@@ -241,29 +249,58 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
             print("Message ID: \(messageID)")
         }
         
+        if let fileName = userInfo["file_name"] as? String, let key = userInfo["inner_idx"] as? String{
+            let groupId = fileName.components(separatedBy: ".")[0]
+            
+            if let title = userInfo["title"] as? String, let link = userInfo["link"] as? String, let datetime = userInfo["datetime"] as? String {
+                dataManager.supportedBoards[groupId]?.articles[key] = Article(title: title, groupid: groupId, key: key, url: link, date: datetime, archived: false)
+            }
+            
+            if let topView = getTopViewController(), topView.isKind(of: ArticleViewController.self) {
+                let articleVC = topView as! ArticleViewController
+                
+                articleVC.filterArticles()
+                articleVC.articleTable.reloadData()
+            }
+        }
+        
         // Print full message.
         print(userInfo) 
         
         completionHandler([.alert,.badge,.sound])
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                didReceive response: UNNotificationResponse,
-                                withCompletionHandler completionHandler: @escaping () -> Void) {
-        print("userNotificationCenter didReceive")
-        let userInfo = response.notification.request.content.userInfo
-        // Print message ID.
-        
-        if let messageID = userInfo[gcmMessageIDKey] {
-            print("Message ID: \(messageID)")
-        }
-        
-        // Print full message.
-        print(userInfo)
-        
-        completionHandler()
-    }
-    
+//    func userNotificationCenter(_ center: UNUserNotificationCenter,
+//                                didReceive response: UNNotificationResponse,
+//                                withCompletionHandler completionHandler: @escaping () -> Void) {
+//        print("userNotificationCenter didReceive")
+//        let userInfo = response.notification.request.content.userInfo
+//        // Print message ID.
+//        
+//        if let messageID = userInfo[gcmMessageIDKey] {
+//            print("Message ID: \(messageID)")
+//        }
+//        
+//        if let fileName = userInfo["file_name"] as? String, let key = userInfo["inner_idx"] as? String{
+//            let groupId = fileName.components(separatedBy: ".")[0]
+//            
+//            if let title = userInfo["title"] as? String, let link = userInfo["link"] as? String, let datetime = userInfo["datetime"] as? String {
+//                dataManager.supportedBoards[groupId]?.articles[key] = Article(title: title, groupid: groupId, key: key, url: link, date: datetime, archived: false)
+//            }
+//            
+//            if let topView = getTopViewController(), topView.isKind(of: ArticleViewController.self) {
+//                let articleVC = topView as! ArticleViewController
+//                
+//                articleVC.filterArticles()
+//                articleVC.articleTable.reloadData()
+//            }
+//        }
+//
+//        // Print full message.
+//        print(userInfo)
+//
+//        completionHandler()
+//    }
 }
 
 extension AppDelegate : FIRMessagingDelegate {
