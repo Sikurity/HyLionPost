@@ -23,15 +23,16 @@ import Foundation
  *      - 설정을 통해 값 변경 시, Firebase에 반영
  */
 class Board : NSObject, NSCoding{
-    var name:String
-    var groupid:String
-    var url:String
-    var favorite:Bool
-    var filtered:Bool
-    var articles:[String:Article]
-    var count:Int
+    var name:String                 // 게시판 이름
+    var groupid:String              // 게시판 ID
+    var url:String                  // 게시판 링크
+    var favorite:Bool               // 게시판 구독여부
+    var filtered:Bool               // 게시판 필터여부
+    var articles:[String:Article]   // 게시판 내 게시글들
+    var count:Int                   // 보관 게시글 개수
+    var format:String               // 게시판 날짜 형식
     
-    init(name:String, groupid:String, url:String, favorite:Bool)
+    init(name:String, groupid:String, url:String, favorite:Bool, format:String)
     {
         self.name = name
         self.groupid = groupid
@@ -40,6 +41,7 @@ class Board : NSObject, NSCoding{
         self.filtered = false
         self.articles = [:]
         self.count = -1
+        self.format = format
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -50,6 +52,7 @@ class Board : NSObject, NSCoding{
         self.filtered = aDecoder.decodeBool(forKey:"filtered") as Bool
         self.articles = aDecoder.decodeObject(forKey:"articles") as! [String:Article]
         self.count = aDecoder.decodeInteger(forKey: "count") as Int
+        self.format = aDecoder.decodeObject(forKey: "format") as! String
     }
     
     func encode(with aCoder: NSCoder) {
@@ -60,5 +63,6 @@ class Board : NSObject, NSCoding{
         aCoder.encode(self.filtered, forKey:"filtered")
         aCoder.encode(self.articles, forKey:"articles")
         aCoder.encode(self.count, forKey:"count")
+        aCoder.encode(self.format, forKey:"format")
     }
 }
