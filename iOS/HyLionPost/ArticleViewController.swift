@@ -11,42 +11,52 @@ import MGSwipeTableCell
 
 class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    let dateFormatter = DateFormatter()
     
-    @IBOutlet weak var filterSwitch: UISwitch!
+    @IBOutlet weak var archiveFilterButton: UIBarButtonItem!
     @IBOutlet weak var articleTable: UITableView!
     
-    @IBAction func switchChanged(_ sender: Any) {
-        UIView.transition(with: articleTable,
-                          duration: 0.5,
-                          options: .transitionCrossDissolve,
-                          animations: { self.filterArticles(); self.articleTable.reloadData() })
+    // 전체 게시글을 볼 것인지(false), 중요함 표시된 게시글만 볼 것인지(true)
+    var isArchiveFiltered:Bool = false
+    
+    // 우측 상단 별 모양 버튼 리스너, 중요함 표시를 한 게시글들만 볼지 전체를 볼지 선택 
+    @IBAction func changeArchiveFiltered(_ sender: Any) {
+        isArchiveFiltered = !isArchiveFiltered
+            
+        archiveFilterButton.image = UIImage(named: (isArchiveFiltered ? "Star4Filter" : "Unstar4Filter"))
+        
+        UIView.transition(with: articleTable, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                            self.filterArticles()
+                            self.articleTable.reloadData()
+        })
     }
     
+    // 테이블 헤더에 추가할 검색창 입력
     var searchBarController:UISearchController = UISearchController(searchResultsController: nil)
+    
+    // 테이블에 표시할 게시글 목록
     var filteredArticles:[Article] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("ArticleViewController viewDidLoad")
+        print("ArticleViewController viewDidLoad") // FOR DEBUG
         
         self.articleTable.delegate = self
         self.articleTable.dataSource = self
         
+        // 테이블 헤더에 추가할 검색창 속성 입력
         searchBarController.searchResultsUpdater = self
         searchBarController.hidesNavigationBarDuringPresentation = false
         searchBarController.dimsBackgroundDuringPresentation = false
         searchBarController.obscuresBackgroundDuringPresentation = false
         searchBarController.searchBar.sizeToFit()
-        searchBarController.searchBar.barStyle = UIBarStyle.black
+        searchBarController.searchBar.barStyle = UIBarStyle.default
         searchBarController.searchBar.barTintColor = UIColor.white
-        searchBarController.searchBar.backgroundColor = UIColor.clear
+        searchBarController.searchBar.backgroundColor = UIColor.black
         
         self.definesPresentationContext = true
-        self.articleTable.tableHeaderView = searchBarController.searchBar
         
-        filterSwitch.isOn = false
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        // 테이블 헤더에 게시글 검색창 추가
+        self.articleTable.tableHeaderView = searchBarController.searchBar
         
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -58,7 +68,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(_ animated: Bool)
     {
-        print("ArticleViewController - viewWillAppear")
+        print("ArticleViewController - viewWillAppear") // FOR DEBUG
         super.viewWillAppear(animated)
         
         filterArticles()
@@ -80,34 +90,42 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! AritlceTableViewCell
         
+        // didSet을 이용한 cell 변경
         cell.articleForCell = filteredArticles[indexPath.row]
         
-        /// 왼쪽 이미지
+        // 왼쪽버튼 이미지
         let flagImg = resizeImage(image:UIImage(named:(filteredArticles[indexPath.row].archived ? "Star" : "Unstar")), newWidth:tableView.rowHeight / 2)
         
+        // 게시글 우측으로 슬라이딩 시 좌측에 나타나는 버튼
         cell.leftButtons = [MGSwipeButton(title: "", icon: flagImg, backgroundColor:UIColor.lightGray){
             (sender: MGSwipeTableCell!) -> Bool in
             let cell = sender as! AritlceTableViewCell
             
+            // 게시글에 중요 표시/해제
             self.appDelegate.dataManager.supportedBoards[cell.groupid]?.articles[cell.key]?.archived = !self.filteredArticles[indexPath.row].archived
-            self.articleTable.reloadData()
-            
             self.appDelegate.dataManager.save()
-            
-            return true
-            }]
-        cell.leftSwipeSettings.transition = MGSwipeTransition.rotate3D
-        
-        cell.rightButtons = [MGSwipeButton(title: "Delete", icon: nil, backgroundColor: UIColor.red){
-            (sender: MGSwipeTableCell!) -> Bool in
-            let cell = sender as! AritlceTableViewCell
-            
-            self.appDelegate.dataManager.supportedBoards[cell.groupid]?.articles.removeValue(forKey:cell.key)
             
             self.filterArticles()
             self.articleTable.reloadData()
             
+            return false
+            }]
+        cell.leftSwipeSettings.transition = MGSwipeTransition.rotate3D
+        
+        // 게시글 좌측으로 슬라이딩 시 우측에 나타나는 버튼
+        cell.rightButtons = [MGSwipeButton(title: "Delete", icon: nil, backgroundColor: UIColor.red){
+            (sender: MGSwipeTableCell!) -> Bool in
+            let cell = sender as! AritlceTableViewCell
+            
+            // 게시글 삭제(복구 불가!!)
+            self.appDelegate.dataManager.supportedBoards[cell.groupid]?.articles.removeValue(forKey:cell.key)
             self.appDelegate.dataManager.save()
+            
+            self.filterArticles()
+            self.articleTable.reloadData()
+            
+            self.appDelegate.updateBoardTable()
+            self.appDelegate.updateBadgeCount() // 게시글이 삭제 되었으므로, badge 갱신
             
             return true
             }]
@@ -116,9 +134,10 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
-    // 뒤로가기 용
+    /// (뒤로가기) 웹뷰 -> 탭1
     @IBAction func prepareForUnwindFromWebView(segue: UIStoryboardSegue){
-        filterArticles()
+        /// 웹뷰에 있는 동안 변경된 데이터를 위해 테이블 갱신
+        self.filterArticles()
         self.articleTable.reloadData()
     }
     
@@ -129,28 +148,35 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
             if let webVC = segue.destination as? WebViewController {
                 if let selectedIndex = self.articleTable.indexPathForSelectedRow?.row {
                     let article = filteredArticles[selectedIndex]
-                    appDelegate.dataManager.supportedBoards[article.groupid]?.articles[article.key]?.unopened = false
+                    
+                    if let article = appDelegate.dataManager.supportedBoards[article.groupid]?.articles[article.key] {
+                        // 게시글이 읽음으로 처리
+                        appDelegate.dataManager.supportedBoards[article.groupid]?.articles[article.key]?.unopened = false
+                        self.appDelegate.dataManager.save()
+                        
+                        self.appDelegate.updateBoardTable()
+                        self.appDelegate.updateBadgeCount() // 게시글이 읽혀졌으므로, badge 갱신
+                    }
                     webVC.link = filteredArticles[selectedIndex].url
                 }
             }
         }
     }
     
+    // 테이블에 표시한 게시물들을 선별
     func filterArticles(){
         filteredArticles.removeAll(keepingCapacity: false)
         
-        /// @TODO 2번째 탭에서 설정된 필터링된 결과로 변경
+        // Tab2에서 설정한 필터를 적용한 결과로 테이블 갱신
         for groupid in appDelegate.dataManager.supportedBoards.keys
         {
             if let board = appDelegate.dataManager.supportedBoards[groupid], board.favorite && !board.filtered{
                 for key in board.articles.keys{
                     if let article = board.articles[key] {
-                        if !filterSwitch.isOn || article.archived {
+                        if !isArchiveFiltered || article.archived {
                             
-                            /// @TODO 날짜 필터
-                            let beginDate = dateFormatter.string(from: appDelegate.dataManager.beginDate)
-                            let endDate = dateFormatter.string(from: appDelegate.dataManager.endDate)
-                            if  beginDate <= article.date && article.date <= endDate {
+                            /// 날짜 필터
+                            if appDelegate.dataManager.filterByDate(article) {
                                 filteredArticles.append(article)
                             }
                         }
@@ -159,20 +185,32 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         
+        // 검색창에 단어가 입력 된 경우, 키워드 필터 적용
         if let keyword = searchBarController.searchBar.text, keyword != "" {
             filteredArticles = filteredArticles.filter({$0.title.range(of:keyword) != nil})
         }
         
-        filteredArticles.sort(by:{$0.date > $1.date})
+        // 게시물을 날짜 별로 최신순으로 정렬
+        filteredArticles.sort(by: { (left:Article, right:Article) -> Bool in
+            guard let format1 = appDelegate.dataManager.supportedBoards[left.groupid]?.format,
+                let format2 = appDelegate.dataManager.supportedBoards[right.groupid]?.format else {
+                    return true
+            }
+            
+            let date1 = appDelegate.dataManager.convertDateToDefaultFormat(from: left.date, format: format1)
+            let date2 = appDelegate.dataManager.convertDateToDefaultFormat(from: right.date, format: format2)
+            
+            return date1 > date2
+        })
     }
     
-    /// 검색 창에 키가 입력 될 때 마다 실행 됨
+    /// 검색 창에 키가 입력 될 때 마다 필터 적용
     func updateSearchResults(for searchController: UISearchController) {
-        filterArticles()
+        self.filterArticles()
         self.articleTable.reloadData()
     }
     
-    /// 이미지 크기를 테이블 크기에 맞게 변경하기 위해 작성
+    /// 이미지 크기를 변경
     func resizeImage(image: UIImage?, newWidth: CGFloat) -> UIImage? {
         var retImage:UIImage? = image
         
@@ -214,12 +252,16 @@ class AritlceTableViewCell:MGSwipeTableCell {
             return
         }
         
-        dateLabel.text = article.date
-        titleLabel.text = article.title
-        boardLabel.text = appDelegate.dataManager.supportedBoards[article.groupid]?.name
-        unreadImage.image = article.unopened ? UIImage(named: "Bluedot")! : nil
-
-        self.groupid = article.groupid
-        self.key = article.key
+        if let board = appDelegate.dataManager.supportedBoards[article.groupid] {
+            
+            // 날짜를 앱 기본 날짜 포맷으로 변환하여 표시
+            dateLabel.text = appDelegate.dataManager.convertDateToDefaultFormat(from: article.date, format: board.format)
+            titleLabel.text = article.title
+            boardLabel.text = appDelegate.dataManager.supportedBoards[article.groupid]?.name
+            unreadImage.image = article.unopened ? UIImage(named: "Bluedot")! : nil
+            
+            self.groupid = article.groupid
+            self.key = article.key
+        }
     }
 }

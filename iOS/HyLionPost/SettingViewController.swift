@@ -21,7 +21,7 @@ class SettingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // 뒤로가기 용
+    // 뒤로가기 처리용
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue){
         
     }
