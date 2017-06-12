@@ -197,6 +197,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.dataManager.save() // Background로 진입하기 전에 데이터 저장
     }
     
+    /// 앱이 종료되기 직전에 실행되는 함수
+    func applicationWillTerminate(_ application: UIApplication)
+    {
+        self.dataManager.save() // 종료되기 전에 데이터 저장
+    }
+    
     /// @brief
     ///     앱이 백그라운드에서 포어그라운드로 전환될 때 실행되는 함수
     /// @discussion
@@ -208,12 +214,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.dataManager = DataManager() // Foreground로 진입하기 전에 데이터 복구
     }
-    
-    /// 앱이 종료되기 직전에 실행되는 함수
-    func applicationWillTerminate(_ application: UIApplication)
-    {
-        self.dataManager.save() // 종료되기 전에 데이터 저장
-    }
 
     
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
@@ -224,6 +224,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FIRMessaging.messaging().connect { error in
             print(error as Any)
+        }
+        
+        self.changeEndDateToday()   // 앱을 켠 후 날짜가 바뀐 후 수시된 게시글이 보이지 않는 것을 방지
+    }
+    
+    func changeEndDateToday() {
+        if let mainTBC = self.window?.rootViewController as? MainTabBarController,
+            let mainNC = mainTBC.viewControllers?[1] as? UINavigationController,
+            let filterTypeVC = mainNC.viewControllers[0] as? FilterTypeViewController {
+            
+            if filterTypeVC.endDatePicker != nil && filterTypeVC.boardTable != nil{
+                self.dataManager.endDate = Date()
+                filterTypeVC.endDatePickerChanged(self)
+            }
         }
     }
     
@@ -433,6 +447,8 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
             self.updateArticleTable()
             self.updateBoardTable()
             self.updateBadgeCount()
+            
+            self.changeEndDateToday()   // 앱을 켠 후 날짜가 바뀐 후 수시된 게시글이 보이지 않는 것을 방지
         }
 
         // Print full message.

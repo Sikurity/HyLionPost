@@ -15,8 +15,6 @@ class BoardSettingViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var boardTable: UITableView!   /// 게시판 목록 선택 테이블
     
     var favorites:[Board] = []
-    
-//    let alertController = UIAlertController(title: "저장완료", message: "", preferredStyle: .alert)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,12 +24,7 @@ class BoardSettingViewController: UIViewController, UITableViewDelegate, UITable
         boardTable.layer.masksToBounds = true
         
         boardTable.delegate = self      /// BoardSettingViewController가 Tableview에서 유저와 상호작용 함수 호출
-        boardTable.dataSource = self    /// BoardSettingViewController가 Tableview에서 데이터 관리하는 함수 호출// Create the actions
-        
-//        let okAction = UIAlertAction(title: "확인", style: UIAlertActionStyle.default) {UIAlertAction in return}
-//        alertController.addAction(okAction)
-
-        // Do any additional setup after loading the view.
+        boardTable.dataSource = self    /// BoardSettingViewController가 Tableview에서 데이터 관리하는 함수 호출
     }
     
     override func didReceiveMemoryWarning() {
