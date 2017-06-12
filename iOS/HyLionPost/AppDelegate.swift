@@ -194,6 +194,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRMessaging.messaging().disconnect()
         print("Disconnected from FCM.")
         
+        // 편집 모드에서 Background로 진입할 시, 재시작 되었을 때 BottomLayoutGuide가 사라지지 않도록 TabBar를 보이게 변경
+        if let mainTBC = self.window?.rootViewController as? MainTabBarController,
+            let mainNC = mainTBC.viewControllers?[0] as? UINavigationController,
+            let articleVC = mainNC.viewControllers[0] as? ArticleViewController {
+            
+            if articleVC.tabBarController != nil {
+                articleVC.tabBarController!.tabBar.isHidden = false
+            }
+        }
+        
         self.dataManager.save() // Background로 진입하기 전에 데이터 저장
     }
     
@@ -214,11 +224,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.dataManager = DataManager() // Foreground로 진입하기 전에 데이터 복구
     }
-
     
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     func applicationDidBecomeActive(_ application: UIApplication) {
         print("applicationDidBecomeActive") // FOR DEBUG
+        
+        // 편집 모드에서 Background로 진입할 시, 재시작 되었을 때 TabBar가 보이지 않도록 강제
+        if let mainTBC = self.window?.rootViewController as? MainTabBarController,
+            let mainNC = mainTBC.viewControllers?[0] as? UINavigationController,
+            let articleVC = mainNC.viewControllers[0] as? ArticleViewController {
+            
+            if articleVC.tabBarController != nil {
+                articleVC.tabBarController!.tabBar.isHidden = articleVC.isEditMode
+            }
+        }
         
         connectToFcm()
         
