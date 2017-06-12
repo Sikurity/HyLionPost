@@ -17,17 +17,18 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     // 편집 모드에서 삭제를 할 것인지, 취소할 것인지 선택할 Alert
     let alertController = UIAlertController(title: "삭제하시겠습니까?", message: "삭제 후에는 되돌릴 수 없습니다", preferredStyle: .alert)
     
-    @IBOutlet weak var articleTable: UITableView!
+    @IBOutlet weak var articleTable: UITableView!                   // 게시글 목록 테이블
     
-    @IBOutlet weak var archiveFilterButton: UIBarButtonItem!
-    @IBOutlet weak var titleItem: UINavigationItem!
-    @IBOutlet weak var editButton: UIBarButtonItem!
+    @IBOutlet weak var archiveFilterButton: UIBarButtonItem!        // 관심글/전체글 보기 전환 버튼
+    @IBOutlet weak var titleItem: UINavigationItem!                 // 제목
+    @IBOutlet weak var editButton: UIBarButtonItem!                 // 편집/취소 전환 버튼
     
-    @IBOutlet weak var modifyButton: UIBarButtonItem!
-    @IBOutlet weak var selectAllButton: UIBarButtonItem!
-    @IBOutlet weak var removeButton: UIBarButtonItem!
+    @IBOutlet weak var editToolBar: UIToolbar!                      // 편집모드 용 ToolBar
+    @IBOutlet weak var toolBarHeightConstraint: NSLayoutConstraint! // 편집모드 용 ToolBar Show/Hide 제어용 Constraint
     
-    @IBOutlet weak var editToolBar: UIToolbar!
+    @IBOutlet weak var selectAllButton: UIBarButtonItem!            // 편집모드 용 ToolBar - 전체 선택/해제 버튼
+    @IBOutlet weak var modifyButton: UIBarButtonItem!               // 편집모드 용 ToolBar - 수정 버튼
+    @IBOutlet weak var removeButton: UIBarButtonItem!               // 편집모드 용 ToolBar - 삭제 버튼
     
     // 현재 편집 중인지, 아닌지 상태를 저장
     var isEditMode: Bool = false
@@ -67,7 +68,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.articleTable.tableHeaderView = searchBarController.searchBar
         
         // 편집 툴바를 처음에는 보이지 않게
-        editToolBar.isHidden = isEditMode
+        editToolBar.isHidden = !isEditMode
         
         /// 선택된 게시글들을 읽음으로 처리
         let readAction = UIAlertAction(title: "읽음으로 표시", style: .default) { action -> Void in
@@ -186,6 +187,11 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         print("ArticleViewController - viewWillAppear") // FOR DEBUG
         super.viewWillAppear(animated)
         
+        editToolBar.isHidden = !isEditMode
+        toolBarHeightConstraint.constant = self.tabBarController?.bottomLayoutGuide.length ?? 0.0
+        
+        self.tabBarController?.tabBar.isHidden = isEditMode
+        
         self.filterArticles()           // 화면이 새로 표시될 때마다, 게시물 필터 적용
         self.articleTable.reloadData()  // 화면이 새로 표시될 때마다, 테이블 갱신
     }
@@ -226,7 +232,10 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // 우측 상단 별 모양 버튼 리스너, 중요함 표시를 한 게시글들만 볼지 전체를 볼지 선택
     @IBAction func changeArchiveFiltered(_ sender: Any) {
-        
+        print("높이")
+        print(toolBarHeightConstraint.constant)
+        print("히든")
+        print(editToolBar.isHidden)
         isArchiveFiltered = !isArchiveFiltered
         titleItem.title = (isArchiveFiltered ? "중요 게시물" : "전체 게시물")
         
@@ -241,8 +250,6 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
             updateEditingViewWords()
         }
     }
-    
-    @IBOutlet weak var toolBarHeightConstraint: NSLayoutConstraint!
     
     /// 편집/취소 버튼을 누른 경우 실행
     @IBAction func changeArticles(_ sender: Any) {
