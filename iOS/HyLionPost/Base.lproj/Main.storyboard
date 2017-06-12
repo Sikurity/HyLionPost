@@ -140,8 +140,8 @@
                                 <rect key="frame" x="74.5" y="353" width="225" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="현재 최신 버전 입니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="in1-rW-wjR">
-                                        <rect key="frame" x="40" y="5" width="145" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <rect key="frame" x="48.5" y="6" width="129" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -185,7 +185,6 @@
                                         <rect key="frame" x="0.0" y="0.0" width="225" height="30"/>
                                         <state key="normal" title="데이터 설정">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="GoAppPreference:" destination="A61-Kx-oTv" eventType="touchUpInside" id="a2u-kp-1iZ"/>
@@ -234,10 +233,10 @@
             </objects>
             <point key="canvasLocation" x="-3263.1999999999998" y="1513.4932533733136"/>
         </scene>
-        <!--보관함-->
+        <!--게시물 목록-->
         <scene sceneID="PYb-16-Hak">
             <objects>
-                <viewController title="보관함" id="p0I-AC-sia" customClass="ArticleViewController" customModule="HyLionPost" sceneMemberID="viewController">
+                <viewController title="보관함" id="p0I-AC-sia" userLabel="게시물 목록" customClass="ArticleViewController" customModule="HyLionPost" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JuE-v4-zxa"/>
                         <viewControllerLayoutGuide type="bottom" id="AyT-ej-vvm"/>
@@ -257,20 +256,20 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="컴퓨터공학부 특성화사업단" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEb-py-Far">
-                                                    <rect key="frame" x="28" y="21" width="225" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="컴퓨터공학부 게시판 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEb-py-Far">
+                                                    <rect key="frame" x="28" y="21" width="244" height="18"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[2017 특성화 우수 학부생 장학금] 규정 변경 안내(중요)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSm-tb-JwO">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="컴퓨터공학부 게시판의 게시글 제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSm-tb-JwO">
                                                     <rect key="frame" x="28" y="47" width="339" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017-05-12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJr-jF-KIb">
-                                                    <rect key="frame" x="253" y="21" width="114" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="yy.MM.dd" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJr-jF-KIb">
+                                                    <rect key="frame" x="272" y="21" width="95" height="18"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -294,7 +293,7 @@
                                                 <constraint firstItem="NJr-jF-KIb" firstAttribute="leading" secondItem="FEb-py-Far" secondAttribute="trailing" id="abM-CQ-P7v"/>
                                                 <constraint firstItem="cSm-tb-JwO" firstAttribute="trailing" secondItem="NJr-jF-KIb" secondAttribute="trailing" id="k9c-OD-9nf"/>
                                                 <constraint firstItem="cSm-tb-JwO" firstAttribute="top" secondItem="FEb-py-Far" secondAttribute="bottom" constant="8" id="w6d-hP-Ghq"/>
-                                                <constraint firstItem="FEb-py-Far" firstAttribute="width" secondItem="Xsj-uN-Oyg" secondAttribute="width" multiplier="0.6" id="zPT-Qk-kie"/>
+                                                <constraint firstItem="FEb-py-Far" firstAttribute="width" secondItem="Xsj-uN-Oyg" secondAttribute="width" multiplier="0.65" id="zPT-Qk-kie"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -308,17 +307,50 @@
                                 </prototypes>
                                 <sections/>
                             </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="r70-ak-0WU">
+                                <rect key="frame" x="0.0" y="618" width="375" height="50"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <items>
+                                    <barButtonItem title="전체 선택" id="O4o-Ct-Wcm">
+                                        <connections>
+                                            <action selector="selectDeselectAll:" destination="p0I-AC-sia" id="wdg-IF-XCo"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="IVb-nS-i10"/>
+                                    <barButtonItem title="수정" id="PVV-AP-2Sz">
+                                        <connections>
+                                            <action selector="showModifyActionSheet:" destination="p0I-AC-sia" id="oyH-VZ-dEL"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="j3M-jn-B7t"/>
+                                    <barButtonItem title="삭제" width="33.5" id="p44-8N-Qw8">
+                                        <connections>
+                                            <action selector="confirmRemoveCancel:" destination="p0I-AC-sia" id="Cpm-Tn-4wL"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="KMs-E4-zzK" firstAttribute="top" secondItem="JuE-v4-zxa" secondAttribute="bottom" constant="-64" id="2fu-xA-EE5"/>
+                            <constraint firstItem="r70-ak-0WU" firstAttribute="top" secondItem="KMs-E4-zzK" secondAttribute="bottom" id="7g7-QE-2iF"/>
+                            <constraint firstItem="r70-ak-0WU" firstAttribute="centerX" secondItem="Eyo-zZ-hmt" secondAttribute="centerX" id="Esa-HW-7Cj"/>
+                            <constraint firstItem="r70-ak-0WU" firstAttribute="trailing" secondItem="Eyo-zZ-hmt" secondAttribute="trailing" id="PWe-By-rsF"/>
+                            <constraint firstItem="r70-ak-0WU" firstAttribute="bottom" secondItem="AyT-ej-vvm" secondAttribute="top" constant="50" id="QdJ-aO-nQN"/>
+                            <constraint firstItem="KMs-E4-zzK" firstAttribute="top" secondItem="JuE-v4-zxa" secondAttribute="bottom" constant="-64" id="QdT-bY-cBE"/>
+                            <constraint firstItem="r70-ak-0WU" firstAttribute="height" relation="greaterThanOrEqual" secondItem="Eyo-zZ-hmt" secondAttribute="height" multiplier="0.0001" id="XW3-7h-gfi"/>
                             <constraint firstItem="KMs-E4-zzK" firstAttribute="trailing" secondItem="Eyo-zZ-hmt" secondAttribute="trailing" id="drb-xW-U5d"/>
                             <constraint firstItem="KMs-E4-zzK" firstAttribute="leading" secondItem="Eyo-zZ-hmt" secondAttribute="leading" id="gkB-aB-go5"/>
-                            <constraint firstItem="AyT-ej-vvm" firstAttribute="top" secondItem="KMs-E4-zzK" secondAttribute="bottom" id="mN9-DG-D1Q"/>
+                            <constraint firstItem="r70-ak-0WU" firstAttribute="leading" secondItem="Eyo-zZ-hmt" secondAttribute="leading" id="lb2-6W-T2u"/>
+                            <constraint firstItem="KMs-E4-zzK" firstAttribute="bottom" secondItem="AyT-ej-vvm" secondAttribute="top" id="u3e-va-bkm"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="보관함" id="cM6-pW-Srb">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="39I-tz-mDN"/>
+                    <navigationItem key="navigationItem" title="전체 게시물" id="cM6-pW-Srb">
+                        <barButtonItem key="leftBarButtonItem" title="편집" id="39I-tz-mDN">
+                            <connections>
+                                <action selector="changeArticles:" destination="p0I-AC-sia" id="W7g-xF-z3L"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="Unstar4Filter" id="doj-sq-ZPl">
                             <connections>
                                 <action selector="changeArchiveFiltered:" destination="p0I-AC-sia" id="FtJ-hE-6Ft"/>
@@ -328,6 +360,13 @@
                     <connections>
                         <outlet property="archiveFilterButton" destination="doj-sq-ZPl" id="oPU-2M-1Sp"/>
                         <outlet property="articleTable" destination="KMs-E4-zzK" id="Qu2-M3-1h6"/>
+                        <outlet property="editButton" destination="39I-tz-mDN" id="KQe-ZX-mJT"/>
+                        <outlet property="editToolBar" destination="r70-ak-0WU" id="2V6-hd-NWP"/>
+                        <outlet property="modifyButton" destination="PVV-AP-2Sz" id="XaW-WM-RZV"/>
+                        <outlet property="removeButton" destination="p44-8N-Qw8" id="UaE-0c-Fzx"/>
+                        <outlet property="selectAllButton" destination="O4o-Ct-Wcm" id="BqT-3N-EdX"/>
+                        <outlet property="titleItem" destination="cM6-pW-Srb" id="2uE-8v-ue6"/>
+                        <outlet property="toolBarHeightConstraint" destination="XW3-7h-gfi" id="qJo-Tn-ak6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rip-SJ-se0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -405,10 +444,10 @@
             </objects>
             <point key="canvasLocation" x="-4157" y="1514"/>
         </scene>
-        <!--게시글 분류-->
+        <!--필터링 설정-->
         <scene sceneID="IQc-QB-o7h">
             <objects>
-                <viewController title="게시글 분류" id="cQO-Yf-KSJ" customClass="FilterTypeViewController" customModule="HyLionPost" sceneMemberID="viewController">
+                <viewController title="게시글 분류" id="cQO-Yf-KSJ" userLabel="필터링 설정" customClass="FilterTypeViewController" customModule="HyLionPost" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2hD-Aa-Eqs"/>
                         <viewControllerLayoutGuide type="bottom" id="vUv-R4-p6C"/>

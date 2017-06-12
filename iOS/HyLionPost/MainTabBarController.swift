@@ -15,7 +15,6 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate{
         super.viewDidLoad()
         print("MainTabBar viewDidLoad") // FOR DEBUG
         
-        //Assign self for delegate for that ViewController can respond to UITabBarControllerDelegate methods
         self.delegate = self
     }
     
