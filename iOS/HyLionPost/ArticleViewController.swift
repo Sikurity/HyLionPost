@@ -253,24 +253,40 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /// 편집/취소 버튼을 누른 경우 실행
     @IBAction func changeArticles(_ sender: Any) {
-        self.editToolBar.isHidden = isEditMode
         isEditMode = !isEditMode
-        self.tabBarController?.tabBar.isHidden = isEditMode
-        
         articleTable.setEditing(isEditMode, animated: true)
         
         if isEditMode { // 편집모드 시작
+            searchBarController.searchBar.barStyle = UIBarStyle.default
+            searchBarController.searchBar.barTintColor = UIColor.lightGray
+            searchBarController.searchBar.backgroundColor = UIColor.white
+            searchBarController.searchBar.alpha = 0.2
+            
             editButton.title? = "취소"
             toolBarHeightConstraint.constant = self.tabBarController?.bottomLayoutGuide.length ?? 0.0
+            
+            self.tabBarController?.tabBar.isHidden = true
+            self.editToolBar.isHidden = false
+            self.searchBarController.searchBar.isUserInteractionEnabled = false
             
             updateEditingViewWords()
             
         } else {        // 편집모드 취소
+            searchBarController.searchBar.barStyle = UIBarStyle.default
+            searchBarController.searchBar.barTintColor = UIColor.white
+            searchBarController.searchBar.backgroundColor = UIColor.black
+            searchBarController.searchBar.alpha = 1.0
+            
+            self.searchBarController.searchBar.isUserInteractionEnabled = true
+            
             editButton.title? = "편집"
             toolBarHeightConstraint.constant = 0.0
             
-            titleItem.title? = isArchiveFiltered ? "중요 게시글" : "전체 게시글"
+            self.tabBarController?.tabBar.isHidden = true
+            self.editToolBar.isHidden = false
+            self.searchBarController.searchBar.isUserInteractionEnabled = true
             
+            titleItem.title? = isArchiveFiltered ? "중요 게시글" : "전체 게시글"
         }
     }
     
