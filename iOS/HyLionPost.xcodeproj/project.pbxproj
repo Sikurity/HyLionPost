@@ -28,6 +28,7 @@
 		04B16D221ED00633003F0B9A /* Pods_HyLionPostTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B16D201ED00633003F0B9A /* Pods_HyLionPostTests.framework */; };
 		04D6790B1ECECAEE0029C5DF /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6790A1ECECAEE0029C5DF /* Article.swift */; };
 		04D755B31ED9620500329EE1 /* FilterTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D755B21ED9620500329EE1 /* FilterTypeViewController.swift */; };
+		04ED1DE71EF0214E00163F09 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED1DE61EF0214E00163F09 /* LaunchScreenViewController.swift */; };
 		04F74C9A1EC581A700F17243 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F74C991EC581A700F17243 /* Media.xcassets */; };
 		CE955950C7D5D5C55CD66A1E /* Pods_HyLionPostTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6787E766D012E3BDDF766AC /* Pods_HyLionPostTests.framework */; };
 		FED9EF09FF03314B3F7B4121 /* Pods_HyLionPost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A0971A4D049C5467ABA7BA /* Pods_HyLionPost.framework */; };
@@ -71,6 +72,7 @@
 		04D6790A1ECECAEE0029C5DF /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		04D755B21ED9620500329EE1 /* FilterTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTypeViewController.swift; sourceTree = "<group>"; };
 		04E2EEF51EC5A80E00B6F53F /* HyLionPost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HyLionPost.entitlements; sourceTree = "<group>"; };
+		04ED1DE61EF0214E00163F09 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		04F74C991EC581A700F17243 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = ../Media.xcassets; sourceTree = "<group>"; };
 		9D94DEC4397754606905AEAC /* Pods-HyLionPostTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HyLionPostTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HyLionPostTests/Pods-HyLionPostTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B3A0971A4D049C5467ABA7BA /* Pods_HyLionPost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HyLionPost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,6 +133,7 @@
 			children = (
 				04E2EEF51EC5A80E00B6F53F /* HyLionPost.entitlements */,
 				0406D24C1EBCC5C5000EF4E5 /* AppDelegate.swift */,
+				04ED1DE61EF0214E00163F09 /* LaunchScreenViewController.swift */,
 				043EE9D71EE1C6AC00E01590 /* ArticleViewController.swift */,
 				042645781EE162C800D6ABE0 /* MainTabBarController.swift */,
 				04D755B21ED9620500329EE1 /* FilterTypeViewController.swift */,
@@ -411,6 +414,7 @@
 				0428F21E1EE285A2003F4C49 /* SettingViewController.swift in Sources */,
 				0406D24D1EBCC5C5000EF4E5 /* AppDelegate.swift in Sources */,
 				04D755B31ED9620500329EE1 /* FilterTypeViewController.swift in Sources */,
+				04ED1DE71EF0214E00163F09 /* LaunchScreenViewController.swift in Sources */,
 				042E61371ECEE13C006CBB60 /* BoardSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
