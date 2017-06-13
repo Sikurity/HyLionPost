@@ -506,7 +506,7 @@ class AritlceTableViewCell:MGSwipeTableCell {
             dateLabel.text = appDelegate.dataManager.convertDateToDefaultFormat(from: article.date, format: board.format)
             titleLabel.text = article.title
             boardLabel.text = appDelegate.dataManager.supportedBoards[article.groupid]?.name
-            unreadImage.image = article.unopened ? UIImage(named: "Bluedot")! : nil
+            unreadImage.image = article.unopened ? UIImage(named: "GreenDot")! : nil
             
             self.groupid = article.groupid
             self.key = article.key

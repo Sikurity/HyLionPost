@@ -95,17 +95,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // Top Layout Guide 색상
-        let red:Double = 185.0
-        let green:Double = 225.0
+        let red:Double = 0.0
+        let green:Double = 118.0
         let blue:Double = 255.0
         
         // Top Layout Guide 색상 적용
         if let mainTBC = self.window?.rootViewController as? MainTabBarController {
             if let mainNC = mainTBC.viewControllers as? [UINavigationController]{
                 let topBackgroundColor = UIColor(red: CGFloat(red/255.0), green: CGFloat(green/255.0), blue: CGFloat(blue/255.0), alpha: 1.0)
+
+                // StatusBar 색상을 흰색으로 적용
+                // Info.plist - [View controller-based status bar appearance] - No
+                UIApplication.shared.statusBarStyle = .lightContent
+                
+                // Top Layout Guide 색상을 변경, 글자색은 흰색
+                mainNC[0].navigationBar.tintColor = UIColor.white
+                mainNC[0].navigationBar.barTintColor = topBackgroundColor
                 mainNC[0].navigationBar.backgroundColor = topBackgroundColor
+                mainNC[0].navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+                
+                // Top Layout Guide 색상을 변경, 글자색은 흰색
+                mainNC[1].navigationBar.tintColor = UIColor.white
+                mainNC[1].navigationBar.barTintColor = topBackgroundColor
                 mainNC[1].navigationBar.backgroundColor = topBackgroundColor
+                mainNC[1].navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+                
+                // Top Layout Guide 색상을 변경, 글자색은 흰색
+                mainNC[2].navigationBar.tintColor = UIColor.white
+                mainNC[2].navigationBar.barTintColor = topBackgroundColor
                 mainNC[2].navigationBar.backgroundColor = topBackgroundColor
+                mainNC[2].navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
             }
         }
         
@@ -177,7 +196,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
     
     /// 토큰 등록이 실패한 경우 실행되는 함수, 실패 정보를 갖는 에러를 전달해준다
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -372,12 +390,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let mainTBC = self.window?.rootViewController as? MainTabBarController {
             // 탭1에서 읽지 않은 게시글 개수
             if let tab1st = mainTBC.tabBar.items?[0] {
-                tab1st.badgeValue = "\(self.dataManager.calculateAllNewsCount(filtered: false))"
+                let count = self.dataManager.calculateAllNewsCount(filtered: false)
+                tab1st.badgeValue = count > 0 ? "\(count)" : nil
             }
             
             // 필터링 됐지만 읽지 않은 게시글 개수 표시
             if let tab2nd = mainTBC.tabBar.items?[1] {
-                tab2nd.badgeValue = "\(self.dataManager.calculateAllNewsCount(filtered: true))"
+                let count = self.dataManager.calculateAllNewsCount(filtered: true)
+                tab2nd.badgeValue = count > 0 ? "\(count)" : nil
             }
         }
     }
