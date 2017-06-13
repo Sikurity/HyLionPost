@@ -6,15 +6,14 @@ from controllers.generate import *
 def running():
     print("running server...")
     threadsLists = []
-
+    '''
     threadObj1 = Thread(target=csck2notice_server)
     threadsLists.append(threadObj1)
-    threadObj1.start()
-        
+    threadObj1.start()    
     threadObj2 = Thread(target=csjob_server)
     threadsLists.append(threadObj2)
     threadObj2.start()
- 
+    ''' 
     threadObj3 = Thread(target=csgradu_server)
     threadsLists.append(threadObj3)
     threadObj3.start()
