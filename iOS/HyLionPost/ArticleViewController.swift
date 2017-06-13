@@ -277,13 +277,11 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
             searchBarController.searchBar.backgroundColor = UIColor.black
             searchBarController.searchBar.alpha = 1.0
             
-            self.searchBarController.searchBar.isUserInteractionEnabled = true
-            
             editButton.title? = "편집"
             toolBarHeightConstraint.constant = 0.0
             
-            self.tabBarController?.tabBar.isHidden = true
-            self.editToolBar.isHidden = false
+            self.tabBarController?.tabBar.isHidden = false
+            self.editToolBar.isHidden = true
             self.searchBarController.searchBar.isUserInteractionEnabled = true
             
             titleItem.title? = isArchiveFiltered ? "중요 게시글" : "전체 게시글"
