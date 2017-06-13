@@ -20,7 +20,6 @@ def push_lionbase(data,name):
 def load_lionbase(name):
     db = connect_firebase()
     data = db.child("board_datas").child(name).get()
-    #print (data)
     return data
 
 def update_firebase(data,name):
@@ -44,7 +43,6 @@ def filter_notify_func(name, new_datas, old_data) :
                     print('[',name.upper(),'] No post update!!')
                     break
                 else :
-                    print(update_data)
                     for x in range(len(old_data),len(new_datas)) :
                         value = {}
                         value[str(x)] = new_datas[x]
