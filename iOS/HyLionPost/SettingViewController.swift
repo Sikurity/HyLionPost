@@ -9,10 +9,20 @@
 import UIKit
 
 class SettingViewController: UIViewController {
+    @IBOutlet weak var appLogoImageView: UIImageView!
 
+    @IBOutlet weak var gotoReceiveBoardSettingView: UIButton!
+    @IBOutlet weak var gotoDataSettingView: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        appLogoImageView.layer.cornerRadius = 20.0
+        appLogoImageView.layer.masksToBounds = true
+        
+        gotoReceiveBoardSettingView.layer.borderWidth = 1
+        gotoDataSettingView.layer.borderWidth = 1
+        
         // Do any additional setup after loading the view.
     }
 
@@ -21,7 +31,7 @@ class SettingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // 뒤로가기 용
+    // 뒤로가기 처리용
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue){
         
     }

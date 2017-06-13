@@ -12,10 +12,6 @@ class FilterTypeViewController: UIViewController, UITableViewDelegate, UITableVi
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let dateFormatter = DateFormatter()
     
-    @IBAction func TEST(_ sender: Any) {
-        appDelegate.dataManager.test()
-    }
-    
     @IBOutlet weak var stackView: UIStackView!
     
     @IBOutlet weak var beginDatePickerView: UIView!
@@ -28,24 +24,33 @@ class FilterTypeViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var beginDateLabel: UILabel!
     @IBOutlet weak var endDateLabel: UILabel!
+    
+    /// 시작일 변경 시 필터 적용
     @IBAction func beginDatePickerChanged(_ sender: Any) {
         appDelegate.dataManager.beginDate = beginDatePicker.date
         beginDateLabel.text = dateFormatter.string(from: beginDatePicker.date)
+        
+        self.boardTable.reloadData()
+        
+        appDelegate.updateBadgeCount()
     }
+    
+    /// 종료일 변경 시 필터 적용
     @IBAction func endDatePickerChanged(_ sender: Any) {
         appDelegate.dataManager.endDate = endDatePicker.date
         endDateLabel.text = dateFormatter.string(from: endDatePicker.date)
         beginDatePicker.maximumDate = appDelegate.dataManager.endDate
         
-        appDelegate.dataManager.beginDate = beginDatePicker.date
-        beginDateLabel.text = dateFormatter.string(from: beginDatePicker.date)
+        // 시작일이 종료일을 넘을 수 없도록 강제
+        self.beginDatePickerChanged(sender)
     }
-    @IBOutlet weak var endDatePickerChanged: UIDatePicker!
+    
+    /// 테이블에 표시할 게시판 목록
     var favorites:[Board] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("FilterTypeViewController++") // FOR DEBU
+        print("FilterTypeViewController++") // FOR DEBUG
         
         boardTable.delegate = self
         boardTable.dataSource = self
@@ -53,7 +58,8 @@ class FilterTypeViewController: UIViewController, UITableViewDelegate, UITableVi
         beginDatePicker.date = appDelegate.dataManager.beginDate
         endDatePicker.date = appDelegate.dataManager.endDate
         
-        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+        dateFormatter.dateFormat = "yyyy년 MM월 dd일"  // 날짜를 표시할 포맷
+        
         beginDateLabel.text = dateFormatter.string(from: beginDatePicker.date)
         endDateLabel.text = dateFormatter.string(from: endDatePicker.date)
         
@@ -69,9 +75,9 @@ class FilterTypeViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // date picker가 접혀있도록 강제
         beginDatePickerViewHeightConstraint.constant = 0
         beginDatePickerView.isHidden = true
-        
         endDatePickerViewHeightConstraint.constant = 0
         endDatePickerView.isHidden = true
         
@@ -101,17 +107,22 @@ class FilterTypeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BoardPickerCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BoardPickerCell", for: indexPath) as! BoardFilterTableViewCell
         
-        cell.textLabel?.text = favorites[indexPath.row].name
-        cell.accessoryType = favorites[indexPath.row].filtered ? .none : .checkmark
+        // didSet을 이용한 cell 변경
+        cell.boardForCell = favorites[indexPath.row]
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 게시판 필터링 적용/해제
         appDelegate.dataManager.supportedBoards[favorites[indexPath.row].groupid]?.filtered = !favorites[indexPath.row].filtered
         tableView.reloadData()
+        
+        self.appDelegate.dataManager.save()
+        
+        self.appDelegate.updateBadgeCount()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -126,7 +137,7 @@ class FilterTypeViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var endDatePickerViewHeightConstraint: NSLayoutConstraint!
     /// 시작일 View 누를 시 실행되는 Trigger
     @IBAction func beginDateViewClicked(_ sender: Any) {
-
+        // 시작일 date picker 보이기/숨기기
         UIView.animate (withDuration:0.5, animations: {
             self.beginDatePickerView.isHidden = !self.beginDatePickerView.isHidden
             if( self.beginDatePickerView.isHidden ) {
@@ -140,6 +151,7 @@ class FilterTypeViewController: UIViewController, UITableViewDelegate, UITableVi
     /// 종료일 View 누를 시 실행되는 Trigger
     @IBAction func endDateViewClicked(_ sender: Any) {
         UIView.animate(withDuration:0.5, animations: {
+            // 종료일 date picker 보이기/숨기기
             self.endDatePickerView.isHidden = !self.endDatePickerView.isHidden
             if( self.endDatePickerView.isHidden ) {
                 self.endDatePickerViewHeightConstraint.constant = 0
@@ -147,5 +159,35 @@ class FilterTypeViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.endDatePickerViewHeightConstraint.constant = self.stackView.frame.height * 0.2
             }
         })
+    }
+}
+
+class BoardFilterTableViewCell:UITableViewCell {
+    @IBOutlet weak var isFilteredImageView: UIImageView!
+    @IBOutlet weak var boardNameLabel: UILabel!
+    @IBOutlet weak var unopenedCountLabel: UILabel!
+    
+    var groupid:String = ""
+    var key:String = ""
+    
+    var boardForCell:Board? {
+        didSet {
+            setUpCell()
+        }
+    }
+    
+    func setUpCell() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        guard let board = boardForCell else {
+            return
+        }
+        
+        // 필터 안된 경우 [Checkmark], 필터 된 경우 이미지 없음
+        isFilteredImageView.image = board.filtered ? nil : UIImage(named: "Checkmark")!
+        boardNameLabel.text = board.name
+        
+        let newsCount = appDelegate.dataManager.calculateNewsCount(at: board.groupid)
+        unopenedCountLabel.text = newsCount > 0 ? "\(newsCount)" : ""   // 0개인 경우 표시 안함
     }
 }
