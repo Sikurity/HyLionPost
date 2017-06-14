@@ -35,7 +35,7 @@ def find_index(json_data,update_data):
             return Index
     return -1
 
-def Update_push_data (name, new_datas, oldLength, newLength, indexNum):
+def Update_push_data (name, new_datas, newLength, oldLength, indexNum):
     for x in range(oldLength, oldLength + newLength - indexNum - 1) :
         value = {}
         insertIndex = x - oldLength + indexNum + 1
@@ -44,7 +44,7 @@ def Update_push_data (name, new_datas, oldLength, newLength, indexNum):
         update_firebase(value,name)
         print('[ ',name.upper(),' ] New data updated in db')
         result = pyfcm_notify(name,new_datas[insertIndex])
-        return result
+    return result
 
 def filter_notify_func(name, new_datas, old_data) :
     NAME = name.upper()
