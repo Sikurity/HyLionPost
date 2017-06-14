@@ -18,7 +18,7 @@ def engrnotice(driver):
     # link : base_url + n['href']
     # save as json format
 
-    output_file = open("engrnotice.json",'w')
+    output_file = open("../crawlers/crawler/result/engrnotice.json",'w')
     output_file.write("[")
     is_first = True
     for n,d in zip(notices,dates):
@@ -39,4 +39,4 @@ def engrnotice(driver):
         output_file.write("\"}")
     output_file.write("]")
 
-engrnotice(webdriver.Chrome('/Users/camelia/HyLionPost/crawlers/res/chromedriver'))
+#engrnotice(webdriver.Chrome('/Users/camelia/HyLionPost/crawlers/res/chromedriver'))
