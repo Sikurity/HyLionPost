@@ -4,11 +4,5 @@
 <dict>
 	<key>aps-environment</key>
 	<string>development</string>
-	<key>com.apple.developer.networking.networkextension</key>
-	<array>
-		<string>app-proxy-provider</string>
-		<string>content-filter-provider</string>
-		<string>packet-tunnel-provider</string>
-	</array>
 </dict>
 </plist>
