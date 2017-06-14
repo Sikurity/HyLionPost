@@ -10,14 +10,9 @@ import FirebaseMessaging
  *  @author
  *      이영식
  *  @date
- *      17` 05. 19
+ *      17` 05. 19 ~ 17` 06. 14
  *  @brief
- *      어플리케이션 Delegate
- *  @discussion
- *
- *  @todo :
- *      - 아카이브 데이터 불러오기/저장하기
- *      - 푸시알림이 포어그라운드/백그라운드 에서 발생할 경우 각각 처리
+ *      Application Delegate
  */
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -128,55 +123,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        self.updateDefaultData()    // 기본 데이터 불러오기, 앱이 설치된 후 처음 실행 됐다면 유의미
-        self.dataManager.save()
+        self.dataManager.save()     // 앱이 처음 실행 된 경우, 기본 값들을 저장해야 함
         self.updateBadgeCount()     // AppIcon, TabBar에 Badge 달기
+        
+        self.updateDefaultData()    // 기본 데이터 불러오기, 앱이 설치된 후 처음 실행 됐다면 유의미, Async로 동작
+        self.saveAllNotifications() // 앱이 종료되었을 때 푸시 된 알림들을 수집하는 역할, Async로 동작
         
         return true
     }
-    
-    /// @brief
-    ///     iOS 10 버전 미만에서 앱이 푸시 알림이 오는 경우 실행
-    /// @Todo
-    ///     - 공통                   알림 메시지 띄우기
-    ///     - Active(Foreground)    메인 게시글 테이블의 상단에 데이터를 추가(애니메이션과 함께)
-    ///     - Inactive(Foreground)  게시글 배열에 새 게시글 내용 추가
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        
-        if (application.applicationState == UIApplicationState.active ||    // At Foreground active - Firebaes로 부터 전달된 데이터 콘솔 출력
-            application.applicationState == UIApplicationState.inactive) {  // At Foreground inactive - Firebaes로 부터 전달된 데이터 콘솔 출력
-            print("userNotificationCenter foreground") // FOR DEBUG
-            
-            if let messageID = userInfo[gcmMessageIDKey] {
-                print("Message ID: \(messageID)")
-            }
-            FIRMessaging.messaging().appDidReceiveMessage(userInfo)
-            
-            print("USERINFO FOREGROUND:")
-            print(userInfo)
-            
-            // Change this to your preferred presentation option
-            completionHandler(UIBackgroundFetchResult.noData)
-        }
-            
-        else if (application.applicationState == UIApplicationState.background) {   // At Background - Firebaes로 부터 전달된 데이터 콘솔 출력
-            print("userNotificationCenter background") // FOR DEBUG
-            
-            
-            if let messageID = userInfo[gcmMessageIDKey] {
-                print("Message ID: \(messageID)")
-            }
-            FIRMessaging.messaging().appDidReceiveMessage(userInfo)
-            
-            // Firebaes로 부터 전달된 유저정보 출력
-            print("USERINFO BACKGROUND:")
-            print(userInfo)
-            
-            // Change this to your preferred presentation option
-            completionHandler(UIBackgroundFetchResult.newData)
-        }
-    }
-    
+
     /// 토큰 등록이 성공한 경우 실행되는 함수, 생성된 토큰 값을 전달해준다
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.sandbox)
@@ -209,6 +164,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// @Todo
     ///     현재 데이터들을 아카이브화 시켜 저장해야 함
     func applicationDidEnterBackground(_ application: UIApplication) {
+        print("applicationDidEnterBackground") // FOR DEBUG
+        
         FIRMessaging.messaging().disconnect()
         print("Disconnected from FCM.")
         
@@ -243,7 +200,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.dataManager = DataManager() // Foreground로 진입하기 전에 데이터 복구
     }
     
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    // Restart any tasks that were paused (or not yet started) while the application was inactive. 
+    // If the application was previously in the background, optionally refresh the user interface.
     func applicationDidBecomeActive(_ application: UIApplication) {
         print("applicationDidBecomeActive") // FOR DEBUG
         
@@ -257,15 +215,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        connectToFcm()
+        self.changeEndDateToday()   // 날짜 필터링으로 인해 새 데이터들이 보이지 않을 수 있으므로 현재 날짜로 변경
+        self.updateArticleTable()   // 푸시 알림 된 데이터들을 반영
+        self.updateBoardTable()     // 푸시 알림 된 데이터들을 반영
         
+        // 파이어베이스에 다시 연결
+        connectToFcm()
         FIRMessaging.messaging().connect { error in
             print(error as Any)
         }
-        
-        self.changeEndDateToday()   // 앱을 켠 후 날짜가 바뀐 후 수시된 게시글이 보이지 않는 것을 방지
     }
     
+    /// 푸시 알림이 온 경우, 날짜 필터링 때문에 보이지 않을 수 있으므로 현재 날짜로 바꿔줌
     func changeEndDateToday() {
         if let mainTBC = self.window?.rootViewController as? MainTabBarController,
             let mainNC = mainTBC.viewControllers?[1] as? UINavigationController,
@@ -311,7 +272,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             let title = article["title"] as? String {
                             
                             let groupId = fileName.components(separatedBy: ".")[0]
-                            print("\(groupId)::\(key) - \(title)")
+                            print("\(groupId)::\(key) - \(title) At \(datetime), url:\(link)")
                             self.dataManager.supportedBoards[groupId]?.articles[key] = Article(title: title, groupid: groupId, key: key, url: link, date: datetime, archived: false)
                         } else {
                             print("Invalid data")
@@ -344,7 +305,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             let title = article["title"] as? String {
                             
                             let groupId = fileName.components(separatedBy: ".")[0]
-                            print("\(groupId)::\(key) - \(title)")
+                            print("\(groupId)::\(key) - \(title) At \(datetime), url:\(link)")
                             self.dataManager.supportedBoards[groupId]?.articles[key] = Article(title: title, groupid: groupId, key: key, url: link, date: datetime, archived: false)
                         } else {
                             print("Invalid data")
@@ -361,12 +322,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     self.dataManager.supportedBoards[groupid]?.count = count
                 }
                 
+                self.dataManager.save()
+                
                 // 추가된 게시물 반영
                 self.updateArticleTable()
                 self.updateBoardTable()
                 self.updateBadgeCount()
-                
-                self.dataManager.save()
                 
         }) { (error) in
             print(error.localizedDescription)
@@ -379,6 +340,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if board.favorite && board.count == -1 {
                 self.getDefaultDataFromFirebase(where: board.groupid)
             }
+        }
+    }
+    
+    /// 앱이 Terminated된 상태에서는 푸시 알림이 와도 App을 실행시킬 수 없어 쌓이게 된다, 새로 실행 될 경우 쌓였던 푸시 알림들을 읽어 저장한 후 삭제한다.
+    func saveAllNotifications(){
+        UNUserNotificationCenter.current().getDeliveredNotifications { (notifications) in
+            print("AppLaunched saveAllNotifications") // FOR DEBUG
+            for notification in notifications {
+                let userInfo = notification.request.content.userInfo
+                
+                if let messageID = userInfo[self.gcmMessageIDKey] {
+                    print("Message ID: \(messageID)")
+                }
+                FIRMessaging.messaging().appDidReceiveMessage(userInfo)
+                
+                // Print full message.
+                print(userInfo)
+                
+                // Print message ID.
+                if let messageID = userInfo[self.gcmMessageIDKey] {
+                    print("Message ID: \(messageID)")
+                }
+                
+                if let fileName = userInfo["file_name"] as? String, let key = userInfo["inner_idx"] as? String{
+                    let groupId = fileName.components(separatedBy: ".")[0]
+                    print("AppLaunched - \(groupId)/\(key)") // FOR DEBUG
+                    
+                    if let title = userInfo["title"] as? String, let link = userInfo["link"] as? String, let datetime = userInfo["datetime"] as? String {
+                        print("AppLaunched - \(title)/\(link)/\(datetime)")
+                        if( self.dataManager.supportedBoards[groupId]?.articles[key] == nil ) {
+                            self.dataManager.supportedBoards[groupId]?.articles[key] = Article(title: title, groupid: groupId, key: key, url: link, date: datetime, archived: false)
+                        } else {
+                            print("AppLaunched - Already Saved \(groupId)/\(key)")  // 이미 저장된 데이터는 갱신하지 않음(갱신할 경우 time값이 바뀌어 위로 올라가므로)
+                        }
+                    } else {
+                        print("AppLaunched - Wrong title/link/datetime") // FOR DEBUG
+                    }
+                } else {
+                    print("AppLaunched - Wrong file_name/inner_idx") // FOR DEBUG
+                }
+            }
+            
+            self.dataManager.save()     // 앱이 종료된 상태에서 푸시 알림된 데이터들 저장
+            self.updateBadgeCount()     // 앱이 종료된 상태에서 푸시 알림된 데이터들 반영
+            
+            // 알림을 지우지 않으면 앱을 강제 종료한 후 다시 시작하면 삭제된 게시글이 복구되므로 이러한 문제를 사전에 차단
+            UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         }
     }
     
@@ -409,8 +417,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let articleVC = mainNC.viewControllers[0] as? ArticleViewController {
             
             if articleVC.articleTable != nil {
-                articleVC.filterArticles()
-                articleVC.articleTable.reloadData()
+                articleVC.filterArticles(true)
             }
         }
     }
@@ -426,17 +433,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    /// 앱이 Background에서 실행되고 있거나 종료되어 있을 때 푸시 알림이 온 경우 앱을 깨운 후 실행
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print("userNotificationCenter background") // FOR DEBUG
+        
+        if let messageID = userInfo[gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
+        }
+        FIRMessaging.messaging().appDidReceiveMessage(userInfo)
+        
+        // Print full message.
+        print(userInfo)
+        
+        // Print message ID.
+        if let messageID = userInfo[self.gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
+        }
+        
+        if let fileName = userInfo["file_name"] as? String, let key = userInfo["inner_idx"] as? String{
+            let groupId = fileName.components(separatedBy: ".")[0]
+            print("background - \(groupId)/\(key)") // FOR DEBUG
+            
+            if let title = userInfo["title"] as? String, let link = userInfo["link"] as? String, let datetime = userInfo["datetime"] as? String {
+                print("background - \(title)/\(link)/\(datetime)")
+                self.dataManager.supportedBoards[groupId]?.articles[key] = Article(title: title, groupid: groupId, key: key, url: link, date: datetime, archived: false)
+            } else {
+                print("background - Wrong title/link/datetime") // FOR DEBUG
+            }
+        } else {
+            print("background - Wrong file_name/inner_idx") // FOR DEBUG
+        }
+        
+        self.dataManager.save()
+        self.updateBadgeCount()
+    }
 }
 
 @available(iOS 10, *)
 extension AppDelegate : UNUserNotificationCenterDelegate {
-    
-    // 앱이 Foreground에서 실행되고 있을 때 푸시 알림이 온 경우 실행
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+
+    /// 앱이 Foreground에서 실행되고 있을 때 푸시 알림이 온 경우 실행
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         print("userNotificationCenter willPresent") // FOR DEBUG
         
         let userInfo = notification.request.content.userInfo
+        // Print full message.
+        print(userInfo)
+        
         // Print message ID.
         if let messageID = userInfo[gcmMessageIDKey] {
             print("Message ID: \(messageID)")
@@ -444,60 +488,38 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         
         if let fileName = userInfo["file_name"] as? String, let key = userInfo["inner_idx"] as? String{
             let groupId = fileName.components(separatedBy: ".")[0]
+            print("willPresent - \(groupId)/\(key)") // FOR DEBUG
             
             if let title = userInfo["title"] as? String, let link = userInfo["link"] as? String, let datetime = userInfo["datetime"] as? String {
+                print("willPresent - \(title)/\(link)/\(datetime)")
                 self.dataManager.supportedBoards[groupId]?.articles[key] = Article(title: title, groupid: groupId, key: key, url: link, date: datetime, archived: false)
+            } else {
+                print("willPresent - Wrong title/link/datetime") // FOR DEBUG
             }
-            
-            self.dataManager.save()
-            
-            self.updateArticleTable()
-            self.updateBoardTable()
-            self.updateBadgeCount()
+        } else {
+            print("willPresent - Wrong file_name/inner_idx") // FOR DEBUG
         }
         
-        // Print full message.
-        print(userInfo) 
+        self.dataManager.save()
+        self.changeEndDateToday()
+        
+        self.updateArticleTable()
+        self.updateBoardTable()
+        self.updateBadgeCount()
         
         completionHandler([.alert,.badge,.sound])
     }
     
-    // 앱이 Background에서 실행되고 있거나 종료되어 있을 때 푸시 알림이 온 경우 실행
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse,
-                                withCompletionHandler completionHandler: @escaping () -> Void) {
-        print("userNotificationCenter didReceive") // FOR DEBUG
+    /// 알림센터에서 푸시 알림을 누른 경우 실행, 아무 것도 하지 않고 그냥 앱을 실행 시킨다.
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("userNotificationCenter didReceive " + response.actionIdentifier) // FOR DEBUG
         
-        let userInfo = response.notification.request.content.userInfo
-        // Print message ID.
-        
-        if let messageID = userInfo[gcmMessageIDKey] {
-            print("Message ID: \(messageID)")
-        }
-        
-        if let fileName = userInfo["file_name"] as? String, let key = userInfo["inner_idx"] as? String{
-            let groupId = fileName.components(separatedBy: ".")[0]
-            
-            if let title = userInfo["title"] as? String, let link = userInfo["link"] as? String, let datetime = userInfo["datetime"] as? String {
-                self.dataManager.supportedBoards[groupId]?.articles[key] = Article(title: title, groupid: groupId, key: key, url: link, date: datetime, archived: false)
-            }
-            
-            self.dataManager.save()
-            
-            self.updateArticleTable()
-            self.updateBoardTable()
-            self.updateBadgeCount()
-            
-            self.changeEndDateToday()   // 앱을 켠 후 날짜가 바뀐 후 수시된 게시글이 보이지 않는 것을 방지
-        }
-
-        // Print full message.
-        print(userInfo)
-
         completionHandler()
     }
 }
 
 extension AppDelegate : FIRMessagingDelegate {
+    
     // Receive data message on iOS 10 devices while app is in the foreground.
     func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
         print("applicationReceivedRemoteMessage") // FOR DEBUG

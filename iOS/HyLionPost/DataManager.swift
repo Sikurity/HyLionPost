@@ -43,6 +43,7 @@ class DataManager{
                 "csjob":Board(name:"컴퓨터소프트웨어학부 취업정보", groupid:"csjob", url:"http://cs.hanyang.ac.kr/board/job_board.php", favorite:false, format:"yy.MM.dd"),
                 "csstrk":Board(name:"컴퓨터소프트웨어학부 삼성트랙", groupid:"csstrk", url:"http://cs.hanyang.ac.kr/board/trk_board.php", favorite:false, format:"yy.MM.dd"),
                 "demon":Board(name:"컴퓨터소프트웨어학부 테스트", groupid:"demon", url:"http://cs.hanyang.ac.kr/board/stu_board.php", favorite:false, format:"yyyy-MM-dd"),
+                "engrnotice":Board(name:"공과대학 공지사항", groupid:"engrnotice", url:"http://cs.hanyang.ac.kr/board/stu_board.php", favorite:false, format:"yyyy.MM.dd"),
             ]
             
             /* TEST CODE BEGIN
@@ -123,7 +124,7 @@ class DataManager{
         return newsCount
     }
     
-    /// 날짜 필터
+    /// 날짜 필터, 게시글 마다 날짜 형식이 다르므로 Date 형으로 복원하여 비교
     func filterByDate(_ article:Article) -> Bool{
         let dateFormatter = DateFormatter()
         
