@@ -44,6 +44,8 @@ def Update_push_data (name, new_datas, newLength, oldLength, indexNum):
         update_firebase(value,name)
         print('[ ',name.upper(),' ] New data updated in db')
         result = pyfcm_notify(name,new_datas[insertIndex])
+        if result == 0:
+            return result
     return result
 
 def filter_notify_func(name, new_datas, old_data) :
