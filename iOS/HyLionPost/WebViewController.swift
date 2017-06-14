@@ -20,16 +20,21 @@ class WebViewController: UIViewController, UITextFieldDelegate, WKNavigationDele
     var webView: WKWebView!
     var link:String = ""
     
+    /// 돌아왔던 다음 페이지 가기
     @IBAction func forward(_ sender: UIBarButtonItem) {
         if (self.webView.canGoForward) {
             self.webView.goForward()
         }
     }
+    
+    /// 방문했던 이전 페이지 가기
     @IBAction func back(_ sender: UIBarButtonItem) {
         if (self.webView.canGoBack) {
             self.webView.goBack()
         }
     }
+    
+    /// 새로고침
     @IBAction func reload(_ sender: Any) {
         self.webView.reload()
     }
@@ -62,6 +67,7 @@ class WebViewController: UIViewController, UITextFieldDelegate, WKNavigationDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // 웹뷰 관찰자 등록
         webView.addObserver(self, forKeyPath: "loading", options: .new, context: nil)
         webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
         
@@ -70,6 +76,7 @@ class WebViewController: UIViewController, UITextFieldDelegate, WKNavigationDele
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        // 웹뷰 관찰자 해제, 안 할 경우 Error와 함께 앱이 종료 됨
         webView.removeObserver(self, forKeyPath: "loading", context: nil)
         webView.removeObserver(self, forKeyPath: "estimatedProgress", context: nil)
     }
@@ -92,7 +99,7 @@ class WebViewController: UIViewController, UITextFieldDelegate, WKNavigationDele
         }
     }
     
-    // Load user requested url
+    /// 주소 창에 입력된 URL Load
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         urlField.resignFirstResponder()
         webView.load(URLRequest(url: URL(string: urlField.text!)!))
@@ -155,7 +162,7 @@ class WebViewController: UIViewController, UITextFieldDelegate, WKNavigationDele
     }
     
     func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-        // 중복적으로 리로드가 일어나지 않도록 처리 필요.
+        // 중복 새로고침을 막기 위해 필요
         webView.reload()
     }
 }

@@ -26,6 +26,7 @@ class Article : NSObject, NSCoding {
     var key:String      // 게시글 키값
     var url:String      // 게시물 링크
     var date:String     // 게시된 날짜
+    var time:Date       // 수신된 시간
     var archived:Bool   // 글보관 여부
     var unopened:Bool   // 읽음/읽지않음
     
@@ -35,6 +36,7 @@ class Article : NSObject, NSCoding {
         self.key = key
         self.url = url
         self.date = date
+        self.time = Date()
         self.archived = archived
         self.unopened = true
     }
@@ -45,6 +47,7 @@ class Article : NSObject, NSCoding {
         self.key = aDecoder.decodeObject(forKey:"key") as! String
         self.url = aDecoder.decodeObject(forKey:"url") as! String
         self.date = aDecoder.decodeObject(forKey:"date") as! String
+        self.time = aDecoder.decodeObject(forKey:"time") as! Date
         self.archived = aDecoder.decodeBool(forKey: "archived") as Bool
         self.unopened = aDecoder.decodeBool(forKey:"unopened") as Bool
     }
@@ -55,6 +58,7 @@ class Article : NSObject, NSCoding {
         aCoder.encode(self.key, forKey:"key")
         aCoder.encode(self.url, forKey:"url")
         aCoder.encode(self.date, forKey:"date")
+        aCoder.encode(self.time, forKey:"time")
         aCoder.encode(self.archived, forKey:"archived")
         aCoder.encode(self.unopened, forKey:"unopened")
     }
