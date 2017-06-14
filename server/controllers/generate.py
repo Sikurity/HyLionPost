@@ -10,6 +10,7 @@ from crawler.csgradu import csgradu
 from crawler.csnotice import csnotice
 from crawler.csstrk import csstrk
 from crawler.demon import demon
+from crawler.engrnotice import engrnotice
 import codecs
 import json
 import time
@@ -22,6 +23,7 @@ import pyrebase
 from pushnotify import *
 
 crawl = '../crawlers/crawler/result/'
+UPDATETIME = 15
 
 # main proceed part
 
@@ -30,7 +32,7 @@ def lion_running (name):
     try :
         new_datas = json.load(data)
     except json.decoder.JSONDecodeError as e :
-        print('[ HANDLING ] ')
+        print('[ '+ name.upper()  + ' HANDLING ] ')
         print(e)
         return 1
     old_data = load_lionbase(name).val()
@@ -45,35 +47,35 @@ def csck2notice_server():
         csck2notice(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
         if lion_running("csck2notice") :
             continue
-        time.sleep(15)
+        time.sleep(UPDATETIME)
 
 def csjob_server():
     while True :
         csjob(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver')) 
         if lion_running("csjob") :
             continue
-        time.sleep(15)
+        time.sleep(UPDATETIME)
 
 def csgradu_server():
     while True :
         csgradu(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
         if lion_running("csgradu") :
             continue
-        time.sleep(15)
+        time.sleep(UPDATETIME)
 
 def csnotice_server():
     while True :
         csnotice(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
         if lion_running("csnotice") :
             continue
-        time.sleep(15)
+        time.sleep(UPDATETIME)
 
 def csstrk_server():
     while True :
         csstrk(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
         if lion_running("csstrk") :
             continue
-        time.sleep(15)
+        time.sleep(UPDATETIME)
 
 # test crawler part
 def demo_server():
@@ -81,7 +83,12 @@ def demo_server():
         demon(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
         if lion_running("demon") :
             continue
-        time.sleep(15)
+        time.sleep(UPDATETIME)
 
 
-
+def engrnotice_server():
+    while True :        
+        engrnotice(webdriver.Chrome('/Users/Jungsunwook/HyLionPost/crawlers/res/chromedriver'))
+        if lion_running("engrnotice") :
+            continue
+        time.sleep(UPDATETIME)
