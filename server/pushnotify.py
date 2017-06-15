@@ -5,5 +5,5 @@ push_service = FCMNotification(api_key="AAAATOrYicU:APA91bH-PF80BE5eneYLq4j_S1oO
 def pyfcm_notify(name,message):
     message_body = '['+ name.upper() +'] ' + message['title']
     data_message = message
-    result = push_service.notify_topic_subscribers(topic_name=name, message_body=message_body,data_message=data_message)
+    result = push_service.notify_topic_subscribers(topic_name=name, message_body=message_body,data_message=data_message,content_available=bool(True))
     return result['success']
