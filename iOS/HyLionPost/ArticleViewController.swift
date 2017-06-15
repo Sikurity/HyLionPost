@@ -234,10 +234,6 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // 우측 상단 별 모양 버튼 리스너, 중요함 표시를 한 게시글들만 볼지 전체를 볼지 선택
     @IBAction func changeArchiveFiltered(_ sender: Any) {
-        print("높이")
-        print(toolBarHeightConstraint.constant)
-        print("히든")
-        print(editToolBar.isHidden)
         isArchiveFiltered = !isArchiveFiltered
         titleItem.title = (isArchiveFiltered ? "중요 게시물" : "전체 게시물")
         
@@ -258,6 +254,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         articleTable.setEditing(isEditMode, animated: true)
         
         if isEditMode { // 편집모드 시작
+            searchBarController.searchBar.isUserInteractionEnabled = false
             searchBarController.searchBar.barStyle = UIBarStyle.default
             searchBarController.searchBar.barTintColor = UIColor.lightGray
             searchBarController.searchBar.backgroundColor = UIColor.white
@@ -266,24 +263,27 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
             editButton.title? = "취소"
             toolBarHeightConstraint.constant = self.tabBarController?.bottomLayoutGuide.length ?? 0.0
             
-            self.tabBarController?.tabBar.isHidden = true
-            self.editToolBar.isHidden = false
-            self.searchBarController.searchBar.isUserInteractionEnabled = false
+            tabBarController?.tabBar.isHidden = true
+            editToolBar.isHidden = false
             
             updateEditingViewWords()
             
         } else {        // 편집모드 취소
+            searchBarController.searchBar.isUserInteractionEnabled = true
             searchBarController.searchBar.barStyle = UIBarStyle.default
             searchBarController.searchBar.barTintColor = UIColor.white
             searchBarController.searchBar.backgroundColor = UIColor.black
             searchBarController.searchBar.alpha = 1.0
             
+            // 편집모드로 전환되면 검색 취소 버튼 색상이 회색으로 변하므로, 다시 Default 색상으로 변경
+            let cancelButton = searchBarController.searchBar.subviews[0].subviews[2] as! UIButton
+            cancelButton.tintColor = self.view.tintColor
+                
             editButton.title? = "편집"
             toolBarHeightConstraint.constant = 0.0
             
-            self.tabBarController?.tabBar.isHidden = false
-            self.editToolBar.isHidden = true
-            self.searchBarController.searchBar.isUserInteractionEnabled = true
+            tabBarController?.tabBar.isHidden = false
+            editToolBar.isHidden = true
             
             titleItem.title? = isArchiveFiltered ? "중요 게시글" : "전체 게시글"
             

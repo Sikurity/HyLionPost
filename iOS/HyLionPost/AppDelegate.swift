@@ -200,8 +200,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.dataManager = DataManager() // Foreground로 진입하기 전에 데이터 복구
     }
     
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. 
-    // If the application was previously in the background, optionally refresh the user interface.
+    /// didFinishLaunchingWithOption 호출 직후, 어플리케이션이 백그라운드로 돌아갔다가 다시 불러질 때 호출
     func applicationDidBecomeActive(_ application: UIApplication) {
         print("applicationDidBecomeActive") // FOR DEBUG
         
@@ -410,7 +409,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    // Tab1 게시글 테이블 갱신
+    /// Tab1 게시글 테이블 갱신
     func updateArticleTable(){
         if let mainTBC = self.window?.rootViewController as? MainTabBarController,
             let mainNC = mainTBC.viewControllers?[0] as? UINavigationController,
@@ -422,7 +421,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    // Tab2 게시글 테이블 갱신
+    /// Tab2 게시글 테이블 갱신
     func updateBoardTable(){
         if let mainTBC = self.window?.rootViewController as? MainTabBarController,
             let mainNC = mainTBC.viewControllers?[1] as? UINavigationController,
@@ -434,7 +433,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    /// 앱이 Background에서 실행되고 있거나 종료되어 있을 때 푸시 알림이 온 경우 앱을 깨운 후 실행
+    /// 앱이 Background에서 실행되고 있거나 종료되어 있을 때 푸시 알림이 온 경우 앱을 깨운 후 실행, aps:{content-available:1} 로 되있는 경우에만 실행 됨
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         print("userNotificationCenter background") // FOR DEBUG
         
