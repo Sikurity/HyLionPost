@@ -20,7 +20,6 @@
 		04332C921EEA889E0007AABB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04332C911EEA889E0007AABB /* LaunchScreen.storyboard */; };
 		043EE9D81EE1C6AC00E01590 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EE9D71EE1C6AC00E01590 /* ArticleViewController.swift */; };
 		04664F8A1ECE8E22005B0F38 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04664F891ECE8E22005B0F38 /* Board.swift */; };
-		04883B7A1EE6D8DA00AADB3B /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04883B791EE6D8DA00AADB3B /* NetworkExtension.framework */; };
 		04B16D1C1ED00601003F0B9A /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B16D191ED00601003F0B9A /* GoogleToolboxForMac.framework */; };
 		04B16D1D1ED00601003F0B9A /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B16D1A1ED00601003F0B9A /* Protobuf.framework */; };
 		04B16D1E1ED0062E003F0B9A /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042A8E611ECC8F5800A75FA5 /* AdSupport.framework */; };
@@ -28,7 +27,6 @@
 		04B16D221ED00633003F0B9A /* Pods_HyLionPostTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B16D201ED00633003F0B9A /* Pods_HyLionPostTests.framework */; };
 		04D6790B1ECECAEE0029C5DF /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6790A1ECECAEE0029C5DF /* Article.swift */; };
 		04D755B31ED9620500329EE1 /* FilterTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D755B21ED9620500329EE1 /* FilterTypeViewController.swift */; };
-		04ED1DE71EF0214E00163F09 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED1DE61EF0214E00163F09 /* LaunchScreenViewController.swift */; };
 		04F74C9A1EC581A700F17243 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F74C991EC581A700F17243 /* Media.xcassets */; };
 		CE955950C7D5D5C55CD66A1E /* Pods_HyLionPostTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6787E766D012E3BDDF766AC /* Pods_HyLionPostTests.framework */; };
 		FED9EF09FF03314B3F7B4121 /* Pods_HyLionPost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A0971A4D049C5467ABA7BA /* Pods_HyLionPost.framework */; };
@@ -63,7 +61,6 @@
 		04332C911EEA889E0007AABB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		043EE9D71EE1C6AC00E01590 /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		04664F891ECE8E22005B0F38 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
-		04883B791EE6D8DA00AADB3B /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		04B16D181ED00601003F0B9A /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HyLionPost-ajkrxfqtoicrxrbzfaaohpwkruds/Build/Products/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		04B16D191ED00601003F0B9A /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HyLionPost-ajkrxfqtoicrxrbzfaaohpwkruds/Build/Products/Debug-iphoneos/GoogleToolboxForMac/GoogleToolboxForMac.framework"; sourceTree = "<group>"; };
 		04B16D1A1ED00601003F0B9A /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Protobuf.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HyLionPost-ajkrxfqtoicrxrbzfaaohpwkruds/Build/Products/Debug-iphoneos/Protobuf/Protobuf.framework"; sourceTree = "<group>"; };
@@ -72,7 +69,6 @@
 		04D6790A1ECECAEE0029C5DF /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		04D755B21ED9620500329EE1 /* FilterTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTypeViewController.swift; sourceTree = "<group>"; };
 		04E2EEF51EC5A80E00B6F53F /* HyLionPost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HyLionPost.entitlements; sourceTree = "<group>"; };
-		04ED1DE61EF0214E00163F09 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		04F74C991EC581A700F17243 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = ../Media.xcassets; sourceTree = "<group>"; };
 		9D94DEC4397754606905AEAC /* Pods-HyLionPostTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HyLionPostTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HyLionPostTests/Pods-HyLionPostTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B3A0971A4D049C5467ABA7BA /* Pods_HyLionPost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HyLionPost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,7 +84,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				04B16D211ED00633003F0B9A /* Pods_HyLionPost.framework in Frameworks */,
-				04883B7A1EE6D8DA00AADB3B /* NetworkExtension.framework in Frameworks */,
 				04B16D221ED00633003F0B9A /* Pods_HyLionPostTests.framework in Frameworks */,
 				04B16D1E1ED0062E003F0B9A /* AdSupport.framework in Frameworks */,
 				04B16D1C1ED00601003F0B9A /* GoogleToolboxForMac.framework in Frameworks */,
@@ -133,7 +128,6 @@
 			children = (
 				04E2EEF51EC5A80E00B6F53F /* HyLionPost.entitlements */,
 				0406D24C1EBCC5C5000EF4E5 /* AppDelegate.swift */,
-				04ED1DE61EF0214E00163F09 /* LaunchScreenViewController.swift */,
 				043EE9D71EE1C6AC00E01590 /* ArticleViewController.swift */,
 				042645781EE162C800D6ABE0 /* MainTabBarController.swift */,
 				04D755B21ED9620500329EE1 /* FilterTypeViewController.swift */,
@@ -176,7 +170,6 @@
 		B749BF5608BD177325BFB4EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				04883B791EE6D8DA00AADB3B /* NetworkExtension.framework */,
 				04B16D1F1ED00633003F0B9A /* Pods_HyLionPost.framework */,
 				04B16D201ED00633003F0B9A /* Pods_HyLionPostTests.framework */,
 				04B16D181ED00601003F0B9A /* Alamofire.framework */,
@@ -252,7 +245,7 @@
 								enabled = 1;
 							};
 							com.apple.NetworkExtensions = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Push = {
 								enabled = 1;
@@ -414,7 +407,6 @@
 				0428F21E1EE285A2003F4C49 /* SettingViewController.swift in Sources */,
 				0406D24D1EBCC5C5000EF4E5 /* AppDelegate.swift in Sources */,
 				04D755B31ED9620500329EE1 /* FilterTypeViewController.swift in Sources */,
-				04ED1DE71EF0214E00163F09 /* LaunchScreenViewController.swift in Sources */,
 				042E61371ECEE13C006CBB60 /* BoardSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

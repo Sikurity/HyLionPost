@@ -82,8 +82,9 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
                     self.appDelegate.dataManager.supportedBoards[groupid]?.articles[key]?.unopened = false
                 }
                 
-                self.filterArticles()
-                self.articleTable.reloadData()
+                self.appDelegate.dataManager.save()
+                
+                self.filterArticles(false)
                 
                 self.updateEditingViewWords()
                 self.appDelegate.updateBoardTable()
@@ -105,8 +106,9 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
                     self.appDelegate.dataManager.supportedBoards[groupid]?.articles[key]?.archived = true
                 }
                 
-                self.filterArticles()
-                self.articleTable.reloadData()
+                self.appDelegate.dataManager.save()
+                
+                self.filterArticles(false)
                 
                 self.updateEditingViewWords()
                 self.appDelegate.updateBoardTable()
@@ -126,8 +128,9 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
                     self.appDelegate.dataManager.supportedBoards[groupid]?.articles[key]?.archived = false
                 }
                 
-                self.filterArticles()
-                self.articleTable.reloadData()
+                self.appDelegate.dataManager.save()
+                
+                self.filterArticles(false)
                 
                 self.updateEditingViewWords()
                 self.appDelegate.updateBoardTable()
@@ -151,8 +154,9 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
                     self.appDelegate.dataManager.supportedBoards[groupid]?.articles.removeValue(forKey: key)
                 }
                 
-                self.filterArticles()
-                self.articleTable.reloadData()
+                self.appDelegate.dataManager.save()
+                
+                self.filterArticles(false)
                 
                 self.updateEditingViewWords()
                 self.appDelegate.updateBoardTable()
@@ -192,15 +196,13 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.tabBarController?.tabBar.isHidden = isEditMode
         
-        self.filterArticles()           // 화면이 새로 표시될 때마다, 게시물 필터 적용
-        self.articleTable.reloadData()  // 화면이 새로 표시될 때마다, 테이블 갱신
+        self.filterArticles(false)           // 화면이 새로 표시될 때마다, 게시물 필터 적용
     }
     
     /// (뒤로가기) 웹뷰 -> 탭1
     @IBAction func prepareForUnwindFromWebView(segue: UIStoryboardSegue){
         /// 웹뷰에 있는 동안 변경된 데이터를 위해 테이블 갱신
-        self.filterArticles()
-        self.articleTable.reloadData()
+        self.filterArticles(false)
     }
 
     /// 편집 중인 경우 웹뷰 이동 막음
@@ -242,8 +244,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         archiveFilterButton.image = UIImage(named: (isArchiveFiltered ? "Star4Filter" : "Unstar4Filter"))
         
         UIView.transition(with: self.articleTable, duration: 0.5, options: .transitionCrossDissolve, animations: {
-            self.filterArticles()
-            self.articleTable.reloadData()
+            self.filterArticles(false)
         })
         
         if isEditMode { // 편집 모드인 경우, 편집용 버튼들 갱신
@@ -285,6 +286,8 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.searchBarController.searchBar.isUserInteractionEnabled = true
             
             titleItem.title? = isArchiveFiltered ? "중요 게시글" : "전체 게시글"
+            
+            self.filterArticles(false)
         }
     }
     
@@ -317,8 +320,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.appDelegate.dataManager.supportedBoards[cell.groupid]?.articles[cell.key]?.archived = !self.filteredArticles[indexPath.row].archived
             self.appDelegate.dataManager.save()
             
-            self.filterArticles()
-            self.articleTable.reloadData()
+            self.filterArticles(false)
             
             return false
             }]
@@ -334,8 +336,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.appDelegate.dataManager.save()
             
             UIView.transition(with: self.articleTable, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                self.filterArticles()
-                self.articleTable.reloadData()
+                self.filterArticles(false)
             })
             
             self.appDelegate.updateBoardTable()
@@ -377,7 +378,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isEditMode { // 편집 모드인 경우, 편집용 버튼들 갱신
             updateEditingViewWords()
-            
+            print(filteredArticles[indexPath.row].time) // FOR DEBUG
             // print("didSelectRowAt \(indexPath.row)")
             // print(tableView.indexPathsForSelectedRows)
         }
@@ -412,7 +413,11 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     /// 전체 게시물 중 테이블에 표시할 게시물들 필터링
-    func filterArticles(){
+    func filterArticles(_ willBlockedAtEditing:Bool){
+        if willBlockedAtEditing && isEditMode {
+            return
+        }
+        
         filteredArticles.removeAll(keepingCapacity: false)
         
         // Tab2에서 설정한 필터를 적용한 결과로 테이블 갱신
@@ -448,14 +453,19 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
             let date1 = appDelegate.dataManager.convertDateToDefaultFormat(from: left.date, format: format1)
             let date2 = appDelegate.dataManager.convertDateToDefaultFormat(from: right.date, format: format2)
             
-            return date1 > date2
+            if date1 != date2 {
+                return date1 > date2
+            } else {
+                return left.time > right.time
+            }
         })
+        
+        articleTable.reloadData()
     }
     
     /// 검색 창에 키가 입력 될 때 마다 필터 적용
     func updateSearchResults(for searchController: UISearchController) {
-        self.filterArticles()
-        self.articleTable.reloadData()
+        self.filterArticles(false)
     }
     
     /// 이미지 크기를 변경

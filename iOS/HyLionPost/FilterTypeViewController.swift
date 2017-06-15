@@ -135,6 +135,7 @@ class FilterTypeViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var beginDatePickerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var endDatePickerViewHeightConstraint: NSLayoutConstraint!
+    
     /// 시작일 View 누를 시 실행되는 Trigger
     @IBAction func beginDateViewClicked(_ sender: Any) {
         // 시작일 date picker 보이기/숨기기
