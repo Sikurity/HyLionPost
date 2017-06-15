@@ -123,10 +123,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
+        self.updateDefaultData()    // 기본 데이터 불러오기, 앱이 설치된 후 처음 실행 됐다면 유의미
         self.dataManager.save()     // 앱이 처음 실행 된 경우, 기본 값들을 저장해야 함
         self.updateBadgeCount()     // AppIcon, TabBar에 Badge 달기
         
-        self.updateDefaultData()    // 기본 데이터 불러오기, 앱이 설치된 후 처음 실행 됐다면 유의미, Async로 동작
         self.saveAllNotifications() // 앱이 종료되었을 때 푸시 된 알림들을 수집하는 역할, Async로 동작
         
         return true
