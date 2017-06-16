@@ -276,9 +276,16 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
             searchBarController.searchBar.alpha = 1.0
             
             // 편집모드로 전환되면 검색 취소 버튼 색상이 회색으로 변하므로, 다시 Default 색상으로 변경
-            let cancelButton = searchBarController.searchBar.subviews[0].subviews[2] as! UIButton
-            cancelButton.tintColor = self.view.tintColor
-                
+            if searchBarController.searchBar.subviews.count > 0,
+               searchBarController.searchBar.subviews[0].subviews.count > 0 {
+                let subViews = searchBarController.searchBar.subviews[0].subviews
+                for subView in subViews {
+                    if let cancelButton = subView as? UIButton {
+                        cancelButton.tintColor = self.view.tintColor
+                    }
+                }
+            }
+            
             editButton.title? = "편집"
             toolBarHeightConstraint.constant = 0.0
             
