@@ -38,12 +38,12 @@ class DataManager{
             print("NO ARCHIVE")
             self.supportedBoards = [
                 "csnotice":Board(name:"컴퓨터소프트웨어학부 학사일반", groupid:"csnotice", url:"http://cs.hanyang.ac.kr/board/info_board.php", favorite:true, format:"yy.MM.dd"),
-                "csck2notice":Board(name:"컴퓨터소프트웨어학부 특성화사업단", groupid:"csck2notice", url:"http://csck2.hanyang.ac.kr/front/community/notice", favorite:false, format:"yyyy-MM-dd"),
                 "csgradu":Board(name:"컴퓨터소프트웨어학부 졸업프로젝트", groupid:"csgradu", url:"http://cs.hanyang.ac.kr/board/gradu_board.php", favorite:false, format:"yy.MM.dd"),
                 "csjob":Board(name:"컴퓨터소프트웨어학부 취업정보", groupid:"csjob", url:"http://cs.hanyang.ac.kr/board/job_board.php", favorite:false, format:"yy.MM.dd"),
                 "csstrk":Board(name:"컴퓨터소프트웨어학부 삼성트랙", groupid:"csstrk", url:"http://cs.hanyang.ac.kr/board/trk_board.php", favorite:false, format:"yy.MM.dd"),
                 "demon":Board(name:"컴퓨터소프트웨어학부 테스트", groupid:"demon", url:"http://cs.hanyang.ac.kr/board/stu_board.php", favorite:false, format:"yyyy-MM-dd"),
                 "engrnotice":Board(name:"공과대학 공지사항", groupid:"engrnotice", url:"http://cs.hanyang.ac.kr/board/stu_board.php", favorite:false, format:"yyyy.MM.dd"),
+//                "csck2notice":Board(name:"컴퓨터소프트웨어학부 특성화사업단", groupid:"csck2notice", url:"http://csck2.hanyang.ac.kr/front/community/notice", favorite:false, format:"yyyy-MM-dd"),
             ]
             
             /* TEST CODE BEGIN
