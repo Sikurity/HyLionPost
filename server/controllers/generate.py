@@ -23,6 +23,10 @@ from pushnotify import *
 
 server = os.path.abspath(os.path.join(os.path.dirname(__file__),".."))
 
+options = webdriver.ChromeOptions()
+options.binary_location = '/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary'
+options.add_argument('headless')
+
 UPDATETIME = 3600
 
 # main proceed part
@@ -44,35 +48,35 @@ print(server + '/res/chromedriver')
 # crawler and server connection part
 def csck2notice_server():
     while True :
-        csck2notice(webdriver.Chrome(server + '/res/chromedriver'))
+        csck2notice(webdriver.Chrome(server + '/res/chromedriver'),chrome_options = options)
         if lion_running("csck2notice") :
             continue
         time.sleep(UPDATETIME)
 
 def csjob_server():
     while True :
-        csjob(webdriver.Chrome(server + '/res/chromedriver')) 
+        csjob(webdriver.Chrome(server + '/res/chromedriver',chrome_options = options)) 
         if lion_running("csjob") :
             continue
         time.sleep(UPDATETIME)
 
 def csgradu_server():
     while True :
-        csgradu(webdriver.Chrome(server + '/res/chromedriver'))
+        csgradu(webdriver.Chrome(server + '/res/chromedriver',chrome_options = options))
         if lion_running("csgradu") :
             continue
         time.sleep(UPDATETIME)
 
 def csnotice_server():
     while True :
-        csnotice(webdriver.Chrome(server + '/res/chromedriver'))
+        csnotice(webdriver.Chrome(server + '/res/chromedriver',chrome_options = options))
         if lion_running("csnotice") :
             continue
         time.sleep(UPDATETIME)
 
 def csstrk_server():
     while True :
-        csstrk(webdriver.Chrome(server + '/res/chromedriver'))
+        csstrk(webdriver.Chrome(server + '/res/chromedriver', chrome_options = options))
         if lion_running("csstrk") :
             continue
         time.sleep(UPDATETIME)
@@ -80,15 +84,14 @@ def csstrk_server():
 # test crawler part
 def demo_server():
     while True :
-        demon(webdriver.Chrome(server + '/res/chromedriver'))
+        demon(webdriver.Chrome(server + '/res/chromedriver',chrome_options = options))
         if lion_running("demon") :
             continue
         time.sleep(UPDATETIME)
 
-
 def engrnotice_server():
     while True :        
-        engrnotice(webdriver.Chrome(server + '/res/chromedriver'))
+        engrnotice(webdriver.Chrome(server + '/res/chromedriver',chrome_options = options))
         if lion_running("engrnotice") :
             continue
         time.sleep(UPDATETIME)
