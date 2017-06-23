@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 def engrnotice(driver):
     driver.implicitly_wait(3)
 
-    base_url = 'http://http://engr.hanyang.ac.kr'
+    base_url = 'http://engr.hanyang.ac.kr'
     driver.get('http://engr.hanyang.ac.kr/community/noticeList.php')
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
