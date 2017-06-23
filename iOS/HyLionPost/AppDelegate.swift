@@ -395,17 +395,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 읽지 않은 게시글 개수를 AppIcon에 badge
         UIApplication.shared.applicationIconBadgeNumber = self.dataManager.calculateAllNewsCount()
         
-        if let mainTBC = self.window?.rootViewController as? MainTabBarController {
-            // 탭1에서 읽지 않은 게시글 개수
-            if let tab1st = mainTBC.tabBar.items?[0] {
-                let count = self.dataManager.calculateAllNewsCount(filtered: false)
-                tab1st.badgeValue = count > 0 ? "\(count)" : nil
-            }
-            
-            // 필터링 됐지만 읽지 않은 게시글 개수 표시
-            if let tab2nd = mainTBC.tabBar.items?[1] {
-                let count = self.dataManager.calculateAllNewsCount(filtered: true)
-                tab2nd.badgeValue = count > 0 ? "\(count)" : nil
+        if UIApplication.shared.applicationState != .background {
+            if let mainTBC = self.window?.rootViewController as? MainTabBarController {
+                // 탭1에서 읽지 않은 게시글 개수
+                if let tab1st = mainTBC.tabBar.items?[0] {
+                    let count = self.dataManager.calculateAllNewsCount(filtered: false)
+                    tab1st.badgeValue = count > 0 ? "\(count)" : nil
+                }
+                
+                // 필터링 됐지만 읽지 않은 게시글 개수 표시
+                if let tab2nd = mainTBC.tabBar.items?[1] {
+                    let count = self.dataManager.calculateAllNewsCount(filtered: true)
+                    tab2nd.badgeValue = count > 0 ? "\(count)" : nil
+                }
             }
         }
     }
