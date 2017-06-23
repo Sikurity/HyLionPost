@@ -218,6 +218,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.changeEndDateToday()   // 날짜 필터링으로 인해 새 데이터들이 보이지 않을 수 있으므로 현재 날짜로 변경
         self.updateArticleTable()   // 푸시 알림 된 데이터들을 반영
         self.updateBoardTable()     // 푸시 알림 된 데이터들을 반영
+        self.updateBadgeCount()     // 앱이 처음 켜진 경우, TabBar Badge가 나오지 않는 경우가 있어 업데이트 추가
         
         // 파이어베이스에 다시 연결
         connectToFcm()
