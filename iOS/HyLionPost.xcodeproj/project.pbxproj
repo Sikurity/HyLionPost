@@ -16,6 +16,7 @@
 		042645791EE162C800D6ABE0 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042645781EE162C800D6ABE0 /* MainTabBarController.swift */; };
 		0428F21E1EE285A2003F4C49 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428F21D1EE285A2003F4C49 /* SettingViewController.swift */; };
 		0428F2261EE28FD9003F4C49 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428F2251EE28FD9003F4C49 /* WebViewController.swift */; };
+		042B07EB1EFD7AAB003678CC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042B07EA1EFD7AAB003678CC /* AudioToolbox.framework */; };
 		042E61371ECEE13C006CBB60 /* BoardSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042E61361ECEE13C006CBB60 /* BoardSettingViewController.swift */; };
 		04332C921EEA889E0007AABB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04332C911EEA889E0007AABB /* LaunchScreen.storyboard */; };
 		043EE9D81EE1C6AC00E01590 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EE9D71EE1C6AC00E01590 /* ArticleViewController.swift */; };
@@ -57,6 +58,7 @@
 		0428F21D1EE285A2003F4C49 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		0428F2251EE28FD9003F4C49 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		042A8E611ECC8F5800A75FA5 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		042B07EA1EFD7AAB003678CC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		042E61361ECEE13C006CBB60 /* BoardSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardSettingViewController.swift; sourceTree = "<group>"; };
 		04332C911EEA889E0007AABB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		043EE9D71EE1C6AC00E01590 /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				042B07EB1EFD7AAB003678CC /* AudioToolbox.framework in Frameworks */,
 				04B16D211ED00633003F0B9A /* Pods_HyLionPost.framework in Frameworks */,
 				04B16D221ED00633003F0B9A /* Pods_HyLionPostTests.framework in Frameworks */,
 				04B16D1E1ED0062E003F0B9A /* AdSupport.framework in Frameworks */,
@@ -170,6 +173,7 @@
 		B749BF5608BD177325BFB4EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				042B07EA1EFD7AAB003678CC /* AudioToolbox.framework */,
 				04B16D1F1ED00633003F0B9A /* Pods_HyLionPost.framework */,
 				04B16D201ED00633003F0B9A /* Pods_HyLionPostTests.framework */,
 				04B16D181ED00601003F0B9A /* Alamofire.framework */,

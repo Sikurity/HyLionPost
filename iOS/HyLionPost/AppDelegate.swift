@@ -471,7 +471,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.dataManager.save()
         self.updateBadgeCount()
         
-        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+        AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate), nil)
     }
 }
 
