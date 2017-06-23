@@ -2,6 +2,7 @@ import UIKit
 import CoreData
 import CoreLocation
 import UserNotifications
+import AudioToolbox
 import Firebase
 import FirebaseInstanceID
 import FirebaseMessaging
@@ -366,15 +367,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let groupId = fileName.components(separatedBy: ".")[0]
                     print("AppLaunched - \(groupId)/\(key)") // FOR DEBUG
                     
-                    if let title = userInfo["title"] as? String, let link = userInfo["link"] as? String, let datetime = userInfo["datetime"] as? String {
-                        print("AppLaunched - \(title)/\(link)/\(datetime)")
-                        if( self.dataManager.supportedBoards[groupId]?.articles[key] == nil ) {
+                    if( self.dataManager.supportedBoards[groupId]?.articles[key] == nil ) {
+                        if let title = userInfo["title"] as? String, let link = userInfo["link"] as? String, let datetime = userInfo["datetime"] as? String {
+                            print("AppLaunched - \(title)/\(link)/\(datetime)")
                             self.dataManager.supportedBoards[groupId]?.articles[key] = Article(title: title, groupid: groupId, key: key, url: link, date: datetime, archived: false)
                         } else {
-                            print("AppLaunched - Already Saved \(groupId)/\(key)")  // 이미 저장된 데이터는 갱신하지 않음(갱신할 경우 time값이 바뀌어 위로 올라가므로)
+                            print("AppLaunched - Wrong title/link/datetime") // FOR DEBUG
                         }
                     } else {
-                        print("AppLaunched - Wrong title/link/datetime") // FOR DEBUG
+                        print("AppLaunched - Already Saved \(groupId)/\(key)")  // 이미 저장된 데이터는 갱신하지 않음(갱신할 경우 time값이 바뀌어 위로 올라가므로)
                     }
                 } else {
                     print("AppLaunched - Wrong file_name/inner_idx") // FOR DEBUG
@@ -466,6 +467,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.dataManager.save()
         self.updateBadgeCount()
+        
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
     }
 }
 
@@ -509,9 +512,42 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         completionHandler([.alert,.badge,.sound])
     }
     
-    /// 알림센터에서 푸시 알림을 누른 경우 실행, 아무 것도 하지 않고 그냥 앱을 실행 시킨다.
+    /// 알림센터에서 푸시 알림을 누른 경우 실행 됨, 앱이 꺼진 상태에서 알림을 눌러 켜는 경우를 대비해 데이터를 저장(이미 있는 값인 경우 저장 X)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         print("userNotificationCenter didReceive " + response.actionIdentifier) // FOR DEBUG
+        
+        let userInfo = response.notification.request.content.userInfo
+        
+        if let messageID = userInfo[gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
+        }
+        FIRMessaging.messaging().appDidReceiveMessage(userInfo)
+        
+        // Print full message.
+        print(userInfo)
+        
+        // Print message ID.
+        if let messageID = userInfo[self.gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
+        }
+        
+        if let fileName = userInfo["file_name"] as? String, let key = userInfo["inner_idx"] as? String{
+            let groupId = fileName.components(separatedBy: ".")[0]
+            print("didReceive - \(groupId)/\(key)") // FOR DEBUG
+            
+            if( self.dataManager.supportedBoards[groupId]?.articles[key] == nil ) {
+                if let title = userInfo["title"] as? String, let link = userInfo["link"] as? String, let datetime = userInfo["datetime"] as? String {
+                    print("didReceive - \(title)/\(link)/\(datetime)")
+                    self.dataManager.supportedBoards[groupId]?.articles[key] = Article(title: title, groupid: groupId, key: key, url: link, date: datetime, archived: false)
+                } else {
+                    print("didReceive - Wrong title/link/datetime") // FOR DEBUG
+                }
+            } else {
+                print("AppLaunched - Already Saved \(groupId)/\(key)")  // 이미 저장된 데이터는 갱신하지 않음(갱신할 경우 time값이 바뀌어 위로 올라가므로)
+            }
+        } else {
+            print("didReceive - Wrong file_name/inner_idx") // FOR DEBUG
+        }
         
         completionHandler()
     }

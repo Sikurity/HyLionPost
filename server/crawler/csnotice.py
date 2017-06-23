@@ -31,7 +31,7 @@ def csnotice(driver):
         output_file.write("\"file_name\" : \"csnotice.py\",\"inner_idx\" : \"")
         output_file.write(str(idx))
         output_file.write("\",\"title\": \"")
-        output_file.write(n.text.strip())
+        output_file.write(n.text.strip().replace("\"", "'"))
         output_file.write("\",\"link\":\"")
         output_file.write(base_url + n['href'])
         output_file.write("\",\"datetime\":\"")

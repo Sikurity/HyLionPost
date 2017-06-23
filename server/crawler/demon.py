@@ -37,7 +37,7 @@ def demon(driver):
         output_file.write("\"file_name\" : \"demon.py\",\"inner_idx\" : \"")
         output_file.write(str(idx))
         output_file.write("\",\"title\": \"")
-        output_file.write(t.text.strip())
+        output_file.write(t.text.strip().replace("\"", "'"))
         output_file.write("\",\"link\":\"")
         output_file.write(base_url + n['href'])
         output_file.write("\",\"datetime\":\"")

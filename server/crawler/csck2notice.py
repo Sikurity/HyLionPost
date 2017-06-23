@@ -31,7 +31,7 @@ def csck2notice(driver):
         output_file.write("\"file_name\" : \"csck2notice.py\",\"inner_idx\" : \"")
         output_file.write(str(idx))
         output_file.write("\",\"title\": \"")
-        output_file.write((n.text)[3:].strip())
+        output_file.write((n.text)[3:].strip().replace("\"", "'"))
         output_file.write("\",\"link\":\"")
         output_file.write(base_url + h['href'])
         output_file.write("\",\"datetime\":\"")
