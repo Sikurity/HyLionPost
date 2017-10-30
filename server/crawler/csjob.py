@@ -18,14 +18,21 @@ def csjob(driver):
     # link : base_url + n['href']
     output_file = open("crawler/result/csjob.json", 'w')
     output_file.write("[")
+
     is_first = True
     for n, d in zip(notices, dates):
+        
+        try:
+            idx = int((str(n['href']).split("idx=", 1)[1]).split("&page", 1)[0])
+        except:
+            continue
+        
         if is_first:
-            output_file.write("{")
             is_first = False
         else:
-            output_file.write(",{")
-        idx = int((str(n['href']).split("idx=", 1)[1]).split("&page", 1)[0])
+            output_file.write(",")
+
+        output_file.write("{")
         output_file.write("\"file_name\" : \"csjob.py\",\"inner_idx\" : \"")
         output_file.write(str(idx))
         output_file.write("\",\"title\": \"")
@@ -35,4 +42,5 @@ def csjob(driver):
         output_file.write("\",\"datetime\":\"")
         output_file.write(d.text.strip())
         output_file.write("\"}")
+            
     output_file.write("]")

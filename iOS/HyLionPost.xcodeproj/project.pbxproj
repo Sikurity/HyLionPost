@@ -63,7 +63,6 @@
 		04332C911EEA889E0007AABB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		043EE9D71EE1C6AC00E01590 /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		04664F891ECE8E22005B0F38 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
-		04B16D181ED00601003F0B9A /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HyLionPost-ajkrxfqtoicrxrbzfaaohpwkruds/Build/Products/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		04B16D191ED00601003F0B9A /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HyLionPost-ajkrxfqtoicrxrbzfaaohpwkruds/Build/Products/Debug-iphoneos/GoogleToolboxForMac/GoogleToolboxForMac.framework"; sourceTree = "<group>"; };
 		04B16D1A1ED00601003F0B9A /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Protobuf.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HyLionPost-ajkrxfqtoicrxrbzfaaohpwkruds/Build/Products/Debug-iphoneos/Protobuf/Protobuf.framework"; sourceTree = "<group>"; };
 		04B16D1F1ED00633003F0B9A /* Pods_HyLionPost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_HyLionPost.framework; path = "../../../../Library/Developer/Xcode/DerivedData/HyLionPost-ajkrxfqtoicrxrbzfaaohpwkruds/Build/Products/Debug-iphoneos/Pods_HyLionPost.framework"; sourceTree = "<group>"; };
@@ -176,7 +175,6 @@
 				042B07EA1EFD7AAB003678CC /* AudioToolbox.framework */,
 				04B16D1F1ED00633003F0B9A /* Pods_HyLionPost.framework */,
 				04B16D201ED00633003F0B9A /* Pods_HyLionPostTests.framework */,
-				04B16D181ED00601003F0B9A /* Alamofire.framework */,
 				04B16D191ED00601003F0B9A /* GoogleToolboxForMac.framework */,
 				04B16D1A1ED00601003F0B9A /* Protobuf.framework */,
 				042A8E611ECC8F5800A75FA5 /* AdSupport.framework */,
